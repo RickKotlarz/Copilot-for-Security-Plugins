@@ -13,4 +13,4 @@ Descriptor:
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/CopilotForSecurity/refs/heads/main/Plugins/Example_Generic_API_plugin_template/Example_Generic_API_plugin_OAPI.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Example_API_key_auth_plugin_template/Example_API_key_auth_plugin_template_OAPI.yaml
