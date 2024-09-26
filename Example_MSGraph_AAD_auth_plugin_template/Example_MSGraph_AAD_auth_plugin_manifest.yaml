@@ -1,5 +1,5 @@
 Descriptor:
-  Name: Defender Specific Alert Details Plugin
+  Name: Example MS Graph API calls using AAD authentication
   DisplayName: Skills demo associated with requestion information via Graph API calls with OData filters
   Description: Skills demo associated with requestion information via Graph API calls with OData filters
   DescriptionForModel: The skills in this plugin will help get specific Defender alert details via Graph API Call.
@@ -12,5 +12,5 @@ Descriptor:
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/Example_MSGraph_AAD_auth_plugin_template/Example_MSGraph_AAD_auth_plugin_OAPI.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Example_MSGraph_AAD_auth_plugin_template/Example_MSGraph_AAD_auth_plugin_OAPI.yaml
 #     OpenApiSpecUrl: Updated the above URL to reflect the correct publicly accessible URL associated with the OAPI plugin file
