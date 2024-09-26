@@ -1,0 +1,141 @@
+# This example API key auth plugin template using the VirusTotal API as an example to illustrate GET and POST calls
+
+openapi: 3.0.0
+
+info:
+    title: Example API key auth plugin template using VirusTotal
+    description: Example API key auth plugin template using VirusTotal
+    version: "v1.0.0"
+    
+servers:
+    - url: https://www.virustotal.com/api/v3
+		# Root API URL that will be used for all subsequent API calls.
+paths:
+
+####################################################################################
+# - API 'get' request example with "path" parameter
+####################################################################################
+# IOC Reputation & Enrichment
+#   IP addresses
+#       Get an IP address report
+#       https://docs.virustotal.com/reference/ip-info
+
+    /ip_addresses/{ip}:
+        get:
+			# API call types include GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS, and TRACE. Within the context of CfS you'll only be using GET or POST.
+			#	GET: Retrieve information.
+			#	POST: Submit data to be processed.
+            operationId: VT-IPReport
+				# During development, it may be useful to name the 'operationId' as something you can easily find.
+            description: |
+              Get an IP report
+              #ExamplePrompt Get an IP report using VirusTotal for this IP address
+				# Example for the CfS Orchestrator
+            summary: Uses VirusTotal to assess the reputation and threat level of a provided IP addresses.
+            parameters:
+#             Parameters can be of the following types. For most situations you'll simply need to denote "path" or "query"
+                - in: path
+#                     Path parameters that are part of the URL path, such as /ip_addresses/{ip}.
+#                       In this example, if the IP 216.239.36.21 is submitted the submitted result would be https://www.virustotal.com/api/v3/ip_addresses/216.239.36.21
+                  name: ip
+                  schema:
+                      type: string
+                  required: true
+                  description: IP address to look up (e.g. 216.239.36.21)
+                  # nslookup virustotal.com = 216.239.36.21
+					# Example that helps the CfS Orchestrator
+            responses:
+                "200":
+                    description: OK
+                "400":
+                    description: Bad request, invalid parameters
+                "401":
+                    description: Unauthorized, API key missing or invalid
+                "403":
+                    description: Forbidden, access to the resource is denied
+					
+####################################################################################
+# - API 'get' request example with "query" parameter
+####################################################################################
+# IOC Reputation & Enrichment
+#   Search & Metadata
+#      Search for files, URLs, domains, IPs, and comments 
+#       https://docs.virustotal.com/reference/api-search
+
+    /search:
+        get:
+            operationId: VT-SearchForFilesURLsDomainsAndComments
+            description: Helps to search for indicators of compromise across various categories.
+            summary: VirusTotal - Search for files, URLs, domains, IPs and comments
+            parameters:
+                - in: query
+                  name: query
+#                     Query: Parameters that are appended to the URL after a question mark, such as /users?id=1234.
+#                       In this case if the string submitted was 'office.com' would result in https://docs.virustotal.com/reference/api-search?query=office.com
+                  schema:
+                      type: string
+                  required: true
+                  description: Enter in a file hash, URL, domain, IP, or comments that you want to search for.
+            responses:
+                "200":
+                    description: OK
+                "400":
+                    description: Bad request, invalid parameters
+                "401":
+                    description: Unauthorized, API key missing or invalid
+                "403":
+                    description: Forbidden, access to the resource is denied
+
+
+####################################################################################
+# - API 'post' request example
+####################################################################################
+####################################################################################
+# IOC Reputation & Enrichment
+#   URLs
+#       Scan URL
+#       https://docs.virustotal.com/reference/scan-url
+
+    /urls:
+        post:
+            operationId: VT-ScanURL
+            description: Submit a URL for scanning - returns an Analysis ID
+            summary: VirusTotal - Submit a URL for scanning - returns an Analysis ID
+            requestBody:
+              required: true
+              content:
+                application/x-www-form-urlencoded:
+                  schema:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                        description: The URL to be scanned (e.g. www.virustotal.com).
+                        example: "http://www.virustotal.com"
+                    required:
+                      - url
+            responses:
+              '200':
+                description: Scan initiated successfully.
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        data:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              example: "url"
+                            id:
+                              type: string
+                              description: The Analysis ID for the URL scan is.
+                              example: "u-a354494a73382ea0b4bc47f4c9e8d6c578027cd4598196dc88f05a22b5817293-1725740919"
+                            links:
+                              type: object
+                              properties:
+                                self:
+                                  type: string
+                                  description: The URL for retrieving the scan results.
+                                  example: "https://www.virustotal.com/api/v3/urls/1f0b6e03ce451b4325dd2b67192c9b7e"

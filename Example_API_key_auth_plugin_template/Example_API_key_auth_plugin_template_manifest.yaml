@@ -1,0 +1,16 @@
+Descriptor:
+  Name: Example API key auth plugin template using VirusTotal
+  DisplayName: Example API key auth plugin template using VirusTotal
+  Description: Example API key auth plugin template using VirusTotal
+  SupportedAuthTypes:
+    - ApiKey
+  Authorization:
+    Type: APIKey
+    Key: x-apikey
+    Location: Header
+    AuthScheme: ''
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/CopilotForSecurity/refs/heads/main/Plugins/Example_Generic_API_plugin_template/Example_Generic_API_plugin_OAPI.yaml

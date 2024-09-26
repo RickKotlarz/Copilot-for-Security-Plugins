@@ -1,0 +1,16 @@
+Descriptor:
+  Name: VirusTotal plugin
+  DisplayName: VirusTotal plugin v3 - 2024-Sept-23
+  Description: VirusTotal provides analysis of files and URLs for potential viruses, worms, trojans, and other types of malicious content.  
+  SupportedAuthTypes:
+    - ApiKey
+  Authorization:
+    Type: APIKey
+    Key: x-apikey
+    Location: Header
+    AuthScheme: ''
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/CopilotForSecurity/refs/heads/main/Plugins/VirusTotal/VirusTotal_plugin_OAPI.yaml

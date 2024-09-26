@@ -1,0 +1,82 @@
+#####################################################################################
+# The following plugin is a modified copy of the MSGraph API plugin from Chaitanya Belwal. In includes additional additional clarity
+# https://techcommunity.microsoft.com/t5/microsoft-security-copilot-blog/using-microsoft-graph-as-a-microsoft-copilot-for-security-plugin/ba-p/4198148
+#
+# When building out a Graph API based plugin, you'll want to use the Graph Explorer.
+# https://developer.microsoft.com/en-us/graph/graph-explorer
+#####################################################################################
+
+openapi: 3.0.0
+
+info:
+    title: MS Graph API call demo
+    description: Skills demo associated with requestion information via Graph API calls with OData filters
+    version: "v1"
+
+servers:
+    - url: https://graph.microsoft.com/v1.0
+
+paths:
+
+#####################################################################################
+# This call simply pulls your Entra ID information and displays it.
+#####################################################################################
+    /me:
+        get:
+            operationId: GetEntraProfile
+            description: Gets Entra profile information from the MS Graph
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+
+#####################################################################################
+# Get call using the 'query' parameter.
+#####################################################################################
+
+    /security/alerts_v2?$select=id,title:
+        get:
+            operationId: GetAlertIdsFromIncidentId
+            description: List all alert ID's based on a user provided Incident ID
+            ExamplePrompt:
+              - 'show me alert ids for the specified incident id'
+              - 'Get me all alert ids where incident id is provided'
+            parameters:
+#             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
+                - in: query
+#                     Query parameters will result in appending "&filter=" along with the string. 
+#                       In this example if the string submitted was 'office.com' would result in https://graph.microsoft.com/v1.0/security/alerts_v2?$select=id,title&filter=incidentid eq '16'
+                  name: $filter
+                  schema:
+                      type: string
+                  required: true
+                  description: Enter the the string "incidentid eq 'ID'" and modify ID to denote the Incident ID you're looking up. (e.g. incidentid eq '16' )
+            responses:
+                "200":
+                    description: OK
+                "400":
+                    description: Bad request, invalid parameters
+                "401":
+                    description: Unauthorized, API key missing or invalid
+                "403":
+                    description: Forbidden, access to the resource is denied
+
+#####################################################################################
+# Get call using the 'path' parameter.
+#####################################################################################
+   /security/alerts_v2/{alertid}?$select=evidence:
+        get:
+            operationId: GetEvidenceForSpecificAlert
+            description: Get all the evidence details of a specific alert id
+            parameters:
+#             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
+                - in: path
+#                    asdf   {alertid}
+#                     Path parameters that are part of the URL path, such as /security/alerts_v2/{alertid}.
+#                       In this example, if the alert ID of d65sg8f1-d0cd-4d7d-8c6c-d1821138 was submitted the submitted result would be https://graph.microsoft.com/v1.0/security/alerts_v2/d65sg8f1-d0cd-4d7d-8c6c-d1821138?$select=evidence
+                  name: alertid
+                  schema:
+                      type: string
+                  required: true
+                  description: id of the alert
