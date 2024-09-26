@@ -33,4 +33,4 @@ Welcome to the VirusTotal custom plugin! Here, you'll discover a suite of featur
 
 - **VT-GetPopularThreatCats** Gets a list of popular threat categories currently observed in the wild.
 
-- ** VT-SearchForFilesURLsDomainsAndComments** Searches for files, URLs, domains, IPs and comments.
+- **VT-SearchForFilesURLsDomainsAndComments** Searches for files, URLs, domains, IPs and comments.
