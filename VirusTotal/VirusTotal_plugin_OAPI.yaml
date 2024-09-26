@@ -4,7 +4,7 @@ info:
     title: VirusTotal Reports
     description: VirusTotal Reports
     version: "v3"
-#   Updated 23-Sept-2024 @ 3:00 PM
+#   Updated 23-Sept-2024 @ 6:28 PM ~ rkotlarz
     
 servers:
     - url: https://www.virustotal.com/api/v3
