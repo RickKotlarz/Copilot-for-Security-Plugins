@@ -187,6 +187,12 @@ paths:
                       type: string
                   required: true
                   description: A Sandbox report ID must contain the analysed file's SHA256 followed by an _ character and the sandbox name. (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76_C2AE)
+                - in: query
+                  name: fields
+                  schema:
+                      type: string
+                  required: false
+                  description: Enter in a fields you want to pull (e.g. analysis_date, calls_highlighted, command_executions, files_opened, files_written, files_deleted, processes_terminated, processes_killed, processes_injected, services_created, services_started, services_stopped, mutexes_created, mutexes_opened, ids_alerts, tls, ja3_digests, registry_keys_opened, registry_keys_set, registry_keys_deleted, modules_loaded, mitre_attack_techniques, signature_matches, verdict_confidence)
             responses:
                 "200":
                     description: OK
