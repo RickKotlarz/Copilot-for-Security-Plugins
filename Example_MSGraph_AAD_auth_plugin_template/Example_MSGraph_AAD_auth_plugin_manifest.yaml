@@ -1,7 +1,7 @@
 Descriptor:
-  Name: Example MS Graph API calls using AAD authentication
-  DisplayName: Skills demo associated with requestion information via Graph API calls with OData filters
-  Description: Skills demo associated with requestion information via Graph API calls with OData filters
+  Name: Example MS Graph API calls using AADDelegated authentication
+  DisplayName: Example MS Graph API calls using AADDelegated authentication with OData filters
+  Description: Example MS Graph API calls using AADDelegated authentication with OData filters
   DescriptionForModel: The skills in this plugin will help get specific Defender alert details via Graph API Call.
   SupportedAuthTypes:
     - AADDelegated
