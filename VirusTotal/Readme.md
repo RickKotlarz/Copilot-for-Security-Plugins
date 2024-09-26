@@ -4,7 +4,7 @@ Welcome to the VirusTotal custom plugin! Here, you'll discover a suite of featur
 ### Instructions
 #### Upload the Custom Plugin
 
-1. Obtain the file [VirusTotal_Plugin.yaml](https://raw.githubusercontent.com/RickKotlarz/CopilotForSecurity/main/Plugins/VirusTotal/VirusTotal_Plugin.yaml) from this directory.
+1. Obtain the file [VirusTotal_Plugin.yaml](https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/VirusTotal/VirusTotal_API_plugin_manifest.yaml) from this directory.
 2. Upload the custom plugin
 3. Add the Virus total API Key
 #### Utlization of the plugin:
