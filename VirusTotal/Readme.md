@@ -11,7 +11,7 @@ Welcome to the VirusTotal custom plugin! Here, you'll discover a suite of featur
 
 - **VT-IPReport** Assess the reputation and threat level of a provided IP addresses.
 
-- **VT-DomainReport**  Assess the reputation and threat level of a provided domain name.
+- **VT-DomainReport** Assess the reputation and threat level of a provided domain name.
 
 - **VT-GetFileReport** Assess the reputation and threat level of a file from a provided hash.
 
