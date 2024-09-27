@@ -1,0 +1,82 @@
+#####################################################################################
+# The following plugin is a modified copy of the MSGraph API plugin from Chaitanya Belwal. In includes additional additional clarity
+# https://techcommunity.microsoft.com/t5/microsoft-security-copilot-blog/using-microsoft-graph-as-a-microsoft-copilot-for-security-plugin/ba-p/4198148
+#
+# When building out a Graph API based plugin, you'll want to use the Graph Explorer.
+# https://developer.microsoft.com/en-us/graph/graph-explorer
+#####################################################################################
+
+openapi: 3.0.0
+
+info:
+    title: MS Graph API call to find Entra Registered and Enterprise applicaitons
+    description: Skills demo associated with requestion information via Graph API calls with OData filters
+    version: "v1"
+
+servers:
+    - url: https://graph.microsoft.com/v1.0
+
+paths:
+
+#####################################################################################
+# This call simply pulls your Entra ID information and displays it.
+#####################################################################################
+
+
+#####################################################################################
+# Get call using the 'query' parameter.
+#####################################################################################
+
+   /applications:
+        get:
+            operationId: SearchRegisteredandEnterpriseApps
+            description: Searches across Registered and Enterprise apps within Entra
+            ExamplePrompt:
+              - 'Which Entra applications contains the string'
+              - 'Search for the registered application'
+              - 'Search for the enterprise application'              
+            parameters:
+                - in: query
+#                   https://graph.microsoft.com/v1.0/applications?$count=true&$select=displayName,appId&$search="displayName:Power"
+
+                  name: $search
+                  schema:
+                      type: string
+                  required: true
+                  description: Enter the the string "displayName:{text}" and modify {text} with the string you'd like to search (e.g. displayName:Power )
+                - in: query
+#                   https://graph.microsoft.com/v1.0/applications?$count=true&$select=displayName,appId&$search="displayName:Power"
+                  name: $select
+                  schema:
+                      type: string
+                  required: true
+                  description: Enter the the fields you'd like to select (e.g. displayName, AppId, etc..)
+            responses:
+                "200":
+                    description: OK
+                "400":
+                    description: Bad request, invalid parameters
+                "401":
+                    description: Unauthorized, API key missing or invalid
+                "403":
+                    description: Forbidden, access to the resource is denied
+
+#####################################################################################
+# Get call using the 'path' parameter.
+#####################################################################################
+   /applications/{application-id}/owners:
+        get:
+            operationId: FindApplicationOwner
+            description: Finds the owner of an application 
+            ExamplePrompt:
+              - 'Who is the owner of this application'
+              - 'Who is list as the owner of this application'
+              - 'Who is list as the owner of the application'
+              - 'Who owns the application'              
+            parameters:
+                - in: path
+                  name: application-id
+                  schema:
+                      type: string
+                  required: true
+                  description: Enter the ID of an application that you'd like to look up. (e.g. 00408241-a375-41f6-b83e-a64aacf85f92)

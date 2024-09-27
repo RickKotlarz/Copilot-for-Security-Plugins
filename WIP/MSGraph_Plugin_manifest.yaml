@@ -1,0 +1,16 @@
+Descriptor:
+  Name: Microsoft Graph - Entra Registered and Enterprise Application information
+  DisplayName: Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information
+  Description: Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information, this includes application IDs, Ent App owners, and other information.
+  DescriptionForModel: Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information, this includes application IDs, Ent App owners, and other information.
+  SupportedAuthTypes:
+    - AADDelegated
+  Authorization:
+    Type: AADDelegated
+    EntraScopes: https://graph.microsoft.com/.default
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/WIP/MSGraph_Plugin_OAPI.yaml
+#     OpenApiSpecUrl: Updated the above URL to reflect the correct publicly accessible URL associated with the OAPI plugin file
