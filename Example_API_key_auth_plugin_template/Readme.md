@@ -1,6 +1,6 @@
-### Example Microsoft Graph using AADDelegated authentication v1 (Updated Sept-2024)
+### Example API authentication v1 plugin (Updated Sept-2024)
 
-Welcome to the Example Microsoft Graph. As it states, the plugin leverages AADDelegated authentication, meaning their existing roles that have been authorized.
+Welcome to the Example API authentication plugin. This plugin provides an exampmle of leveraging an API key to authenticate to your 3rd party API.
 
 ### Instructions
 #### Upload the Custom Plugin
