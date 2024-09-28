@@ -32,7 +32,7 @@ paths:
 
    /applications?$select=displayname,id,appid:
         get:
-            operationId: SearchRegisteredandEnterpriseApps
+            operationId: WIP-SearchRegisteredandEnterpriseApps
             description: Searches across Registered and Enterprise apps within Entra
             ExamplePrompt:
               - 'Which Entra applications contains the string'
