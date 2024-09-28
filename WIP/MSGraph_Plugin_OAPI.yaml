@@ -30,7 +30,7 @@ paths:
 # Get call using the 'query' parameter.
 #####################################################################################
 
-   /applications:
+   /applications?$select=displayname,id,appid:
         get:
             operationId: SearchRegisteredandEnterpriseApps
             description: Searches across Registered and Enterprise apps within Entra
