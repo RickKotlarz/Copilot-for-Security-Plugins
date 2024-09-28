@@ -1,7 +1,7 @@
 Descriptor:
-  Name: Microsoft Graph - Entra Registered and Enterprise Application information
-  DisplayName: Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information
-  Description: Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information, this includes application IDs, Ent App owners, and other information.
+  Name: WIP - Microsoft Graph - Entra Registered and Enterprise Application information
+  DisplayName: WIP - Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information
+  Description: WIP - Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information, this includes application IDs, Ent App owners, and other information.
   DescriptionForModel: Microsoft Graph plugin to call and populate Entra Registered and Enterprise Application information, this includes application IDs, Ent App owners, and other information.
   SupportedAuthTypes:
     - AADDelegated
