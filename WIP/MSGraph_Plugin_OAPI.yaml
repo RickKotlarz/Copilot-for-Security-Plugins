@@ -19,7 +19,10 @@ servers:
 paths:
 
 #####################################################################################
-# This call simply pulls your Entra ID information and displays it.
+# This plugin requies that you have an appropriate Entra role list denoted below
+#   - Directory Readers: Grants read-only access to the directory, including reading all application properties.
+#   - Application Administrator: Grants full read/write access to manage applications, including creating, updating, and deleting applications.
+#   - Cloud Application Administrator: Similar to the Application Administrator but excludes privileged applications.
 #####################################################################################
 
 
@@ -38,18 +41,17 @@ paths:
             parameters:
                 - in: query
 #                   https://graph.microsoft.com/v1.0/applications?$count=true&$select=displayName,appId&$search="displayName:Power"
-
                   name: $search
                   schema:
                       type: string
-                  required: true
-                  description: Enter the the string "displayName:{text}" and modify {text} with the string you'd like to search (e.g. displayName:Power )
+                  required: false
+                  description: Enter the the string "displayName:{text}" (with quotes) and modify {text} to the string you'd like to search (e.g. "displayName:Power" )
                 - in: query
 #                   https://graph.microsoft.com/v1.0/applications?$count=true&$select=displayName,appId&$search="displayName:Power"
                   name: $select
                   schema:
                       type: string
-                  required: true
+                  required: false
                   description: Enter the the fields you'd like to select (e.g. displayName, AppId, etc..)
             responses:
                 "200":
