@@ -67,6 +67,7 @@ SkillGroups:
         Settings:
           Target: Defender
           Template: |-
+            // This query retrieves the most recent sign-in time for each user, within a specified time range, and displays only the user's name and their last sign-in date to validate location. Provide insights and summarize this data.
             AlertInfo
              | where Severity in ('High', 'Critical')
              | where TimeGenerated > ago(7d)
@@ -101,6 +102,7 @@ SkillGroups:
           SubscriptionId: '{{SubscriptionId}}'
           ResourceGroupName: '{{ResourceGroupName}}'
           Template: |-
+            // This query retrieves the most recent sign-in time for each user, within a specified time range, and displays only the user's name and their last sign-in date to validate location. Provide insights and summarize this data.
             SigninLogs
              | where TimeGenerated >= ago({{dayRange}})
              | summarize LastSignInDate=max(TimeGenerated) by UserPrincipalName 
