@@ -13,19 +13,19 @@ info:
     description: Performs API calls on the Sentinel API with OData filters
     version: "v1"
 
-Settings:
-  - Name: workspaceName
-    Description: The id of the Azure Subscription that the Sentinel workspace is in.
-    Required: true
-  - Name: subscriptionId
-    Description: The name of the Resource Group that the Sentinel workspace is in.
-    Required: true
-  - Name: resourceGroupName
-    Description: The name of the Sentinel workspace.
-    Required: true
+#Settings:
+#  - Name: workspaceName
+#    Description: The id of the Azure Subscription that the Sentinel workspace is in.
+#    Required: true
+#  - Name: subscriptionId
+#    Description: The name of the Resource Group that the Sentinel workspace is in.
+#    Required: true
+#  - Name: resourceGroupName
+#    Description: The name of the Sentinel workspace.
+#    Required: true
       
 servers:
-    - url: https://management.azure.com/subscriptions
+    - url: https://management.azure.com
 
 paths:
 #####################################################################################
