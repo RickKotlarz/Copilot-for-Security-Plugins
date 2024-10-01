@@ -42,14 +42,7 @@ paths:
 #####################################################################################
 # Get call using the 'query' parameter.
 #####################################################################################
-
-
-
-    /security/alerts_v2?$select=id,title:
-
-
-
-    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
+   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
       post:
       summary: Query Threat Intelligence Indicators
         operationId: QueryIndicators
@@ -160,4 +153,3 @@ paths:
                  type: string
                message:
                  type: string
-   
