@@ -1,8 +1,8 @@
 Descriptor:
-  Name: Defender Specific Alert Details Plugin
-  DisplayName: Skills demo associated with requestion information via Graph API calls with OData filters
-  Description: Skills demo associated with requestion information via Graph API calls with OData filters
-  DescriptionForModel: The skills in this plugin will help get specific Defender alert details via Graph API Call.
+  Name: Sentinel Threat Intelligence plugin
+  DisplayName: Sentinel Threat Intelligence plugin with OData filters
+  Description: Sentinel Threat Intelligence plugin with OData filters
+  DescriptionForModel: The skills in this leverages the Sentinel Threat Intelligence and queries it.
   SupportedAuthTypes:
     - AADDelegated
   Authorization:
