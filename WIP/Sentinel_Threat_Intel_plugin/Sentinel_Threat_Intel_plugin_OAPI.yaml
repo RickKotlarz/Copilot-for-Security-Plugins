@@ -64,18 +64,18 @@ paths:
                   schema:
                     type: string
                     default: '2024-03-01'
-                requestBody:
-                description: Query parameters for fetching threat intelligence indicators
-                required: true
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/QueryIndicatorsRequest'
-                      example:
-                        keywords: "F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713" 
-                        sortBy:
-                        - itemKey: "lastUpdatedTimeUtc"
-                          sortOrder: "descending"
+            requestBody:
+            description: Query parameters for fetching threat intelligence indicators
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/QueryIndicatorsRequest'
+                  example:
+                    keywords: "F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713" 
+                    sortBy:
+                    - itemKey: "lastUpdatedTimeUtc"
+                      sortOrder: "descending"
             responses:
                 "200":
                     description: OK
