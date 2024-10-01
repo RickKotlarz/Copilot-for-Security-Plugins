@@ -1,11 +1,3 @@
-#####################################################################################
-# The following plugin is a modified copy of the MSGraph API plugin from Chaitanya Belwal. In includes additional additional clarity
-# https://techcommunity.microsoft.com/t5/microsoft-security-copilot-blog/using-microsoft-graph-as-a-microsoft-copilot-for-security-plugin/ba-p/4198148
-#
-# When building out a Graph API based plugin, you'll want to use the Graph Explorer.
-# https://developer.microsoft.com/en-us/graph/graph-explorer
-#####################################################################################
-
 openapi: 3.0.0
 
 info:
