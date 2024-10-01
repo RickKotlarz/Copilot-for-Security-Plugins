@@ -46,163 +46,118 @@ paths:
 
 
     /security/alerts_v2?$select=id,title:
-        get:
-            operationId: GetAlertIdsFromIncidentId2
-            description: List all alert ID's based on a user provided Incident ID
-            ExamplePrompt:
-              - 'show me alert ids for the specified incident id'
-              - 'Get me all alert ids where incident id is provided'
-            parameters:
-#             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
-                - in: query
-#                     Query parameters will result in appending "&filter=" along with the string. 
-#                       In this example if the string submitted was 'office.com' would result in https://graph.microsoft.com/v1.0/security/alerts_v2?$select=id,title&filter=incidentid eq '16'
-                  name: $filter
-                  schema:
-                      type: string
-                  required: true
-                  description: Enter the the string "incidentid eq 'ID'" and modify ID to denote the Incident ID you're looking up. (e.g. incidentid eq '16' )
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
 
-#####################################################################################
-# Get call using the 'path' parameter.
-#####################################################################################
-   /security/alerts_v2/{alertid}?$select=evidence:
-        get:
-            operationId: GetEvidenceForSpecificAlert2
-            description: Get all the evidence details of a specific alert id
-            parameters:
-#             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
-                - in: path
-#                    asdf   {alertid}
-#                     Path parameters that are part of the URL path, such as /security/alerts_v2/{alertid}.
-#                       In this example, if the alert ID of d65sg8f1-d0cd-4d7d-8c6c-d1821138 was submitted the submitted result would be https://graph.microsoft.com/v1.0/security/alerts_v2/d65sg8f1-d0cd-4d7d-8c6c-d1821138?$select=evidence
-                  name: alertid
-                  schema:
-                      type: string
-                  required: true
-                  description: id of the alert
-                  
-##################################===========================
 
- 
-  /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
-    post:
+
+    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
+      post:
       summary: Query Threat Intelligence Indicators
-      operationId: QueryIndicators
-      parameters:
-        - name: subscriptionId
-          in: path
-          required: false
-          description: Azure Subscription ID
-          schema:
-            type: string
-        - name: resourceGroupName
-          in: path
-          required: false
-          description: Name of the resource group
-          schema:
-            type: string
-        - name: workspaceName
-          in: path
-          required: true
-          description: Name of the workspace
-          schema:
-            type: string
-        - name: api-version
-          in: query
-          required: true
-          description: API version
-          schema:
-            type: string
-            default: '2024-03-01'
-      requestBody:
-        description: Query parameters for fetching threat intelligence indicators
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/QueryIndicatorsRequest'
-            example:
-              keywords: "F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713"
-              sortBy:
-                - itemKey: "lastUpdatedTimeUtc"
-                  sortOrder: "descending"
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
+        operationId: QueryIndicators
+        parameters:
+          - name: subscriptionId
+            in: path
+            required: false
+            description: Azure Subscription ID
               schema:
-                $ref: '#/components/schemas/QueryIndicatorsResponse'
-        default:
-          description: Error response
-          content:
-            application/json:
+              type: string
+          - name: resourceGroupName
+            in: path
+            required: false
+            description: Name of the resource group
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-components:
-  schemas:
-    QueryIndicatorsRequest:
-      type: object
-      properties:
-        keywords:
-          type: string
-          description: Keywords to search for in indicators
-        sortBy:
-          type: array
-          items:
-            type: object
-            properties:
-              itemKey:
-                type: string
-                description: Field to sort by
-              sortOrder:
-                type: string
-                enum:
-                  - ascending
-                  - descending
-                description: Order of sorting
-    QueryIndicatorsResponse:
-      type: object
-      properties:
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/Indicator'
-        nextLink:
-          type: string
-          description: URL to fetch the next set of results
-    Indicator:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        properties:
-          type: object
-          properties:
-            lastUpdatedTimeUtc:
               type: string
-              format: date-time
-            # Additional properties...
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-
+           - name: workspaceName
+             in: path
+             required: true
+             description: Name of the workspace
+             schema:
+               type: string
+           - name: api-version
+             in: query
+             required: false
+             description: API version
+             schema:
+               type: string
+               default: '2024-03-01'
+         requestBody:
+           description: Query parameters for fetching threat intelligence indicators
+           required: true
+           content:
+             application/json:
+               schema:
+                 $ref: '#/components/schemas/QueryIndicatorsRequest'
+               example:
+                 keywords: "F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713"
+                 sortBy:
+                   - itemKey: "lastUpdatedTimeUtc"
+                     sortOrder: "descending"
+         responses:
+           '200':
+             description: Successful operation
+             content:
+               application/json:
+                 schema:
+                   $ref: '#/components/schemas/QueryIndicatorsResponse'
+           default:
+             description: Error response
+             content:
+               application/json:
+                 schema:
+                   $ref: '#/components/schemas/ErrorResponse'
+   components:
+     schemas:
+       QueryIndicatorsRequest:
+         type: object
+         properties:
+           keywords:
+             type: string
+             description: Keywords to search for in indicators
+           sortBy:
+             type: array
+             items:
+               type: object
+               properties:
+                 itemKey:
+                   type: string
+                   description: Field to sort by
+                 sortOrder:
+                   type: string
+                   enum:
+                     - ascending
+                     - descending
+                   description: Order of sorting
+       QueryIndicatorsResponse:
+         type: object
+         properties:
+           value:
+             type: array
+             items:
+               $ref: '#/components/schemas/Indicator'
+           nextLink:
+             type: string
+             description: URL to fetch the next set of results
+       Indicator:
+         type: object
+         properties:
+           id:
+             type: string
+           name:
+             type: string
+           properties:
+             type: object
+             properties:
+               lastUpdatedTimeUtc:
+                 type: string
+                 format: date-time
+               # Additional properties...
+       ErrorResponse:
+         type: object
+         properties:
+           error:
+             type: object
+             properties:
+               code:
+                 type: string
+               message:
+                 type: string
+   
