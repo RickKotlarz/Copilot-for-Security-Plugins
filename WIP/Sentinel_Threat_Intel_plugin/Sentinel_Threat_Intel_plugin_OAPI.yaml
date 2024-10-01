@@ -4,29 +4,43 @@ info:
     title: Sentinel Threat Intelligence plugin
     description: Performs API calls on the Sentinel API with OData filters
     version: "v1"
+
+Settings:
+  - Name: workspaceName
+    Description: The id of the Azure Subscription that the Sentinel workspace is in.
+    Required: true
+  - Name: subscriptionId
+    Description: The name of the Resource Group that the Sentinel workspace is in.
+    Required: true
+  - Name: resourceGroupName
+    Description: The name of the Sentinel workspace.
+    Required: true
       
 servers:
     - url: https://management.azure.com
 
 paths:
-
-#https://management.azure.com/subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01
-    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
+########################################################################################################
+# Threat Intelligence Indicators - List
+#    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicators/list
+########################################################################################################
+#    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
+    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
-            operationId: QueryIndicators
-            description: QueryIndicators-Lists Threat Intelligence Indicators
+            operationId: qqQueryIndicators
+            description: qqQueryIndicators-Lists Threat Intelligence Indicators
             summary: Query Threat Intelligence Indicators 
             parameters:
                 - in: query
                   name: api-version
-                  required: false
+                  required: true
                   description: API version (e.g. 2024-03-01)
                   schema:
                     type: string
                     default: '2024-03-01'
                 - in: query
                   name: $top
-                  required: false
+                  required: true
                   description: How many results do you want (e.g. 2)
                   schema:
                     type: string
