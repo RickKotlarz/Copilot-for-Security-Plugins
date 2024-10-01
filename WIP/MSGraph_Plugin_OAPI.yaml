@@ -9,76 +9,138 @@
 openapi: 3.0.0
 
 info:
-    title: MS Graph API call to find Entra Registered and Enterprise applicaitons
-    description: Skills demo associated with requestion information via Graph API calls with OData filters
+    title: Sentinel Threat Intelligence plugin
+    description: Performs API calls on the Sentinel API with OData filters
     version: "v1"
 
+Settings:
+  - Name: workspaceName
+    Description: The id of the Azure Subscription that the Sentinel workspace is in.
+    Required: true
+  - Name: subscriptionId
+    Description: The name of the Resource Group that the Sentinel workspace is in.
+    Required: true
+  - Name: resourceGroupName
+    Description: The name of the Sentinel workspace.
+    Required: true
+      
 servers:
-    - url: https://graph.microsoft.com/v1.0
+    - url: https://management.azure.com
 
 paths:
-
-#####################################################################################
-# This plugin requies that you have an appropriate Entra role list denoted below
-#   - Directory Readers: Grants read-only access to the directory, including reading all application properties.
-#   - Application Administrator: Grants full read/write access to manage applications, including creating, updating, and deleting applications.
-#   - Cloud Application Administrator: Similar to the Application Administrator but excludes privileged applications.
-#####################################################################################
-
-
 #####################################################################################
 # Get call using the 'query' parameter.
 #####################################################################################
+#    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
 
-   /applications?$select=displayname,id,appid:
-        get:
-            operationId: WIP-SearchRegisteredandEnterpriseApps
-            description: Searches across Registered and Enterprise apps within Entra
-            ExamplePrompt:
-              - 'Which Entra applications contains the string'
-              - 'Search for the registered application'
-              - 'Search for the enterprise application'              
-            parameters:
-                - in: query
-#                   https://graph.microsoft.com/v1.0/applications?$count=true&$select=displayName,appId&$search="displayName:Power"
-                  name: $search
-                  schema:
-                      type: string
-                  required: false
-                  description: Enter the the string "displayName:{text}" (with quotes) and modify {text} to the string you'd like to search (e.g. "displayName:Power" )
-                - in: query
-#                   https://graph.microsoft.com/v1.0/applications?$count=true&$select=displayName,appId&$search="displayName:Power"
-                  name: $select
-                  schema:
-                      type: string
-                  required: false
-                  description: Enter the the fields you'd like to select (e.g. displayName, AppId, etc..)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
-
-#####################################################################################
-# Get call using the 'path' parameter.
-#####################################################################################
-   /applications/{application-id}/owners:
-        get:
-            operationId: FindApplicationOwner
-            description: Finds the owner of an application 
-            ExamplePrompt:
-              - 'Who is the owner of this application'
-              - 'Who is list as the owner of this application'
-              - 'Who is list as the owner of the application'
-              - 'Who owns the application'              
-            parameters:
-                - in: path
-                  name: application-id
-                  schema:
-                      type: string
-                  required: true
-                  description: Enter the ID of an application that you'd like to look up. (e.g. 00408241-a375-41f6-b83e-a64aacf85f92)
+    /subscriptions:
+      post:
+      summary: Query Threat Intelligence Indicators
+        operationId: QueryIndicators
+        parameters:
+          - name: subscriptionId
+            in: path
+            required: false
+            description: Azure Subscription ID
+              schema:
+              type: string
+          - name: resourceGroupName
+            in: path
+            required: false
+            description: Name of the resource group
+              schema:
+              type: string
+           - name: workspaceName
+             in: path
+             required: false
+             description: Name of the workspace
+             schema:
+               type: string
+           - name: api-version
+             in: query
+             required: false
+             description: API version
+             schema:
+               type: string
+               default: '2024-03-01'
+         requestBody:
+           description: Query parameters for fetching threat intelligence indicators
+           required: true
+           content:
+             application/json:
+               schema:
+                 $ref: '#/components/schemas/QueryIndicatorsRequest'
+               example:
+                 keywords: "F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713"
+                 sortBy:
+                   - itemKey: "lastUpdatedTimeUtc"
+                     sortOrder: "descending"
+         responses:
+           '200':
+             description: Successful operation
+             content:
+               application/json:
+                 schema:
+                   $ref: '#/components/schemas/QueryIndicatorsResponse'
+           default:
+             description: Error response
+             content:
+               application/json:
+                 schema:
+                   $ref: '#/components/schemas/ErrorResponse'
+   components:
+     schemas:
+       QueryIndicatorsRequest:
+         type: object
+         properties:
+           keywords:
+             type: string
+             description: Keywords to search for in indicators
+           sortBy:
+             type: array
+             items:
+               type: object
+               properties:
+                 itemKey:
+                   type: string
+                   description: Field to sort by
+                 sortOrder:
+                   type: string
+                   enum:
+                     - ascending
+                     - descending
+                   description: Order of sorting
+       QueryIndicatorsResponse:
+         type: object
+         properties:
+           value:
+             type: array
+             items:
+               $ref: '#/components/schemas/Indicator'
+           nextLink:
+             type: string
+             description: URL to fetch the next set of results
+       Indicator:
+         type: object
+         properties:
+           id:
+             type: string
+           name:
+             type: string
+           properties:
+             type: object
+             properties:
+               lastUpdatedTimeUtc:
+                 type: string
+                 format: date-time
+               # Additional properties...
+       ErrorResponse:
+         type: object
+         properties:
+           error:
+             type: object
+             properties:
+               code:
+                 type: string
+               message:
+                 type: string
