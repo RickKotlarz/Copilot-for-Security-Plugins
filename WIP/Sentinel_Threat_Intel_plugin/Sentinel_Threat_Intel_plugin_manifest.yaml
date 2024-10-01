@@ -7,7 +7,7 @@ Descriptor:
     - AADDelegated
   Authorization:
     Type: AADDelegated
-    EntraScopes: https://management.azure.com//.default
+    EntraScopes: https://management.azure.com/.default
     
 SkillGroups:
   - Format: API
