@@ -9,7 +9,8 @@ servers:
     - url: https://management.azure.com
 
 paths:
-    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators:
+
+    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
         get:
             operationId: QueryIndicators
             description: Lists Threat Intelligence Indicators
@@ -17,7 +18,7 @@ paths:
             parameters:
                 - in: query
                   name: api-version
-                  required: true
+                  required: false
                   description: API version
                   schema:
                     type: string
