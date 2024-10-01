@@ -92,9 +92,8 @@ paths:
                   description: id of the alert
                   
 ##################################===========================
+
  
-  
-paths:
   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
     post:
       summary: Query Threat Intelligence Indicators
