@@ -13,26 +13,11 @@ info:
     description: Performs API calls on the Sentinel API with OData filters
     version: "v1"
 
-#Settings:
-#  - Name: workspaceName
-#    Description: The id of the Azure Subscription that the Sentinel workspace is in.
-#    Required: true
-#  - Name: subscriptionId
-#    Description: The name of the Resource Group that the Sentinel workspace is in.
-#    Required: true
-#  - Name: resourceGroupName
-#    Description: The name of the Sentinel workspace.
-#    Required: true
-      
 servers:
     - url: https://management.azure.com
 
 paths:
-#####################################################################################
-# Get call using the 'query' parameter.
-#####################################################################################
 #    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
-
     /subscriptions:
         post:
             summary: Query Threat Intelligence Indicators
