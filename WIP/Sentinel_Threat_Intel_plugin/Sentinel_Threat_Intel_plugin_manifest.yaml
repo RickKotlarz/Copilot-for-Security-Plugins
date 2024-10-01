@@ -12,5 +12,5 @@ Descriptor:
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/WIP/Sentinel_Threat_Intel_plugin/Sentinel_Threat_Intel_plugin_OAPI.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/WIP/Sentinel_Threat_Intel_plugin/Sentinel_Threat_Intel_plugin_OAPI.yaml
 #     OpenApiSpecUrl: Updated the above URL to reflect the correct publicly accessible URL associated with the OAPI plugin file
