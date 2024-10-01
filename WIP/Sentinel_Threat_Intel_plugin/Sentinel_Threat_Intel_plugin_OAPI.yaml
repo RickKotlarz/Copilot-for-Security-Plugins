@@ -50,7 +50,7 @@ paths:
               type: string
            - name: workspaceName
              in: path
-             required: true
+             required: false
              description: Name of the workspace
              schema:
                type: string
