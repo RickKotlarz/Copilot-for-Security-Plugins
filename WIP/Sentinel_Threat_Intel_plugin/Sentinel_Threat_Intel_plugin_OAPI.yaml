@@ -34,61 +34,61 @@ paths:
 #    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
 
     /subscriptions:
-      post:
-      summary: Query Threat Intelligence Indicators
-        operationId: QueryIndicators
-        parameters:
-          - name: subscriptionId
-            in: path
-            required: false
-            description: Azure Subscription ID
-              schema:
-              type: string
-          - name: resourceGroupName
-            in: path
-            required: false
-            description: Name of the resource group
-              schema:
-              type: string
-           - name: workspaceName
-             in: path
-             required: false
-             description: Name of the workspace
-             schema:
-               type: string
-           - name: api-version
-             in: query
-             required: false
-             description: API version
-             schema:
-               type: string
-               default: '2024-03-01'
-         requestBody:
-           description: Query parameters for fetching threat intelligence indicators
-           required: true
-           content:
-             application/json:
-               schema:
-                 $ref: '#/components/schemas/QueryIndicatorsRequest'
-               example:
-                 keywords: "F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713"
-                 sortBy:
-                   - itemKey: "lastUpdatedTimeUtc"
-                     sortOrder: "descending"
-         responses:
-           '200':
-             description: Successful operation
-             content:
-               application/json:
-                 schema:
-                   $ref: '#/components/schemas/QueryIndicatorsResponse'
-           default:
-             description: Error response
-             content:
-               application/json:
-                 schema:
-                   $ref: '#/components/schemas/ErrorResponse'
-   components:
+        post:
+            summary: Query Threat Intelligence Indicators
+            operationId: QueryIndicators
+            parameters:
+                - name: subscriptionId
+                  in: path
+                  required: false
+                  description: Azure Subscription ID
+                    schema:
+                    type: string
+                - name: resourceGroupName
+                  in: path
+                  required: false
+                  description: Name of the resource group
+                    schema:
+                    type: string
+                 - name: workspaceName
+                   in: path
+                   required: false
+                   description: Name of the workspace
+                   schema:
+                     type: string
+                 - name: api-version
+                   in: query
+                   required: false
+                   description: API version
+                   schema:
+                     type: string
+                     default: '2024-03-01'
+               requestBody:
+                 description: Query parameters for fetching threat intelligence indicators
+                 required: true
+                 content:
+                   application/json:
+                     schema:
+                       $ref: '#/components/schemas/QueryIndicatorsRequest'
+                     example:
+                       keywords: "F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713"
+                       sortBy:
+                         - itemKey: "lastUpdatedTimeUtc"
+                           sortOrder: "descending"
+               responses:
+                 '200':
+                   description: Successful operation
+                   content:
+                     application/json:
+                       schema:
+                         $ref: '#/components/schemas/QueryIndicatorsResponse'
+                 default:
+                   description: Error response
+                   content:
+                     application/json:
+                       schema:
+                         $ref: '#/components/schemas/ErrorResponse'
+    components:
      schemas:
        QueryIndicatorsRequest:
          type: object
