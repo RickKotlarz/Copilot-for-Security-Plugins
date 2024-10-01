@@ -35,30 +35,30 @@ paths:
 
     /subscriptions:
         post:
-            summary: Query Threat Intelligence Indicators
             operationId: QueryIndicators            
             description: Lists Threat Intelligence Indicators
+            summary: Query Threat Intelligence Indicators
             parameters:
-                - name: subscriptionId
-                  in: path
+                - in: path
+                  name: subscriptionId
                   required: false
                   description: Azure Subscription ID
                     schema:
                     type: string
-                - name: resourceGroupName
-                  in: path
+                - in: path
+                  name: resourceGroupName
                   required: false
                   description: Name of the resource group
                     schema:
                     type: string
-                - name: workspaceName
-                  in: path
+                - in: path
+                  name: workspaceName
                   required: false
                   description: Name of the workspace
                   schema:
                      type: string
-                - name: api-version
-                  in: query
+                - in: query
+                  name: api-version
                   required: false
                   description: API version
                   schema:
