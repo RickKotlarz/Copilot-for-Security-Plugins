@@ -1,62 +1,20 @@
-#####################################################################################
-# The following plugin is a modified copy of the MSGraph API plugin from Chaitanya Belwal. In includes additional additional clarity
-# https://techcommunity.microsoft.com/t5/microsoft-security-copilot-blog/using-microsoft-graph-as-a-microsoft-copilot-for-security-plugin/ba-p/4198148
-#
-# When building out a Graph API based plugin, you'll want to use the Graph Explorer.
-# https://developer.microsoft.com/en-us/graph/graph-explorer
-#####################################################################################
-
 openapi: 3.0.0
 
 info:
     title: Sentinel Threat Intelligence plugin
     description: Performs API calls on the Sentinel API with OData filters
     version: "v1"
-
-#Settings:
-#  - Name: workspaceName
-#    Description: The id of the Azure Subscription that the Sentinel workspace is in.
-#    Required: true
-#  - Name: subscriptionId
-#    Description: The name of the Resource Group that the Sentinel workspace is in.
-#    Required: true
-#  - Name: resourceGroupName
-#    Description: The name of the Sentinel workspace.
-#    Required: true
       
 servers:
     - url: https://management.azure.com
 
 paths:
-#####################################################################################
-# Get call using the 'query' parameter.
-#####################################################################################
-#    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
-
-    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators:
+    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators:
         post:
             operationId: QueryIndicators            
             description: Lists Threat Intelligence Indicators
             summary: Query Threat Intelligence Indicators
             parameters:
-                - in: path
-                  name: subscriptionId
-                  required: false
-                  description: Azure Subscription ID
-                    schema:
-                    type: string
-                - in: path
-                  name: resourceGroupName
-                  required: false
-                  description: Name of the resource group
-                    schema:
-                    type: string
-                - in: path
-                  name: workspaceName
-                  required: false
-                  description: Name of the workspace
-                  schema:
-                     type: string
                 - in: query
                   name: api-version
                   required: false
