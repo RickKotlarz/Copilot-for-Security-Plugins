@@ -39,7 +39,3 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
