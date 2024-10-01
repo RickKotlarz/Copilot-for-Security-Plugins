@@ -28,21 +28,10 @@ servers:
     - url: https://management.azure.com/subscriptions
 
 paths:
-
-    /me:
-        get:
-            operationId: GetMyEntraProfile2
-            description: Gets Entra profile information from the MS Graph
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-
 #####################################################################################
 # Get call using the 'query' parameter.
 #####################################################################################
-   /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
+    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators?api-version=2024-03-01&%24top=2:
       post:
       summary: Query Threat Intelligence Indicators
         operationId: QueryIndicators
