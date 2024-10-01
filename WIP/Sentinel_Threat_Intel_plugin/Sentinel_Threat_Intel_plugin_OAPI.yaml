@@ -17,7 +17,7 @@ paths:
             parameters:
                 - in: query
                   name: api-version
-                  required: true
+                  required: false
                   description: API version (e.g. 2024-03-01)
                   schema:
                     type: string
