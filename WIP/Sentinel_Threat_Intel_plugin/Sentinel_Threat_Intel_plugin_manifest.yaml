@@ -7,10 +7,10 @@ Descriptor:
     - AADDelegated
   Authorization:
     Type: AADDelegated
-    EntraScopes: https://graph.microsoft.com/.default
+    EntraScopes: https://management.azure.com/
 
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/Example_MSGraph_AAD_auth_plugin_template/Example_MSGraph_AAD_auth_plugin_OAPI.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/WIP/Sentinel_Threat_Intel_plugin/Sentinel_Threat_Intel_plugin_manifest.yaml
 #     OpenApiSpecUrl: Updated the above URL to reflect the correct publicly accessible URL associated with the OAPI plugin file
