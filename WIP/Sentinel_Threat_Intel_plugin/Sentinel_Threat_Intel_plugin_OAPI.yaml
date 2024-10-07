@@ -1,38 +1,25 @@
 openapi: 3.0.0
 
-Info:
+info:
     Title: Sentinel Threat Intelligence plugin
     Description: Performs API calls on the Sentinel API with OData filters
     Version: "v1"
-    
-    Settings:
-      - Name: workspaceName
-        Description: The id of the Azure Subscription that the Sentinel workspace is in.
-        Required: true
-      - Name: subscriptionId
-        Description: The name of the Resource Group that the Sentinel workspace is in.
-        Required: true
-      - Name: resourceGroupName
-        Description: The name of the Sentinel workspace.
-        Required: true
-      
-Servers:
+
+servers:
     - url: https://management.azure.com
-
-
      
-Paths:
+paths:
 ########################################################################################################
 # Threat Intelligence Indicators - List
 #    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicators/list
 ########################################################################################################
 
 #    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
-    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
+    /subscriptions/{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
             operationId: QueryIndicators
             description: QueryIndicators-Lists Threat Intelligence Indicators
-            summary: q5-Query Threat Intelligence Indicators 
+            summary: Query Threat Intelligence Indicators 
             parameters:
                 - in: query
                   name: api-version
@@ -60,37 +47,20 @@ Paths:
 ###################################################################################################################
 
 #    /99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
-    /{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
+    /{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
       post:
-        summary: q5-Query Threat Intelligence Indicators
+        summary: Query Threat Intelligence Indicators
         description: Retrieves threat intelligence indicators based on provided keywords and sorting options.
         operationId: queryIndicators
         parameters:
-          - name: subscriptionId
-            in: path
-            required: true
-            description: The subscription ID that identifies an Azure subscription.
-            schema:
-              type: string
-          - name: resourceGroupName
-            in: path
-            required: true
-            description: The name of the resource group. The name is case insensitive.
-            schema:
-              type: string
-          - name: workspaceName
-            in: path
-            required: true
-            description: The name of the Log Analytics workspace.
-            schema:
-              type: string
           - name: api-version
             in: query
-            required: true
+            required: false
             description: The API version to use for this operation.
             schema:
               type: string
-              example: '2022-11-01-preview'
+              example: '2024-03-01'
+              default: '2024-03-01'              
         requestBody:
           required: true
           content:
@@ -156,11 +126,3 @@ Paths:
                             format: date-time
           '400':
             description: Bad request, possibly due to invalid parameters.
-          '401':
-            description: Unauthorized, API key or access token is missing or invalid.
-          '404':
-            description: Resource not found.
-          '500':
-            description: Internal server error.
-          
-          
