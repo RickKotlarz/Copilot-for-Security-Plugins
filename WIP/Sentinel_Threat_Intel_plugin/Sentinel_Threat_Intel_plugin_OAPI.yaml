@@ -1,14 +1,27 @@
 openapi: 3.0.0
 
-info:
-    title: Sentinel Threat Intelligence plugin
-    description: Performs API calls on the Sentinel API with OData filters
-    version: "v1"
+Info:
+    Title: Sentinel Threat Intelligence plugin
+    Description: Performs API calls on the Sentinel API with OData filters
+    Version: "v1"
+    
+    Settings:
+      - Name: workspaceName
+        Description: The id of the Azure Subscription that the Sentinel workspace is in.
+        Required: true
+      - Name: subscriptionId
+        Description: The name of the Resource Group that the Sentinel workspace is in.
+        Required: true
+      - Name: resourceGroupName
+        Description: The name of the Sentinel workspace.
+        Required: true
       
-servers:
+Servers:
     - url: https://management.azure.com
 
-paths:
+
+     
+Paths:
 ########################################################################################################
 # Threat Intelligence Indicators - List
 #    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicators/list
@@ -18,7 +31,7 @@ paths:
     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
             operationId: QueryIndicators
-            description: q2-QueryIndicators-Lists Threat Intelligence Indicators
+            description: QueryIndicators-Lists Threat Intelligence Indicators
             summary: Query Threat Intelligence Indicators 
             parameters:
                 - in: query
@@ -40,3 +53,113 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
+
+###################################################################################################################
+# Threat Intelligence Indicator - Query Indicators
+#    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicator/query-indicators
+###################################################################################################################
+
+    /{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
+      post:
+        summary: Query Threat Intelligence Indicators
+        description: Retrieves threat intelligence indicators based on provided keywords and sorting options.
+        operationId: queryIndicators
+        parameters:
+          - name: subscriptionId
+            in: path
+            required: true
+            description: The subscription ID that identifies an Azure subscription.
+            schema:
+              type: string
+          - name: resourceGroupName
+            in: path
+            required: true
+            description: The name of the resource group. The name is case insensitive.
+            schema:
+              type: string
+          - name: workspaceName
+            in: path
+            required: true
+            description: The name of the Log Analytics workspace.
+            schema:
+              type: string
+          - name: api-version
+            in: query
+            required: true
+            description: The API version to use for this operation.
+            schema:
+              type: string
+              example: '2022-11-01-preview'
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keywords:
+                    type: string
+                    description: Keywords to search for threat intelligence indicators.
+                    example: 'F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713'
+                  sortBy:
+                    type: array
+                    description: Specifies sorting options for the query.
+                    items:
+                      type: object
+                      properties:
+                        itemKey:
+                          type: string
+                          description: The field to sort by.
+                          example: lastUpdatedTimeUtc
+                        sortOrder:
+                          type: string
+                          description: The sorting order.
+                          enum:
+                            - ascending
+                            - descending
+                          example: descending
+        responses:
+          '200':
+            description: Successfully retrieved the list of threat intelligence indicators.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    indicators:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Indicator ID.
+                          name:
+                            type: string
+                            description: Indicator name.
+                          description:
+                            type: string
+                            description: Description of the threat intelligence indicator.
+                          confidence:
+                            type: integer
+                            description: Confidence level of the indicator.
+                            example: 90
+                          threatTypes:
+                            type: array
+                            description: Types of threat this indicator is associated with.
+                            items:
+                              type: string
+                          lastUpdatedTimeUtc:
+                            type: string
+                            description: Last updated time of the indicator.
+                            format: date-time
+          '400':
+            description: Bad request, possibly due to invalid parameters.
+          '401':
+            description: Unauthorized, API key or access token is missing or invalid.
+          '404':
+            description: Resource not found.
+          '500':
+            description: Internal server error.
+          
+          
