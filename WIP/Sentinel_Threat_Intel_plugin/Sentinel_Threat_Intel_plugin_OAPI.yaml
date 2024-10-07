@@ -31,8 +31,8 @@ Paths:
     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
             operationId: QueryIndicators
-            description: q3-QueryIndicators-Lists Threat Intelligence Indicators
-            summary: Query Threat Intelligence Indicators 
+            description: QueryIndicators-Lists Threat Intelligence Indicators
+            summary: q5-Query Threat Intelligence Indicators 
             parameters:
                 - in: query
                   name: api-version
@@ -59,9 +59,10 @@ Paths:
 #    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicator/query-indicators
 ###################################################################################################################
 
+#    /99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
     /{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
       post:
-        summary: Query Threat Intelligence Indicators
+        summary: q5-Query Threat Intelligence Indicators
         description: Retrieves threat intelligence indicators based on provided keywords and sorting options.
         operationId: queryIndicators
         parameters:
