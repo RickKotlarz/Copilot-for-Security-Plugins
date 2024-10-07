@@ -72,23 +72,6 @@ paths:
                     type: string
                     description: Keywords to search for threat intelligence indicators.
                     example: 'F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713'
-                  sortBy:
-                    type: array
-                    description: Specifies sorting options for the query.
-                    items:
-                      type: object
-                      properties:
-                        itemKey:
-                          type: string
-                          description: The field to sort by.
-                          example: lastUpdatedTimeUtc
-                        sortOrder:
-                          type: string
-                          description: The sorting order.
-                          enum:
-                            - ascending
-                            - descending
-                          example: descending
         responses:
           '200':
             description: Successfully retrieved the list of threat intelligence indicators.
