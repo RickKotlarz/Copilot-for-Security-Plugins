@@ -59,7 +59,7 @@ paths:
       post:
         operationId: queryIndicators
         description: |
-          q1-Retrieves threat intelligence indicators based on a keyword search.
+          Retrieves threat intelligence indicators based on a keyword search.
           This Query returns threat intelligence indicators based on a keyword search. All entities returned in the response should be listed in either a table or bulleted list.
         parameters:
           - name: api-version
