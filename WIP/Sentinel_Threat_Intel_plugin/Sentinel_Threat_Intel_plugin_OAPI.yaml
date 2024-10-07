@@ -17,9 +17,9 @@ paths:
 #    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
     /subscriptions/{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
-            operationId: QueryIndicators
-            description: QueryIndicators-Lists Threat Intelligence Indicators
-            summary: q1-Query Threat Intelligence Indicators 
+            operationId: ListIndicators
+            description: q1-ListIndicators Lists Threat Intelligence Indicators
+            summary: List Threat Intelligence Indicators 
             parameters:
                 - in: query
                   name: api-version
@@ -46,3 +46,83 @@ paths:
 #    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicator/query-indicators
 ###################################################################################################################
 
+#    /99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
+    /{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
+      post:
+        operationId: queryIndicators
+        description: Retrieves threat intelligence indicators based on a keyword.
+        summary: Query Threat Intelligence Indicators
+        parameters:
+          - name: api-version
+            in: query
+            required: false
+            description: The API version to use for this operation.
+            schema:
+              type: string
+              example: '2024-03-01'
+              default: '2024-03-01'              
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keywords:
+                    type: string
+                    description: Keywords to search for threat intelligence indicators.
+                    example: 'F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713'
+                  sortBy:
+                    type: array
+                    description: Specifies sorting options for the query.
+                    items:
+                      type: object
+                      properties:
+                        itemKey:
+                          type: string
+                          description: The field to sort by.
+                          example: lastUpdatedTimeUtc
+                        sortOrder:
+                          type: string
+                          description: The sorting order.
+                          enum:
+                            - ascending
+                            - descending
+                          example: descending
+        responses:
+          '200':
+            description: Successfully retrieved the list of threat intelligence indicators.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    indicators:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Indicator ID.
+                          name:
+                            type: string
+                            description: Indicator name.
+                          description:
+                            type: string
+                            description: Description of the threat intelligence indicator.
+                          confidence:
+                            type: integer
+                            description: Confidence level of the indicator.
+                            example: 90
+                          threatTypes:
+                            type: array
+                            description: Types of threat this indicator is associated with.
+                            items:
+                              type: string
+                          lastUpdatedTimeUtc:
+                            type: string
+                            description: Last updated time of the indicator.
+                            format: date-time
+          '400':
+            description: Bad request, possibly due to invalid parameters.
