@@ -4,17 +4,6 @@ info:
     title: Sentinel Threat Intelligence plugin
     description: Performs API calls on the Sentinel API with OData filters
     version: "v1"
-
-#settings:
-#  - Name: workspaceName
-#    Description: The id of the Azure Subscription that the Sentinel workspace is in.
-#    Required: true
-#  - Name: subscriptionId
-#    Description: The name of the Resource Group that the Sentinel workspace is in.
-#    Required: true
-#  - Name: resourceGroupName
-#    Description: The name of the Sentinel workspace.
-#    Required: true
       
 servers:
     - url: https://management.azure.com
@@ -25,8 +14,8 @@ paths:
 #    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicators/list
 ########################################################################################################
 
-   # /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
-    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
+#    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
+    /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
             operationId: QueryIndicators
             description: QueryIndicators-Lists Threat Intelligence Indicators
