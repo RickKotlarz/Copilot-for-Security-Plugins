@@ -19,7 +19,7 @@ paths:
         get:
             operationId: QueryIndicators
             description: QueryIndicators-Lists Threat Intelligence Indicators
-            summary: Query Threat Intelligence Indicators 
+            summary: q1-Query Threat Intelligence Indicators 
             parameters:
                 - in: query
                   name: api-version
