@@ -31,7 +31,7 @@ Paths:
     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
             operationId: QueryIndicators
-            description: QueryIndicators-Lists Threat Intelligence Indicators
+            description: q3-QueryIndicators-Lists Threat Intelligence Indicators
             summary: Query Threat Intelligence Indicators 
             parameters:
                 - in: query
