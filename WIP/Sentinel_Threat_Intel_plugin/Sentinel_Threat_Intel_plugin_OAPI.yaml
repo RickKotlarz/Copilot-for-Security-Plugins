@@ -18,7 +18,7 @@ paths:
     /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
             operationId: ListIndicators
-            description: q2-ListIndicators Lists Threat Intelligence Indicators
+            description: ListIndicators Lists Threat Intelligence Indicators
             summary: List Threat Intelligence Indicators 
             parameters:
                 - in: query
@@ -46,8 +46,8 @@ paths:
 #    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicator/query-indicators
 ###################################################################################################################
 
-#    /{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
-    /99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
+#    /subscriptions/{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
+    /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
       post:
         operationId: queryIndicators
         description: Retrieves threat intelligence indicators based on a keyword.
