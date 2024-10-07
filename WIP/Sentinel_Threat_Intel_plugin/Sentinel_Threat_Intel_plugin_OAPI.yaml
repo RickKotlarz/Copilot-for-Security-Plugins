@@ -56,10 +56,9 @@ paths:
           - name: api-version
             in: query
             required: false
-            description: The API version to use for this operation.
+            description: The API version to use for this operation (eg. 2024-03-01).
             schema:
               type: string
-              example: '2024-03-01'
               default: '2024-03-01'              
         requestBody:
           required: true
