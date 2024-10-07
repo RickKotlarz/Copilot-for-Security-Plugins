@@ -58,7 +58,7 @@ paths:
     /subscriptions/ea2133ed-40f7-465c-ba33-07882efc8bd0/resourceGroups/sentinel-prod-demo-april-2024/providers/Microsoft.OperationalInsights/workspaces/sentinel-prod-eastus-april-2024/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators:
       post:
         operationId: queryIndicators
-        description: Retrieves threat intelligence indicators based on a keyword.
+        description: q2-Retrieves threat intelligence indicators based on a keyword.
         summary: Query Threat Intelligence Indicators
         parameters:
           - name: api-version
