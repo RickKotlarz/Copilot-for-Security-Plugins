@@ -1,0 +1,112 @@
+openapi: 3.0.0
+
+info:
+    Title: Sentinel Threat Intelligence plugin
+    Description: Performs API calls on the Sentinel API with OData filters
+    Version: "v1"
+
+servers:
+    - url: https://management.azure.com
+     
+paths:
+########################################################################################################
+# Threat Intelligence Indicators - List
+#    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicators/list
+########################################################################################################
+
+#    /subscriptions/{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
+
+# Subscription: ea2133ed-40f7-465c-ba33-07882efc8bd0
+# RG:           sentinel-prod-demo-april-2024
+# Workspace:    sentinel-prod-eastus-april-2024
+
+    /subscriptions/ea2133ed-40f7-465c-ba33-07882efc8bd0/resourceGroups/sentinel-prod-demo-april-2024/providers/Microsoft.OperationalInsights/workspaces/sentinel-prod-eastus-april-2024/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
+        get:
+            operationId: ListIndicators
+            description: ListIndicators Lists Threat Intelligence Indicators
+            summary: List Threat Intelligence Indicators 
+            parameters:
+                - in: query
+                  name: api-version
+                  required: true
+                  description: API version (e.g. 2024-03-01)
+                  schema:
+                    type: string
+                - in: query
+                  name: $top
+                  required: true
+                  description: How many results do you want (e.g. 2)
+                  schema:
+                    type: string
+                    default: '2'
+            responses:
+                "200":
+                    description: OK
+                "400":
+                    description: Bad request, invalid parameters
+
+###################################################################################################################
+# Threat Intelligence Indicator - Query Indicators
+#    https://learn.microsoft.com/en-us/rest/api/securityinsights/threat-intelligence-indicator/query-indicators
+###################################################################################################################
+
+#    /subscriptions/{{subscriptionId}}/resourceGroups/{{resourceGroupName}}/providers/Microsoft.OperationalInsights/workspaces/{{workspaceName}}/providers/Microsoft.SecurityInsights/threatIntelligence/queryIndicators:
+    /subscriptions/ea2133ed-40f7-465c-ba33-07882efc8bd0/resourceGroups/sentinel-prod-demo-april-2024/providers/Microsoft.OperationalInsights/workspaces/sentinel-prod-eastus-april-2024/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators:
+      post:
+        operationId: queryIndicators
+        description: Retrieves threat intelligence indicators based on a keyword.
+        summary: Query Threat Intelligence Indicators
+        parameters:
+          - name: api-version
+            in: query
+            required: true
+            description: The API version to use for this operation (eg. 2024-03-01).
+            schema:
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  keywords:
+                    type: string
+                    description: Keywords to search for threat intelligence indicators (e.g. F2EFE88C8041CCC776859C8B80FB981CF1CF9805B80FC66500738C223A88C713).
+        responses:
+          '200':
+            description: Successfully retrieved the list of threat intelligence indicators.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    indicators:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            description: Indicator ID.
+                          name:
+                            type: string
+                            description: Indicator name.
+                          description:
+                            type: string
+                            description: Description of the threat intelligence indicator.
+                          confidence:
+                            type: integer
+                            description: Confidence level of the indicator.
+                            example: 90
+                          threatTypes:
+                            type: array
+                            description: Types of threat this indicator is associated with.
+                            items:
+                              type: string
+                          lastUpdatedTimeUtc:
+                            type: string
+                            description: Last updated time of the indicator.
+                            format: date-time
+          '400':
+            description: Bad request, possibly due to invalid parameters.
