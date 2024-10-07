@@ -59,8 +59,8 @@ paths:
       post:
         operationId: queryIndicators
         description: |
-          q4-Retrieves threat intelligence indicators based on a keyword search.
-          This Query returns threat intelligence indicators based on a keyword search. All entities from each object should be returned with data visibile as a table.
+          q5-Retrieves threat intelligence indicators based on a keyword search.
+          This Query returns threat intelligence indicators based on a keyword search. All entities returned in the response should be listed in either a table or bulleted list.
         parameters:
           - name: api-version
             in: query
