@@ -18,7 +18,7 @@ paths:
     /subscriptions/99005f96-e572-4035-b476-836fd9d83d64/resourceGroups/cybersoc/providers/Microsoft.OperationalInsights/workspaces/cybersoc/providers/Microsoft.SecurityInsights/threatIntelligence/main/indicators:
         get:
             operationId: ListIndicators
-            description: ListIndicators Lists Threat Intelligence Indicators
+            description: q2-ListIndicators Lists Threat Intelligence Indicators
             summary: List Threat Intelligence Indicators 
             parameters:
                 - in: query
