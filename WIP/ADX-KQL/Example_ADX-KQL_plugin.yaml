@@ -38,7 +38,8 @@ SkillGroups:
       - Name: SearchADXTables
         DisplayName: SearchADXTables
         Description: |
-          Searches the ServiceName and RequestMetadata tables for data
+          Searches the ServiceName and RequestMetadata tables for data.
+          Output from these results should be shown in a table format
           #ExamplePrompts Search for 'logging.googleapis.com' in the ServiceName table within the Alipine ADX cluster
           #ExamplePrompts Search for '75.155.231.45' in the RequestMetadata table within the Alipine ADX cluster          
         Inputs:
@@ -53,6 +54,7 @@ SkillGroups:
           Cluster: https://alipine-cluster01.eastus.kusto.windows.net
           Database: DB01
           Template: |-
+            //Output from these results should be shown in a table format
             GCPAuditLogs
               | where ServiceName contains '{{ServiceNameSearch}}' and RequestMetadata contains '{{RequestMetadataSearch}}'
               | sort by TimeGenerated desc
@@ -78,4 +80,3 @@ SkillGroups:
               | sort by TimeGenerated desc
              
 ########################################################################################
-
