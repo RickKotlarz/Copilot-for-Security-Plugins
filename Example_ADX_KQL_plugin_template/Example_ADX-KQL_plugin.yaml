@@ -34,6 +34,7 @@ SkillGroups:
         Inputs:
           - Name: numberOfRows
             Description: Number of rows you wish to return from the top (.e.g. 10)
+            DefaultValue: 3
             Required: true
         Settings:
           Target: Kusto
@@ -59,6 +60,7 @@ SkillGroups:
         Inputs:
           - Name: numberOfRows
             Description: Number of rows you wish to return from the top (.e.g. 10)
+            DefaultValue: 3
             Required: true
         Settings:
           Target: Kusto
