@@ -1,0 +1,71 @@
+# Updated 2024-10-08
+
+Descriptor:
+  Name: ADX search demo
+  DisplayName: ADX search demo
+  Description: ADX search demo
+
+  Settings:
+    - Name: ClusterURL
+      Description: The URL to your ADX cluster
+      Required: true
+    - Name: DatabaseName
+      Description: The database name within your ADX cluster
+      Required: true
+  
+  SupportedAuthTypes:
+    - None
+
+SkillGroups:
+  - Format: KQL
+    Skills:
+
+##########################################################################################
+## Cluster 'settings' referenced from variables set during plugin setup / configuration
+##########################################################################################
+
+      - Name: GetADXAlipineLogs
+        DisplayName: GetADXAlipineLogs
+        Description: |
+          Gets top n rows of the Alipine ADX cluster sorted by TimeGenerated
+#          This area can be multiple lines when using the pipe character after the colon character.
+#          You'll want to include additional information that is relevant for the Orchestreator to understand
+          #ExamplePrompts Gets the top 10 rows of the 'TableYouWantToQuery' table from the 'Your-Cluster-Name-01' ADX cluster sort by TimeGenerated.
+        Inputs:
+          - Name: numberOfRows
+            Description: Number of rows you wish to return from the top (.e.g. 10)
+            Required: true
+        Settings:
+          Target: Kusto
+          Cluster: '{{ClusterURL}}'
+          Database: '{{DatabaseName}}'
+          Template: |-
+            //KQL comment to help the Orchestrator or users responsible for maintaining the code
+            TableYouWantToQuery
+              | sort by TimeGenerated desc
+              | take {{numberOfRows}}
+
+##########################################################################################
+# Cluster 'settings' hardcoded which don't reference plugin settings variables
+##########################################################################################
+
+      - Name: GetADXAlipineLogs
+        DisplayName: GetADXAlipineLogs
+        Description: |
+          Gets top n rows of the Alipine ADX cluster sorted by TimeGenerated
+#          This area can be multiple lines when using the pipe character after the colon character.
+#          You'll want to include additional information that is relevant for the Orchestreator to understand
+          #ExamplePrompts Gets the top 10 rows of the 'TableYouWantToQuery' table from the 'Your-Cluster-Name-01' ADX cluster sort by TimeGenerated.
+        Inputs:
+          - Name: numberOfRows
+            Description: Number of rows you wish to return from the top (.e.g. 10)
+            Required: true
+        Settings:
+          Target: Kusto
+          Cluster: https://your-cluster-name-01..eastus.kusto.windows.net
+          Database: DatabaseName
+          Template: |-
+            //KQL comment to help the Orchestrator or users responsible for maintaining the code
+            TableYouWantToQuery
+              | sort by TimeGenerated desc
+              | take {{numberOfRows}}
