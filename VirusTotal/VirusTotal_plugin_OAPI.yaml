@@ -1,20 +1,24 @@
+# Updated 2024-10-08
+
 openapi: 3.0.0
 
 info:
     title: VirusTotal Reports
     description: VirusTotal Reports
-    version: "v3"
-#   Updated 23-Sept-2024 @ 6:28 PM ~ rkotlarz
+    version: "v3.1"
+
     
 servers:
     - url: https://www.virustotal.com/api/v3
 
 paths:
+
 ####################################################################################
 # IOC Reputation & Enrichment
 #   IP addresses
-#       Get an IP address report
+#     Get an IP address report
 #       https://docs.virustotal.com/reference/ip-info
+####################################################################################
 
     /ip_addresses/{ip}:
         get:
@@ -22,7 +26,6 @@ paths:
             description: |
               Get an IP report
               #ExamplePrompt Get an IP report using VirusTotal for this IP address
-            summary: Uses VirusTotal to assess the reputation and threat level of a provided IP addresses.
             parameters:
                 - in: path
                   name: ip
@@ -36,16 +39,13 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Domains & Resolution
-#       Get a Domain Report
+#     Get a Domain Report
 #       https://docs.virustotal.com/reference/domain-info
+####################################################################################
 
     /domains/{domain}:
         get:
@@ -53,7 +53,6 @@ paths:
             description: |
               Get a domain report
               #ExamplePrompt Get a domain report using VirusTotal for this domain
-            summary: Uses VirusTotal to assess the reputation and threat level of a provided domain name.
             parameters:
                 - in: path
                   name: domain
@@ -66,16 +65,13 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
 
 ####################################################################################          
 # IOC Reputation & Enrichment
 #   Files
-#       Get a file report
+#     Get a file report
 #       https://docs.virustotal.com/reference/file-info
+####################################################################################
 
     /files/{id}:
         get:
@@ -83,7 +79,6 @@ paths:
             description: |
               Gets a file report for a file hash
               #ExamplePrompt Get a file report using VirusTotal for this file hash
-            summary: Uses VirusTotal to assess the reputation and threat level of a file from a provided hash.
             parameters:
                 - in: path
                   name: id
@@ -96,16 +91,13 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   File Behaviors
-#       Get a summary of all behavior reports for a file
+#     Get a summary of all behavior reports for a file
 #       https://docs.virustotal.com/reference/file-all-behaviours-summary
+####################################################################################
 
     /files/{id}/behaviour_summary:
         get:
@@ -113,7 +105,6 @@ paths:
             description: |
               Gets a summary of all behavior reports for a file hash
               #ExamplePrompt Get a summary of all behavior for this file hash 
-            summary: Uses VirusTotal to provide a summary of all behaviors for a given file hash
             parameters:
                 - in: path
                   name: id
@@ -132,16 +123,13 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
-                    
-####################################################################################
+
+#################################################################################################################
 # IOC Reputation & Enrichment
 #   File Behaviors
-#       Get a summary of all MITRE ATT&CK techniques observed in a file
+#     Get a summary of all MITRE ATT&CK techniques observed in a file
 #       https://docs.virustotal.com/reference/get-a-summary-of-all-mitre-attck-techniques-observed-in-a-file
+#################################################################################################################
 
     /files/{id}/behaviour_mitre_trees:
         get:
@@ -149,7 +137,6 @@ paths:
             description: |
               Gets a summary of Mitre attacks observed for a file hash
               #ExamplePrompt Get a summary of Mitre attacks for this file hash
-            summary: Uses VirusTotal to get a summary of Mitre attacks for a file hash
             parameters:
                 - in: path
                   name: id
@@ -162,16 +149,13 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   File Behaviors
-#       Get a file behavior report from a sandbox 
+#     Get a file behavior report from a sandbox 
 #       https://docs.virustotal.com/reference/get-file-behaviour-id
+####################################################################################
 
     /file_behaviours/{sandbox_id}:
         get:
@@ -179,7 +163,6 @@ paths:
             description: |
               Gets a file behavior report from a sandbox
               #ExamplePrompt Get a file behavior report from sandbox with ID
-            summary: Uses VirusTotal to get a file behavior report from a sandbox using the SHA256 followed by an _ character and the sandbox name
             parameters:
                 - in: path
                   name: sandbox_id
@@ -198,22 +181,20 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
                     
 ####################################################################################
 # IOC Reputation & Enrichment
 #   URLs
-#       Scan URL
+#     Scan URL
 #       https://docs.virustotal.com/reference/scan-url
+####################################################################################
 
     /urls:
         post:
             operationId: VT-ScanURL
-            description: Submit a URL for scanning - returns an Analysis ID
-            summary: VirusTotal - Submit a URL for scanning - returns an Analysis ID
+            description: |
+              Submit a URL for scanning - returns an Analysis ID
+              #ExamplePrompt: Submit the following URL for scanning www.virustotal.com
             requestBody:
               required: true
               content:
@@ -228,7 +209,7 @@ paths:
                     required:
                       - url
             responses:
-              '200':
+              "200":
                 description: Scan initiated successfully.
                 content:
                   application/json:
@@ -252,18 +233,23 @@ paths:
                                   type: string
                                   description: The URL for retrieving the scan results.
                                   example: "https://www.virustotal.com/api/v3/urls/1f0b6e03ce451b4325dd2b67192c9b7e"
-
+              "400":
+                    description: Bad request, invalid parameters
+                    
 ####################################################################################
 # IOC Reputation & Enrichment
 #   URLs
 #       Get a URL analysis report
 #       https://docs.virustotal.com/reference/url-info
+####################################################################################
 
     /urls/{id}:
         get:
             operationId: VT-GetURLanalysisReport
-            description: Essential for determining the reputation and risk level associated with a URL.
-            summary: VirusTotal - Get a URL analysis report
+            description: |
+              Essential for determining the reputation and risk level associated with a URL.
+              Gets a URL analysis report
+              #ExamplePrompt: Get a URL report from dmlydXN0b3RhbC5jb20
             parameters:
                 - in: path
                   name: id
@@ -276,21 +262,18 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
                     
 #####################################################################################
 # IOC Reputation & Enrichment
 #   URLs
-#       Request a URL rescan (re-analyze)
+#     Request a URL rescan (re-analyze)
 #       https://docs.virustotal.com/reference/urls-analyse       
-
+#####################################################################################
+# Work in progress 
 #            operationId: VT-RequestURLrescan
-#            description: For updating the threat evaluation of a previously scanned URL.
-#            summary: VirusTotal - Request a URL rescan (re-analyze)
-# WIP
+#            description: |
+#              For updating the threat evaluation of a previously scanned URL.
+#              Request a URL rescan (re-analyze)
 
  
 ####################################################################################
@@ -298,13 +281,16 @@ paths:
 #   Analyses, Submissions & Operations
 #       Get a URL / file analysis
 #       https://docs.virustotal.com/reference/analysis
-
+####################################################################################
 
     /analyses/{id}:
         get:
             operationId: VT-GetUrlIDReport
-            description: Returns analysis ID report
-            summary: VirusTotal - Accepts an analysis ID from ScanURL and returns the analysis report object.
+            description: |
+              Returns analysis ID report
+              Accepts an analysis ID from ScanURL and returns the analysis report object.
+              #ExamplePrompt: Get the URL analysis for u-a354494a73382ea0b4bc47f4c9e8d6c578027cd4598196dc88f05a22b5817293-1725740919
+              #ExamplePrompt: Get the file analysis for u-b3s12594a73382ea0b4bc47aflkj49asdflj23z90fd6c578027cd32165468132-8435498132
             parameters:
                 - in: path
                   name: id
@@ -317,22 +303,20 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Attack Tactics & Techniques
 #       Get an attack technique object
 #       https://docs.virustotal.com/reference/attack_techniqueid
-
+####################################################################################
     /attack_techniques/{id}:
         get:
             operationId: VT-GetAttackTechObject
-            description: To understand the general attack approaches associated with specific indicators.
-            summary: VirusTotal - Get an attack technique object
+            description: |
+              To understand the general attack approaches associated with specific indicators.
+              VirusTotal - Get an attack technique object
+              #ExamplePrompt: Get the Attack Tactics & Techniques for T1110.001
             parameters:
                 - in: path
                   name: id
@@ -345,10 +329,6 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
                     
  ####################################################################################
 # IOC Reputation & Enrichment
@@ -360,8 +340,10 @@ paths:
     /attack_techniques/{id}/{relationship}:
         get:
             operationId: VT-GetObjectsRelatedToAttackTech
-            description: To gather information on specific techniques that are part of an attack, often linked to MITRE ATT&CK.
-            summary: VirusTotal - Get objects related to an attack technique
+            description: |
+              To gather information on specific techniques that are part of an attack, often linked to MITRE ATT&CK.
+              Get objects related to an attack technique
+              #ExamplePrompt: Get objects related to an attack technique T1110.001
             parameters:
                 - in: path
                   name: id
@@ -380,43 +362,44 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
+
                     
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Popular Threat Categories
 #       Get a list of popular threat categories
 #       https://docs.virustotal.com/reference/popular_threat_categories
+####################################################################################
 
     /popular_threat_categories:
         get:
             operationId: VT-GetPopularThreatCats
-            description: Provides insight into prevalent threats in the wild, which helps in focusing on major risks.
-            summary: VirusTotal - Gets a list of popular threat categories currently observed in the wild 
+            description: |
+              Provides insight into prevalent threats in the wild, which helps in focusing on major risks.
+              #ExamplePrompt: Gets a list of popular threat categories currently observed in the wild 
             responses:
                 "200":
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
                     
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Search & Metadata
 #      Search for files, URLs, domains, IPs, and comments 
 #       https://docs.virustotal.com/reference/api-search
+####################################################################################
 
     /search:
         get:
             operationId: VT-SearchForFilesURLsDomainsAndComments
-            description: Helps to search for indicators of compromise across various categories.
-            summary: VirusTotal - Search for files, URLs, domains, IPs and comments
+            description: |
+              Helps to search for indicators of compromise across various categories.
+              Search for files, URLs, domains, IPs and comments
+              #ExamplePrompt: Search metadata for the hash eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76
+              #ExamplePrompt: Search metadata for the URL www.virustotal.com 
+              #ExamplePrompt: Search metadata for the following domain virustotal.com 
+              #ExamplePrompt: Search metadata for the comment "virustotal"
             parameters:
                 - in: query
                   name: query
@@ -429,7 +412,3 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
