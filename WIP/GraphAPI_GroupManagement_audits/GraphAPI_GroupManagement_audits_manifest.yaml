@@ -1,0 +1,16 @@
+Descriptor:
+  Name: GraphAPI GroupManagement audits
+  DisplayName: GraphAPI GroupManagement audits
+  Description: GraphAPI GroupManagement audits
+  DescriptionForModel: The skills in this plugin will help get specific GraphAPI GroupManagement audits via Graph API Call.
+  SupportedAuthTypes:
+    - AADDelegated
+  Authorization:
+    Type: AADDelegated
+    EntraScopes: https://graph.microsoft.com/.default
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/WIP/GraphAPI_GroupManagement_audits      /GraphAPI_GroupManagement_audits_OAPI.yaml
+#     OpenApiSpecUrl: Updated the above URL to reflect the correct publicly accessible URL associated with the OAPI plugin file
