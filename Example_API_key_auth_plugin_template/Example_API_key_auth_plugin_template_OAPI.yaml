@@ -1,4 +1,5 @@
 # This example API key auth plugin template using the VirusTotal API as an example to illustrate GET and POST calls
+# Updated 2024-10-08
 
 openapi: 3.0.0
 
