@@ -97,6 +97,7 @@ SkillGroups:
         Inputs:
           - Name: dayRange
             Description: The time range for the query (e.g., 1d, 7d)
+            DefaultValue: 1d
             Required: true
         Settings:
           Target: Sentinel
