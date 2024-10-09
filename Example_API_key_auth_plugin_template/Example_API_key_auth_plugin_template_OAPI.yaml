@@ -4,12 +4,12 @@ openapi: 3.0.0
 
 info:
     title: Example API key auth plugin template using VirusTotal
-    description: Example API key auth plugin template using VirusTotal
+    description: Example API key auth plugin template using VirusTotal - 2024-10-08
     version: "v1.0.0"
     
 servers:
     - url: https://www.virustotal.com/api/v3
-		# Root API URL that will be used for all subsequent API calls.
+#          Root API URL that will be used for all subsequent GET and POST API calls below
 paths:
 
 ####################################################################################
@@ -19,19 +19,18 @@ paths:
 #   IP addresses
 #       Get an IP address report
 #       https://docs.virustotal.com/reference/ip-info
+####################################################################################
 
     /ip_addresses/{ip}:
         get:
-			# API call types include GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS, and TRACE. Within the context of CfS you'll only be using GET or POST.
-			#	GET: Retrieve information.
-			#	POST: Submit data to be processed.
+#           Copilot for Security only supports GET and POST requests
             operationId: VT-IPReport
-				# During development, it may be useful to name the 'operationId' as something you can easily find.
             description: |
-              Get an IP report
+              VirusTotal - Used to assess the reputation and threat level of a provided IP addresses.
+              This area can be multiple lines when using the pipe character after the colon character.
+              You'll want to include additional information that is relevant for the Orchestreator to understand
               #ExamplePrompt Get an IP report using VirusTotal for this IP address
-				# Example for the CfS Orchestrator
-            summary: Uses VirusTotal to assess the reputation and threat level of a provided IP addresses.
+              #ExamplePrompt You'll want to include a few examples so the Orchestrator understands how to map user requests to the skill
             parameters:
 #             Parameters can be of the following types. For most situations you'll simply need to denote "path" or "query"
                 - in: path
@@ -42,17 +41,12 @@ paths:
                       type: string
                   required: true
                   description: IP address to look up (e.g. 216.239.36.21)
-                  # nslookup virustotal.com = 216.239.36.21
-					# Example that helps the CfS Orchestrator
             responses:
                 "200":
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
+
 					
 ####################################################################################
 # - API 'get' request example with "query" parameter
@@ -61,12 +55,13 @@ paths:
 #   Search & Metadata
 #      Search for files, URLs, domains, IPs, and comments 
 #       https://docs.virustotal.com/reference/api-search
-
+####################################################################################
     /search:
         get:
             operationId: VT-SearchForFilesURLsDomainsAndComments
-            description: Helps to search for indicators of compromise across various categories.
-            summary: VirusTotal - Search for files, URLs, domains, IPs and comments
+            description: |
+               VirusTotal - Search for files, URLs, domains, IPs and comments
+               Helps to search for indicators of compromise across various categories.
             parameters:
                 - in: query
                   name: query
@@ -81,26 +76,23 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
+
 
 
 ####################################################################################
 # - API 'post' request example
 ####################################################################################
-####################################################################################
 # IOC Reputation & Enrichment
 #   URLs
 #       Scan URL
 #       https://docs.virustotal.com/reference/scan-url
-
+####################################################################################
     /urls:
         post:
             operationId: VT-ScanURL
-            description: Submit a URL for scanning - returns an Analysis ID
-            summary: VirusTotal - Submit a URL for scanning - returns an Analysis ID
+            description: |
+              Submit a URL for scanning - returns an Analysis ID.
+              VirusTotal - Submit a URL for scanning - returns an Analysis ID.
             requestBody:
               required: true
               content:
@@ -120,6 +112,7 @@ paths:
                 content:
                   application/json:
                     schema:
+#                       While this section describing the scheme isn't required, it does help Copilot for Secuity to better understand and format the output.                    
                       type: object
                       properties:
                         data:
@@ -139,3 +132,5 @@ paths:
                                   type: string
                                   description: The URL for retrieving the scan results.
                                   example: "https://www.virustotal.com/api/v3/urls/1f0b6e03ce451b4325dd2b67192c9b7e"
+                "400":
+                    description: Bad request, invalid parameters
