@@ -5,6 +5,7 @@
 # When building out a Graph API based plugin, you'll want to use the Graph Explorer.
 # https://developer.microsoft.com/en-us/graph/graph-explorer
 #####################################################################################
+# Updated 2024-10-08
 
 openapi: 3.0.0
 
@@ -38,7 +39,8 @@ paths:
     /security/alerts_v2?$select=id,title:
         get:
             operationId: GetAlertIdsFromIncidentId
-            description: List all alert ID's based on a user provided Incident ID
+            description: |
+              List all alert ID's based on a user provided Incident ID
             ExamplePrompt:
               - 'show me alert ids for the specified incident id'
               - 'Get me all alert ids where incident id is provided'
@@ -68,7 +70,8 @@ paths:
    /security/alerts_v2/{alertid}?$select=evidence:
         get:
             operationId: GetEvidenceForSpecificAlert
-            description: Get all the evidence details of a specific alert id
+            description: |
+              Get all the evidence details of a specific alert id
             parameters:
 #             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
                 - in: path
