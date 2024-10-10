@@ -4,10 +4,12 @@ Descriptor:
   Description: GraphAPI GroupManagement audits
   DescriptionForModel: The skills in this plugin will help get specific GraphAPI GroupManagement audits via Graph API Call.
   SupportedAuthTypes:
-    - AADDelegated
+    - ApiKey
   Authorization:
-    Type: AADDelegated
-    EntraScopes: https://graph.microsoft.com/.default
+    Type: APIKey
+    Key: x-apikey
+    Location: Header
+    AuthScheme: ''
 
 SkillGroups:
   - Format: API
