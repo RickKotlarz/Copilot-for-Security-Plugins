@@ -29,6 +29,7 @@ paths:
                 - in: query
                   name: api-version
                   required: true
+                  defaultValue: 2024-03-01
                   description: API version (e.g. 2024-03-01)
                   schema:
                     type: string
@@ -65,6 +66,7 @@ paths:
           - name: api-version
             in: query
             required: true
+            defaultValue: 2024-03-01
             description: The API version to use for this operation (eg. 2024-03-01).
             schema:
               type: string
