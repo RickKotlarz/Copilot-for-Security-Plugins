@@ -1,5 +1,5 @@
 # This example API key auth plugin template using the VirusTotal API as an example to illustrate GET and POST calls
-# Updated 2024-10-08
+# Updated 2024-10-14
 
 openapi: 3.0.0
 
@@ -38,6 +38,7 @@ paths:
 #                     Path parameters that are part of the URL path, such as /ip_addresses/{ip}.
 #                       In this example, if the IP 216.239.36.21 is submitted the submitted result would be https://www.virustotal.com/api/v3/ip_addresses/216.239.36.21
                   name: ip
+#                 defaultValue:                   
                   schema:
                       type: string
                   required: true
@@ -48,7 +49,6 @@ paths:
                 "400":
                     description: Bad request, invalid parameters
 
-					
 ####################################################################################
 # - API 'get' request example with "query" parameter
 ####################################################################################
@@ -68,6 +68,7 @@ paths:
                   name: query
 #                     Query: Parameters that are appended to the URL after a question mark, such as /users?id=1234.
 #                       In this case if the string submitted was 'office.com' would result in https://docs.virustotal.com/reference/api-search?query=office.com
+#                 defaultValue: 
                   schema:
                       type: string
                   required: true
@@ -107,6 +108,7 @@ paths:
                         example: "http://www.virustotal.com"
                     required:
                       - url
+#                   defaultValue:
             responses:
               '200':
                 description: Scan initiated successfully.
