@@ -130,6 +130,7 @@ SkillGroups:
         Inputs:
           - Name: UserPrincipalNameYourLookingUp
             Description: User Principal Name to search for (e.g. user@mydomain.com)
+            DefaultValue: 
             Required: true
         Settings:
           Target: Sentinel
