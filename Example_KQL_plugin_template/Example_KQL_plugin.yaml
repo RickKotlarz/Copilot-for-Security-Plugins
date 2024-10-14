@@ -1,5 +1,5 @@
 # Spacing matters between parent and child objects. Hitting enter is fine, but tabular spaces will cause errors.
-# Updated 2024-10-08
+# Updated 2024-10-14
 
 Descriptor:
   Name: Example KQL plugin - SOC tools
@@ -50,6 +50,7 @@ SkillGroups:
 #          Target: DefenderOrSentinel
 #          Template: |-
 #            KQLtable
+#             //KQL comment to help the Orchestrator or users responsible for maintaining the code
 #             | KQL content {{variableYouWantFromTheUser}}
 #             | Additional KQL content
 
@@ -72,9 +73,9 @@ SkillGroups:
           Template: |-
             // This query retrieves the most recent sign-in time for each user, within a specified time range, and displays only the user's name and their last sign-in date to validate location. Provide insights and summarize this data.
             AlertInfo
-             | where Severity in ('High', 'Critical')
-             | where TimeGenerated > ago(7d)
-             | project AlertId, Title, TimeGenerated
+            | where Severity in ('High', 'Critical')
+            | where TimeGenerated > ago(7d)
+            | project AlertId, Title, TimeGenerated
 
 #######################################################################################
 ## Sentinel example with user input - To test this, turn off the Entra plugin.
@@ -108,9 +109,9 @@ SkillGroups:
           Template: |-
             // This query retrieves the most recent sign-in time for each user, within a specified time range, and displays only the user's name and their last sign-in date to validate location. Provide insights and summarize this data.
             SigninLogs
-             | where TimeGenerated >= ago({{dayRange}})
-             | summarize LastSignInDate=max(TimeGenerated) by UserPrincipalName 
-             | project UserPrincipalName, LastSignInDate 
+            | where TimeGenerated >= ago({{dayRange}})
+            | summarize LastSignInDate=max(TimeGenerated) by UserPrincipalName 
+            | project UserPrincipalName, LastSignInDate 
 
 #######################################################################################
 ## Sentinel example with hard coded configuration
