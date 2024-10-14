@@ -5,7 +5,7 @@
 # When building out a Graph API based plugin, you'll want to use the Graph Explorer.
 # https://developer.microsoft.com/en-us/graph/graph-explorer
 #####################################################################################
-# Updated 2024-10-08
+# Updated 2024-10-14
 
 openapi: 3.0.0
 
@@ -34,6 +34,8 @@ paths:
                     description: OK
                     content:
                         application/json:
+                "400":
+                    description: Bad request, invalid parameters
 
 #####################################################################################
 # Get call using the 'query' parameter.
@@ -52,6 +54,7 @@ paths:
 #                     Query parameters will result in appending "&filter=" along with the string. 
 #                       In this example if the string submitted was 'office.com' would result in https://graph.microsoft.com/v1.0/security/alerts_v2?$select=id,title&filter=incidentid eq '16'
                   name: $filter
+                  defaultValue:                  
                   schema:
                       type: string
                   required: true
@@ -61,10 +64,7 @@ paths:
                     description: OK
                 "400":
                     description: Bad request, invalid parameters
-                "401":
-                    description: Unauthorized, API key missing or invalid
-                "403":
-                    description: Forbidden, access to the resource is denied
+
 
 #####################################################################################
 # Get call using the 'path' parameter.
@@ -82,7 +82,13 @@ paths:
 #                     Path parameters that are part of the URL path, such as /security/alerts_v2/{alertid}.
 #                       In this example, if the alert ID of d65sg8f1-d0cd-4d7d-8c6c-d1821138 was submitted the submitted result would be https://graph.microsoft.com/v1.0/security/alerts_v2/d65sg8f1-d0cd-4d7d-8c6c-d1821138?$select=evidence
                   name: alertid
+                  defaultValue:
                   schema:
                       type: string
                   required: true
                   description: id of the alert
+            responses:
+                "200":
+                    description: OK
+                "400":
+                    description: Bad request, invalid parameters
