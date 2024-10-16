@@ -5,10 +5,10 @@ Welcome to the Copilot for Security Example KQL plugin. This plugin illustrates 
 ### Instructions
 #### Upload the Custom Plugin
 
-1. Obtain the file [Example_KQL_plugin](https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Example_KQL_plugin_template/Example_KQL_plugin.yaml) from this directory.
-2. Upload the custom plugin
-3. When prompted, enter in Sentinel configuration data requested
-4. If you would like to hard code the Sentinel confugration data within the plugin you may as illustarted in **ShowUserIPinfo**
+1. Obtain the file [Example_KQL_plugin](https://github.com/RickKotlarz/Copilot-for-Security-Plugins/blob/main/Example_KQL_plugin_template/Example_KQL_plugin.yaml) 3. from this directory.
+4. Upload the custom plugin
+5. When prompted, enter in Sentinel configuration data requested
+6. If you would like to hard code the Sentinel confugration data within the plugin you may as illustarted in **ShowUserIPinfo**
 
 #### Utlization of the plugin:
 
