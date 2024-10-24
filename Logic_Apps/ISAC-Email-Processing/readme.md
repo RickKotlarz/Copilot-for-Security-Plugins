@@ -21,7 +21,8 @@ Please do not proceed further till the integration account is created, note down
 
 Click the button below to deploy the Logic App:
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcbelwal%2FCopilot-For-Security%2Fmain%2FLogic%2520Apps%2FISAC-Email-Processing%2Fazuredeploy.json" target="_blank">
+
+<a href="https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/Logic_Apps/ISAC-Email-Processing/azuredeploy.json" target="_blank">
 <img src="https://aka.ms/deploytoazurebutton"/>
 </a>
 
