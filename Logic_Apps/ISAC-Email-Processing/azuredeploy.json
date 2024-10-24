@@ -1,0 +1,510 @@
+{
+    "$schema":  "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion":  "1.0.0.0",
+    "parameters":  {
+        "PlaybookName":  {
+            "defaultValue":  "LA-ISAC-Imported",
+            "type":  "string"
+        },
+        "integrationAccountName":  {
+            "defaultValue":  "LA_Integration_Account",
+            "type":  "string"
+        },
+        "toReportEmail":  {
+            "defaultValue":  "user@domain.com",
+            "type":  "string",
+            "metadata": {
+                "description": "Specify the email address where the final report will be sent. You can more email addresses after importing the Logic App"
+            }
+        }
+    },
+    "variables":  {
+        "Office365-ConnectionName":  "[concat('Office365-', parameters('PlaybookName'))]",
+        "SecuritycopilotConnectionName":  "[concat('Securitycopilot-', parameters('PlaybookName'))]",
+        "ConversionserviceConnectionName":  "[concat('Conversionservice-', parameters('PlaybookName'))]"
+    },
+    "resources":  [
+        {
+            "properties":  {
+                "provisioningState":  "Succeeded",
+                "state":  "Enabled",
+                "integrationAccount":  {
+                    "id": "[resourceId('Microsoft.Logic/integrationAccounts', parameters('integrationAccountName'))]"
+                },
+                "definition":  {
+                    "$schema":  "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion":  "1.0.0.0",
+                    "parameters":  {
+                        "$connections":  {
+                            "defaultValue":  {
+                            },
+                            "type":  "Object"
+                        }
+                    },
+                    "triggers":  {
+                        "When_a_new_email_arrives_(V3)":  {
+                            "splitOn":  "@triggerBody()?['value']",
+                            "type":  "ApiConnectionNotification",
+                            "inputs":  {
+                                "host":  {
+                                    "connection":  {
+                                        "name":  "@parameters('$connections')['office365']['connectionId']"
+                                    }
+                                },
+                                "fetch":  {
+                                    "pathTemplate":  {
+                                        "template":  "/v3/Mail/OnNewEmail"
+                                    },
+                                    "method":  "get",
+                                    "queries":  {
+                                        "importance":  "Any",
+                                        "fetchOnlyWithAttachment":  false,
+                                        "includeAttachments":  false,
+                                        "folderPath":  "Inbox"
+                                    }
+                                },
+                                "subscribe":  {
+                                    "body":  {
+                                        "NotificationUrl":  "@{listCallbackUrl()}"
+                                    },
+                                    "pathTemplate":  {
+                                        "template":  "/GraphMailSubscriptionPoke/$subscriptions"
+                                    },
+                                    "method":  "post",
+                                    "queries":  {
+                                        "importance":  "Any",
+                                        "fetchOnlyWithAttachment":  false,
+                                        "folderPath":  "Inbox"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "actions":  {
+                        "Check_if_Subject_contains_ISAC":  {
+                            "actions":  {
+                                "Copilot_Prompt_-_CVEs_in_my_environment":  {
+                                    "runAfter":  {
+                                        "Copilot_Prompt_-_Extract_CVEs":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "limit":  {
+                                        "timeout":  "PT5M"
+                                    },
+                                    "type":  "ApiConnection",
+                                    "inputs":  {
+                                        "host":  {
+                                            "connection":  {
+                                                "name":  "@parameters('$connections')['securitycopilot']['connectionId']"
+                                            }
+                                        },
+                                        "method":  "post",
+                                        "body":  {
+                                            "PromptContent":  "Using Defender KQL, tell me how many of the previous CVEs are present in my environment.",
+                                            "SessionId":  "@body('Copilot_Prompt_-_Extract_CVEs')?['sessionId']"
+                                        },
+                                        "path":  "/process-prompt",
+                                        "retryPolicy":  {
+                                            "type":  "fixed",
+                                            "count":  1,
+                                            "interval":  "PT5M"
+                                        }
+                                    }
+                                },
+                                "Copilot_Prompt_-_Extract_CVEs":  {
+                                    "runAfter":  {
+                                        "Set_uniqueCVEArray":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "limit":  {
+                                        "timeout":  "PT5M"
+                                    },
+                                    "type":  "ApiConnection",
+                                    "inputs":  {
+                                        "host":  {
+                                            "connection":  {
+                                                "name":  "@parameters('$connections')['securitycopilot']['connectionId']"
+                                            }
+                                        },
+                                        "method":  "post",
+                                        "body":  {
+                                            "PromptContent":  "/askgpt Extract all the CVEs from the following list: @{variables('uniqueCVEArray')} "
+                                        },
+                                        "path":  "/process-prompt",
+                                        "retryPolicy":  {
+                                            "type":  "fixed",
+                                            "count":  1,
+                                            "interval":  "PT3M"
+                                        }
+                                    }
+                                },
+                                "Copilot_Prompt_-_Generate_Report":  {
+                                    "runAfter":  {
+                                        "Copilot_Prompt_-_CVEs_in_my_environment":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "limit":  {
+                                        "timeout":  "PT5M"
+                                    },
+                                    "type":  "ApiConnection",
+                                    "inputs":  {
+                                        "host":  {
+                                            "connection":  {
+                                                "name":  "@parameters('$connections')['securitycopilot']['connectionId']"
+                                            }
+                                        },
+                                        "method":  "post",
+                                        "body":  {
+                                            "PromptContent":  "For only the CVEs found in my environment as done in the last step, use MDTI and show me the Affected Software, Severity, CVSS3 score, published data, summary, impact , mitigation and References for each of the CVEs above. Put each individual data point in a bulleted list under each CVE heading.",
+                                            "SessionId":  "@body('Copilot_Prompt_-_CVEs_in_my_environment')?['sessionId']"
+                                        },
+                                        "path":  "/process-prompt"
+                                    }
+                                },
+                                "Extract_Body_from_Email":  {
+                                    "type":  "ParseJson",
+                                    "inputs":  {
+                                        "content":  "@triggerBody()",
+                                        "schema":  {
+                                            "properties":  {
+                                                "attachments":  {
+                                                    "items":  {
+                                                        "properties":  {
+                                                            "@@odata.type":  {
+                                                                "type":  "string"
+                                                            },
+                                                            "contentBytes":  {
+                                                            },
+                                                            "contentType":  {
+                                                                "type":  "string"
+                                                            },
+                                                            "id":  {
+                                                                "type":  "string"
+                                                            },
+                                                            "isInline":  {
+                                                                "type":  "boolean"
+                                                            },
+                                                            "lastModifiedDateTime":  {
+                                                                "type":  "string"
+                                                            },
+                                                            "name":  {
+                                                                "type":  "string"
+                                                            },
+                                                            "size":  {
+                                                                "type":  "integer"
+                                                            }
+                                                        },
+                                                        "required":  [
+                                                            "@@odata.type",
+                                                            "id",
+                                                            "lastModifiedDateTime",
+                                                            "name",
+                                                            "contentType",
+                                                            "size",
+                                                            "isInline",
+                                                            "contentBytes"
+                                                        ],
+                                                        "type":  "object"
+                                                    },
+                                                    "type":  "array"
+                                                },
+                                                "bccRecipients":  {
+                                                },
+                                                "body":  {
+                                                    "type":  "string"
+                                                },
+                                                "bodyPreview":  {
+                                                    "type":  "string"
+                                                },
+                                                "ccRecipients":  {
+                                                },
+                                                "conversationId":  {
+                                                    "type":  "string"
+                                                },
+                                                "from":  {
+                                                    "type":  "string"
+                                                },
+                                                "hasAttachments":  {
+                                                    "type":  "boolean"
+                                                },
+                                                "id":  {
+                                                    "type":  "string"
+                                                },
+                                                "importance":  {
+                                                    "type":  "string"
+                                                },
+                                                "internetMessageId":  {
+                                                    "type":  "string"
+                                                },
+                                                "isHtml":  {
+                                                    "type":  "boolean"
+                                                },
+                                                "isRead":  {
+                                                    "type":  "boolean"
+                                                },
+                                                "receivedDateTime":  {
+                                                    "type":  "string"
+                                                },
+                                                "replyTo":  {
+                                                },
+                                                "subject":  {
+                                                    "type":  "string"
+                                                },
+                                                "toRecipients":  {
+                                                    "type":  "string"
+                                                }
+                                            },
+                                            "type":  "object"
+                                        }
+                                    }
+                                },
+                                "Convert_Html_to_text":  {
+                                    "runAfter":  {
+                                        "Extract_Body_from_Email":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type":  "ApiConnection",
+                                    "inputs":  {
+                                        "host":  {
+                                            "connection":  {
+                                                "name":  "@parameters('$connections')['conversionservice']['connectionId']"
+                                            }
+                                        },
+                                        "method":  "post",
+                                        "body":  "\u003cp\u003e@{body('Extract_Body_from_Email')?['body']}\u003c/p\u003e",
+                                        "path":  "/html2text"
+                                    }
+                                },
+                                "Send_an_email_(V2)":  {
+                                    "runAfter":  {
+                                        "Copilot_Prompt_-_HTML_Report":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type":  "ApiConnection",
+                                    "inputs":  {
+                                        "host":  {
+                                            "connection":  {
+                                                "name":  "@parameters('$connections')['office365']['connectionId']"
+                                            }
+                                        },
+                                        "method":  "post",
+                                        "body":  {
+                                            "To":  "[parameters('toReportEmail')]",
+                                            "Subject":  "Response after analyzing CVEs",
+                                            "Body":  "\u003cp\u003e\u003cb\u003e\u003cstrong\u003eSessionId:\u003c/strong\u003e\u003c/b\u003e @{body('Copilot_Prompt_-_Extract_CVEs')?['sessionId']}\u003c/p\u003e\u003cbr\u003e\u003cp\u003e\u003cb\u003e\u003cstrong\u003eCVE Extraction: \u003c/strong\u003e\u003c/b\u003e@{body('Copilot_Prompt_-_Extract_CVEs')?['EvaluationResultContent']}\u003c/p\u003e\u003cbr\u003e\u003cp\u003e\u003cb\u003e\u003cstrong\u003eCVE Scan Result:\u003c/strong\u003e\u003c/b\u003e @{body('Copilot_Prompt_-_Generate_Report')?['EvaluationResultContent']}\u003c/p\u003e\u003cbr\u003e\u003cp\u003e\u003cb\u003e\u003cstrong\u003eCVE Final Report\u003c/strong\u003e\u003c/b\u003e\u003cb\u003e\u003cstrong\u003e: \u003c/strong\u003e\u003c/b\u003e@{body('Copilot_Prompt_-_HTML_Report')?['EvaluationResultContent']}\u003c/p\u003e",
+                                            "Cc":  "someemail@domain.com"
+                                        },
+                                        "path":  "/v2/Mail"
+                                    }
+                                },
+                                "Execute_JavaScript_Code":  {
+                                    "runAfter":  {
+                                        "Convert_Html_to_text":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type":  "JavaScriptCode",
+                                    "inputs":  {
+                                        "code":  "var regex = /CVE-[0-9]*-[0-9]*/g;\r\nemail = workflowContext.actions.Convert_Html_to_text.outputs.body\r\nreturn email.match(regex);"
+                                    }
+                                },
+                                "Set_cveArray":  {
+                                    "runAfter":  {
+                                        "Execute_JavaScript_Code":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type":  "SetVariable",
+                                    "inputs":  {
+                                        "name":  "cveArray",
+                                        "value":  "@body('Execute_JavaScript_Code')"
+                                    }
+                                },
+                                "Set_uniqueCVEArray":  {
+                                    "runAfter":  {
+                                        "Set_cveArray":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type":  "SetVariable",
+                                    "inputs":  {
+                                        "name":  "uniqueCVEArray",
+                                        "value":  "@union(variables('cveArray'),variables('cveArray'))"
+                                    }
+                                },
+                                "Copilot_Prompt_-_HTML_Report":  {
+                                    "runAfter":  {
+                                        "Copilot_Prompt_-_Generate_Report":  [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "limit":  {
+                                        "timeout":  "PT5M"
+                                    },
+                                    "type":  "ApiConnection",
+                                    "inputs":  {
+                                        "host":  {
+                                            "connection":  {
+                                                "name":  "@parameters('$connections')['securitycopilot']['connectionId']"
+                                            }
+                                        },
+                                        "method":  "post",
+                                        "body":  {
+                                            "PromptContent":  "/askgpt Convert the above report to HTML format, field name should be highlighted in bold.",
+                                            "SessionId":  "@body('Copilot_Prompt_-_Generate_Report')?['sessionId']"
+                                        },
+                                        "path":  "/process-prompt",
+                                        "retryPolicy":  {
+                                            "type":  "fixed",
+                                            "count":  1,
+                                            "interval":  "PT5M"
+                                        }
+                                    }
+                                }
+                            },
+                            "runAfter":  {
+                                "Initialize_uniqueCVEArray":  [
+                                    "Succeeded"
+                                ]
+                            },
+                            "else":  {
+                                "actions":  {
+                                }
+                            },
+                            "expression":  {
+                                "and":  [
+                                    {
+                                        "contains":  [
+                                            "@triggerBody()?['subject']",
+                                            "ISAC"
+                                        ]
+                                    },
+                                    {
+                                        "contains":  [
+                                            "@triggerBody()?['from']",
+                                            "username@somedomain.com"
+                                        ]
+                                    }
+                                ]
+                            },
+                            "type":  "If"
+                        },
+                        "Initialize_cveArray":  {
+                            "runAfter":  {
+                            },
+                            "type":  "InitializeVariable",
+                            "inputs":  {
+                                "variables":  [
+                                    {
+                                        "name":  "cveArray",
+                                        "type":  "array"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_uniqueCVEArray":  {
+                            "runAfter":  {
+                                "Initialize_cveArray":  [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type":  "InitializeVariable",
+                            "inputs":  {
+                                "variables":  [
+                                    {
+                                        "name":  "uniqueCVEArray",
+                                        "type":  "array"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "outputs":  {
+                    }
+                },
+                "parameters":  {
+                    "$connections":  {
+                        "value":  {
+                            "office365":  {
+                                "connectionId":  "[resourceId('Microsoft.Web/connections', variables('Office365-ConnectionName'))]",
+                                "connectionName":  "[variables('Office365-ConnectionName')]",
+                                "id":  "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/Office365')]"
+                            },
+                            "securitycopilot":  {
+                                "connectionId":  "[resourceId('Microsoft.Web/connections', variables('SecuritycopilotConnectionName'))]",
+                                "connectionName":  "[variables('SecuritycopilotConnectionName')]",
+                                "id":  "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/Securitycopilot')]"
+                            },
+                            "conversionservice":  {
+                                "connectionId":  "[resourceId('Microsoft.Web/connections', variables('ConversionserviceConnectionName'))]",
+                                "connectionName":  "[variables('ConversionserviceConnectionName')]",
+                                "id":  "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/Conversionservice')]"
+                            }
+                        }
+                    }
+                },
+                "accessControl":  {
+                }
+            },
+            "name":  "[parameters('PlaybookName')]",
+            "type":  "Microsoft.Logic/workflows",
+            "location":  "[resourceGroup().location]",
+            "apiVersion":  "2017-07-01",
+            "dependsOn":  [
+                "[resourceId('Microsoft.Web/connections', variables('Office365-ConnectionName'))]",
+                "[resourceId('Microsoft.Web/connections', variables('SecuritycopilotConnectionName'))]",
+                "[resourceId('Microsoft.Web/connections', variables('ConversionserviceConnectionName'))]"
+            ]
+        },
+        {
+            "type":  "Microsoft.Web/connections",
+            "apiVersion":  "2016-06-01",
+            "name":  "[variables('Office365-ConnectionName')]",
+            "location":  "[resourceGroup().location]",
+            "kind":  "V1",
+            "properties":  {
+                "displayName":  "[variables('Office365-ConnectionName')]",
+                "customParameterValues":  {
+                },
+                "api":  {
+                    "id":  "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/Office365')]"
+                }
+            }
+        },
+        {
+            "type":  "Microsoft.Web/connections",
+            "apiVersion":  "2016-06-01",
+            "name":  "[variables('SecuritycopilotConnectionName')]",
+            "location":  "[resourceGroup().location]",
+            "kind":  "V1",
+            "properties":  {
+                "displayName":  "[variables('SecuritycopilotConnectionName')]",
+                "customParameterValues":  {
+                },
+                "api":  {
+                    "id":  "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/Securitycopilot')]"
+                }
+            }
+        },
+        {
+            "type":  "Microsoft.Web/connections",
+            "apiVersion":  "2016-06-01",
+            "name":  "[variables('ConversionserviceConnectionName')]",
+            "location":  "[resourceGroup().location]",
+            "kind":  "V1",
+            "properties":  {
+                "displayName":  "[variables('ConversionserviceConnectionName')]",
+                "customParameterValues":  {
+                },
+                "api":  {
+                    "id":  "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/Conversionservice')]"
+                }
+            }
+        }
+    ]
+}
