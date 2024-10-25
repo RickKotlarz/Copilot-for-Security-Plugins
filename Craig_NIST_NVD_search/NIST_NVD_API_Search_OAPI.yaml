@@ -168,62 +168,62 @@ paths:
               '500':
                 description: Server error    .
 
-  c    ompo  nents:
-      sch  emas:
-        C  VEResponse:
-            type: object
-            properties:
-              resultsPerPage:
-                type: integer
-                example: 20
-              startIndex:
-                type: integer
-                example: 0
-              totalResults:
-                type: integer
-                example: 245593
-              vulnerabilities:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CVEItem'
-        C  VEItem:
-            type: object
-            properties:
-              cveId:
-                type: string
-                example: 'CVE-2019-1010218'
-              summary:
-                type: string
-                example: 'Description of the CVE.'
-              publishedDate:
-                type: string
-                format: date-time
-                example: '2019-07-10T00:00:00Z'
-              lastModifiedDate:
-                type: string
-                format: date-time
-                example: '2019-08-10T00:00:00Z'
-              cvssV2Metrics:
-                type: string
-                example: 'AV:N/AC:L/Au:N/C:P/I:P/A:P'
-              cvssV3Metrics:
-                type: string
-                example: 'AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H'
-              severity:
-                type: string
-                enum: [LOW, MEDIUM, HIGH, CRITICAL]
-                example: 'HIGH'
-              cweId:
-                type: string
-                example: 'CWE-287'
-              references:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    source:
-                      type: string
-                    url:
-                      type: string
-                    description:
-                      type: string
+    components:
+      schemas:
+        CVEResponse:
+          type: object
+          properties:
+            resultsPerPage:
+              type: integer
+              example: 20
+            startIndex:
+              type: integer
+              example: 0
+            totalResults:
+              type: integer
+              example: 245593
+            vulnerabilities:
+              type: array
+              items:
+                $ref: '#/components/schemas/CVEItem'
+        CVEItem:
+          type: object
+          properties:
+            cveId:
+              type: string
+              example: 'CVE-2019-1010218'
+            summary:
+              type: string
+              example: 'Description of the CVE.'
+            publishedDate:
+              type: string
+              format: date-time
+              example: '2019-07-10T00:00:00Z'
+            lastModifiedDate:
+              type: string
+              format: date-time
+              example: '2019-08-10T00:00:00Z'
+            cvssV2Metrics:
+              type: string
+              example: 'AV:N/AC:L/Au:N/C:P/I:P/A:P'
+            cvssV3Metrics:
+              type: string
+              example: 'AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H'
+            severity:
+              type: string
+              enum: [LOW, MEDIUM, HIGH, CRITICAL]
+              example: 'HIGH'
+            cweId:
+              type: string
+              example: 'CWE-287'
+            references:
+              type: array
+              items:
+                type: object
+                properties:
+                  source:
+                    type: string
+                  url:
+                    type: string
+                  description:
+                    type: string
