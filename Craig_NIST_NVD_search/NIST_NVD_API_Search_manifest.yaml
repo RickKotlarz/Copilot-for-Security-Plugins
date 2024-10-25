@@ -1,0 +1,22 @@
+Descriptor:
+  Name: NistNvdApiSearch
+  DisplayName: NIST NVD API CVE search.
+  Description: Search for software vulnerabilities and cves on nist nvd database. 
+
+  SupportedAuthTypes:
+    - ApiKey
+#      Request an API key from:
+#          https://nvd.nist.gov/developers/request-an-api-key
+
+  Authorization:
+    Type: APIKey
+    Key: x-apikey
+    Location: Header
+    AuthScheme: ''
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/cd1zz/nistnvd/main/nistnvd_openapi.yaml
+	  
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Craig_NIST_NVD_search/NIST_NVD_API_Search_OAPI.yaml
