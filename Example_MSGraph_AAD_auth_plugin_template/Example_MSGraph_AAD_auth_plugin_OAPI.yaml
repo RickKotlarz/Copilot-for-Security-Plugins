@@ -5,7 +5,7 @@
 # When building out a Graph API based plugin, you'll want to use the Graph Explorer.
 # https://developer.microsoft.com/en-us/graph/graph-explorer
 #####################################################################################
-# Updated 2024-10-14
+# Updated 2024-10-25
 
 openapi: 3.0.0
 
@@ -74,7 +74,7 @@ paths:
             operationId: GetEvidenceForSpecificAlert
             description: |
               Get all the evidence details of a specific alert id
-              #ExamplePrompt: Get all the evidence details for alert ID 1234
+              #ExamplePrompt: Get all the evidence details for alert ID
             parameters:
 #             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
                 - in: path
