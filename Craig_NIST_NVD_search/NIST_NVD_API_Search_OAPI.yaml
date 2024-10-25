@@ -4,10 +4,10 @@ info:
   description: API for retrieving CVE details from the National Vulnerability Database.
   version: "2.0"
 servers:
-  - url: https://services.nvd.nist.gov/rest/json/cves/2.0
+  - url: https://services.nvd.nist.gov/rest/json/cves
 
 paths:
-  /:
+  /2.0:
     get:
       operationID: GetNISTcveInfo
       description: Retrieve CVEs from NIST NVD based on multiple filter criteria.
