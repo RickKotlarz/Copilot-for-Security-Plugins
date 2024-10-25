@@ -9,7 +9,7 @@ servers:
 paths:
   /:
     get:
-      operationID: Get NIST CVE information
+      operationID: GetNISTcveInfo
       description: Retrieve CVEs from NIST NVD based on multiple filter criteria.
       parameters:
         - name: cpeName
