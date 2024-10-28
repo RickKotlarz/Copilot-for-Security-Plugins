@@ -1,5 +1,5 @@
 # This example API key auth plugin template using the VirusTotal API as an example to illustrate GET and POST calls
-# Updated 2024-10-14
+# Updated 2024-10-28
 
 openapi: 3.0.0
 
@@ -30,8 +30,9 @@ paths:
               VirusTotal - Used to assess the reputation and threat level of a provided IP addresses.
               This area can be multiple lines when using the pipe character after the colon character.
               You'll want to include additional information that is relevant for the Orchestreator to understand
-              #ExamplePrompt Get an IP report using VirusTotal for this IP address
-              #ExamplePrompt You'll want to include a few examples so the Orchestrator understands how to map user requests to the skill
+        ExamplePrompts:
+          - 'Get an IP report using VirusTotal for this IP address'
+          - 'You'll want to include a few examples so the Orchestrator understands how to map user requests to the skill'
             parameters:
 #             Parameters can be of the following types. For most situations you'll simply need to denote "path" or "query"
                 - in: path
@@ -63,6 +64,11 @@ paths:
             description: |
                VirusTotal - Search for files, URLs, domains, IPs and comments
                Helps to search for indicators of compromise across various categories.
+        ExamplePrompts:
+          - 'Search for the file hash within VirusTotal'
+          - 'Search for the URL within VirusTotal'
+          - 'Search for the domain file hash within VirusTotal'
+          - 'Search for the comment within VirusTotal'
             parameters:
                 - in: query
                   name: query
@@ -95,7 +101,9 @@ paths:
             description: |
               Submit a URL for scanning - returns an Analysis ID.
               VirusTotal - Submit a URL for scanning - returns an Analysis ID.
-            requestBody:
+            ExamplePrompts:
+              - 'Submit the URL for scanning'
+          requestBody:
               required: true
               content:
                 application/x-www-form-urlencoded:
