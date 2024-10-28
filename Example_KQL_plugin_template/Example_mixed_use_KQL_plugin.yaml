@@ -4,7 +4,7 @@
 Descriptor:
   Name: Example Mixed Use KQL plugin
   DisplayName: Example KQL plugin that use Sentinel and Defender
-  Description: An example of a mixed-use KQL plugin that integrates Defender and Sentinel skills. It includes multiple configuration examples and detailed comments to guide users
+  Description: An example of a mixed-use KQL plugin that integrates Defender and Sentinel skills, featuring multiple configuration examples and detailed comments to guide users.
  
 ##################################################################################################
 # Leaving the 'Settings' section below as-is. This will project variable fields to the end user
