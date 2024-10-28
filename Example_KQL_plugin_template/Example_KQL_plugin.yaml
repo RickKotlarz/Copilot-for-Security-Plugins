@@ -3,7 +3,7 @@
 
 Descriptor:
   Name: Example KQL plugin
-  DisplayName: Example KQL plugin
+  DisplayName: Example KQL plugin that use Sentinel and Defender
   Description: This plugin demonstrates how Copilot for Security can utilize custom KQL based plugins to extend its capabilities. To manually invoke the skills within this plugin, simply search for "SOC tools ~" in the skills menu of Copilot for Security. | Rick Kotlarz | Updated 2024-09-24
  
 ##################################################################################################
