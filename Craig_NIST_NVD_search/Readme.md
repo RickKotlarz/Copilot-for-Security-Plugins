@@ -7,8 +7,6 @@ Welcome to the Copilot for Security NIST NVD API Search plugin. This plugin uses
 
 1. Obtain the file [NIST_NVD_API_Search_manifest.yaml](https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/Craig_NIST_NVD_search/NIST_NVD_API_Search_manifest.yaml) from this directory.
 2. Upload the custom plugin
-3. When prompted, enter in Sentinel configuration data requested
-4. If you would like to hard code the Sentinel confugration data within the plugin you may as illustarted in **ShowUserIPinfo**
 
 #### Utlization of the plugin:
 
