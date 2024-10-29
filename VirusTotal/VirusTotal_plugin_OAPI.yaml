@@ -1,4 +1,4 @@
-# Updated 2024-10-08
+# Updated 2024-10-28
 
 openapi: 3.0.0
 
@@ -25,7 +25,8 @@ paths:
             operationId: VT-IPReport
             description: |
               Get an IP report
-              #ExamplePrompt Get an IP report using VirusTotal for this IP address
+            examplePrompts:
+              - 'Get an IP report using VirusTotal for this IP address'
             parameters:
                 - in: path
                   name: ip
@@ -52,7 +53,8 @@ paths:
             operationId: VT-DomainReport
             description: |
               Get a domain report
-              #ExamplePrompt Get a domain report using VirusTotal for this domain
+            examplePrompts:
+              - 'Get a domain report using VirusTotal for this domain'
             parameters:
                 - in: path
                   name: domain
@@ -78,7 +80,8 @@ paths:
             operationId: VT-GetFileReport
             description: |
               Gets a file report for a file hash
-              #ExamplePrompt Get a file report using VirusTotal for this file hash
+            examplePrompts:
+              - 'Get a file report using VirusTotal for this file hash'
             parameters:
                 - in: path
                   name: id
@@ -104,7 +107,8 @@ paths:
             operationId: VT-GetSummaryOfAllBehaviorReports
             description: |
               Gets a summary of all behavior reports for a file hash
-              #ExamplePrompt Get a summary of all behavior for this file hash 
+            examplePrompts:
+              - 'Get a summary of all behavior for this file hash'
             parameters:
                 - in: path
                   name: id
@@ -136,7 +140,8 @@ paths:
             operationId: VT-GetSummaryOfMitreAttacksObserved
             description: |
               Gets a summary of Mitre attacks observed for a file hash
-              #ExamplePrompt Get a summary of Mitre attacks for this file hash
+            examplePrompts:
+              - 'Get a summary of Mitre attacks for this file hash'
             parameters:
                 - in: path
                   name: id
@@ -162,7 +167,8 @@ paths:
             operationId: VT-GetFileBehaviorReportFromSandbox
             description: |
               Gets a file behavior report from a sandbox
-              #ExamplePrompt Get a file behavior report from sandbox with ID
+            examplePrompts:
+              - 'Get a file behavior report from sandbox with ID'
             parameters:
                 - in: path
                   name: sandbox_id
@@ -194,7 +200,8 @@ paths:
             operationId: VT-ScanURL
             description: |
               Submit a URL for scanning - returns an Analysis ID
-              #ExamplePrompt: Submit the following URL for scanning www.virustotal.com
+            examplePrompts:
+              - 'Submit the following URL for scanning'
             requestBody:
               required: true
               content:
@@ -249,7 +256,8 @@ paths:
             description: |
               Essential for determining the reputation and risk level associated with a URL.
               Gets a URL analysis report
-              #ExamplePrompt: Get a URL report from dmlydXN0b3RhbC5jb20
+            examplePrompts:
+              - 'Get a URL report from'
             parameters:
                 - in: path
                   name: id
@@ -289,8 +297,9 @@ paths:
             description: |
               Returns analysis ID report
               Accepts an analysis ID from ScanURL and returns the analysis report object.
-              #ExamplePrompt: Get the URL analysis for u-a354494a73382ea0b4bc47f4c9e8d6c578027cd4598196dc88f05a22b5817293-1725740919
-              #ExamplePrompt: Get the file analysis for u-b3s12594a73382ea0b4bc47aflkj49asdflj23z90fd6c578027cd32165468132-8435498132
+            examplePrompts:
+              - 'Get the URL analysis for'
+              - 'Get the file analysis for'
             parameters:
                 - in: path
                   name: id
@@ -316,7 +325,8 @@ paths:
             description: |
               To understand the general attack approaches associated with specific indicators.
               VirusTotal - Get an attack technique object
-              #ExamplePrompt: Get the Attack Tactics & Techniques for T1110.001
+            examplePrompts:
+              - 'Get the Attack Tactics & Techniques for T'
             parameters:
                 - in: path
                   name: id
@@ -343,7 +353,8 @@ paths:
             description: |
               To gather information on specific techniques that are part of an attack, often linked to MITRE ATT&CK.
               Get objects related to an attack technique
-              #ExamplePrompt: Get objects related to an attack technique T1110.001
+            examplePrompts:
+              - 'Get objects related to an attack technique T'
             parameters:
                 - in: path
                   name: id
@@ -376,7 +387,8 @@ paths:
             operationId: VT-GetPopularThreatCats
             description: |
               Provides insight into prevalent threats in the wild, which helps in focusing on major risks.
-              #ExamplePrompt: Gets a list of popular threat categories currently observed in the wild 
+            examplePrompts:
+              - 'Gets a list of popular threat categories currently observed in the wild'
             responses:
                 "200":
                     description: OK
@@ -396,10 +408,11 @@ paths:
             description: |
               Helps to search for indicators of compromise across various categories.
               Search for files, URLs, domains, IPs and comments
-              #ExamplePrompt: Search metadata for the hash eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76
-              #ExamplePrompt: Search metadata for the URL www.virustotal.com 
-              #ExamplePrompt: Search metadata for the following domain virustotal.com 
-              #ExamplePrompt: Search metadata for the comment "virustotal"
+            examplePrompts:
+              - 'Search metadata for the hash'
+              - 'Search metadata for the URL'
+              - 'Search metadata for the domain'
+              - 'Search metadata for the comment'
             parameters:
                 - in: query
                   name: query
