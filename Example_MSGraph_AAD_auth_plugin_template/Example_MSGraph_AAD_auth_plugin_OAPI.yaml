@@ -5,7 +5,7 @@
 # When building out a Graph API based plugin, you'll want to use the Graph Explorer.
 # https://developer.microsoft.com/en-us/graph/graph-explorer
 #####################################################################################
-# Updated 2024-10-25
+# Updated 2024-10-28
 
 openapi: 3.0.0
 
@@ -27,8 +27,10 @@ paths:
             operationId: GetEntraProfile
             description: |
               Gets Entra profile information from the MS Graph
-              #ExamplePrompt: Get my Entra profile
-              #ExamplePrompt: Who am I
+            examplePrompts:
+              - 'Get my Entra profile'
+              - 'Who am I'
+              - 'Get my user details'
             responses:
                 "200":
                     description: OK
@@ -46,8 +48,9 @@ paths:
             operationId: GetAlertIdsFromIncidentId
             description: |
               List all alert ID's based on a user provided Incident ID
-              #ExamplePrompt: show me alert ids for the specified incident id
-              #ExamplePrompt: Get me all alert ids where incident id is provided
+            examplePrompts:
+              - 'show me alert ids for the specified incident id'
+              - 'Get me all alert ids where incident id is provided'
             parameters:
 #             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
                 - in: query
@@ -74,7 +77,8 @@ paths:
             operationId: GetEvidenceForSpecificAlert
             description: |
               Get all the evidence details of a specific alert id
-              #ExamplePrompt: Get all the evidence details for alert ID
+            examplePrompts:
+              - 'Get all the evidence details for alert ID'
             parameters:
 #             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
                 - in: path
