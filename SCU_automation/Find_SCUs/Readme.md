@@ -7,4 +7,4 @@
 az resource list --query "[?contains(type, 'Microsoft.SecurityCopilot/capacities')].{ResourceName:name, ResourceGroup:resourceGroup, ResourceProviderType:type}" -o table
 ```
 Output should appear as...
-![Azure Portal Showing SCU location](https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Find_SCUs/Find-SCU-Results.png)
+![Azure Portal Showing SCU location](https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/SCU_automation/Find_SCUs/Find-SCU-Results.png)
