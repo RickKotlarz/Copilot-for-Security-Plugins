@@ -1,36 +1,35 @@
 # That this plugin is purely to provide a interim solution for manually reviewing sensitive configuration and/or vulnerability data when a Copilot for Security 3rd party plugin has not yet been created. 
 #
-# Examples:
-# IBM - QRadar OCSF - https://github.com/ocsf/examples/blob/main/mappings/markdown/IBM/QRadar%20SIEM/samples/offense.ocsf
-# Amazon Web Services (AWS) - Amazon Elastic Kubernetes Service JSON - https://github.com/ocsf/examples/blob/main/mappings/bloblang/AWS/eks/v1.2.0/samples/eks.json
-# Amazon Web Services (AWS) - VPC Web Flow YAML - https://raw.githubusercontent.com/ocsf/examples/refs/heads/main/mappings/dataprepper/AWS/v1.1.0/VPC%20Flow/pipeline.yaml
+# Input Examples:
+#  Input field 1: IBM 
+#  Input field 2: QRadar OCSF
+#  Input field 3: (copy raw file) https://github.com/ocsf/examples/blob/main/mappings/markdown/IBM/QRadar%20SIEM/samples/offense.ocsf
+#
+# Plugin updated on 2024-11-05
 
 Descriptor:
   Name: GPT Based Expert Analysis
   DisplayName: GPT Based Expert Analysis
-  Description: Skills for manually analyzing and assessing configurations, vulnerabilities, and other sensitive information that cannot yet be accessed through a plugin. This includes GPT based perspectives centered around function and potential impacts on operations, security, governance, risk, and compliance. Updated 2024-11-04
+  Description: Skills for manually analyzing and assessing configurations, vulnerabilities, and other sensitive information that cannot yet be accessed through a plugin. This includes GPT based perspectives centered around function and potential impacts on operations, security, governance, risk, and compliance.
 
 SkillGroups:
   - Format: GPT
     Skills:
       - Name: PerformGPTbasedExpertAnalysis
         DisplayName: Perform a GPT based expert analysis
-        Description: Perform a GPT based expert analysis with perspectives around function and potential impacts on operations, security, governance, risk, and compliance.
+        Description: Perform a GPT based expert analysis focused on OPSEC and GRC.
         DescriptionForModel: Performs an expert analysis using GPT to assess and evaluate configurations, vulnerabilities, and other sensitive information. The output provides insights into functionality, potential impacts on operational performance, security posture, governance frameworks, risk levels, and compliance requirements.
         Inputs:
           - Name: personaExpert
-#            PlaceHolderValue:
-            Description: High-level reference to the type of expert persona that you'd like reviewing your data (e.g., Microsoft Azure, Cisco, Palo-Alto, Juniper Networks, IBM, etc.).
+            Description: Provide a high-level reference to the type of expert persona that you'd like reviewing your data (e.g., Microsoft Azure, Cisco, Palo-Alto, Juniper Networks, IBM, etc.).  
             DefaultValue: null
             Required: true
           - Name: productNameOrFormatType
-#            PlaceHolderValue:
-            Description: Output format type that will be reviewed (e.g., Azure Policy JSON, ASA IOS configuration, Next-Generation Firewall (NGFW) XML, SRX Series Gateway Junos OS configuration, QRadar SIEM Log Event Extended Format (LEEF), OCSF, STIX, JSON, RegEx, etc.).
+            Description: What is the type of data that will be reviewed (e.g., Azure Policy JSON, ASA IOS configuration, Next-Generation Firewall (NGFW) XML, SRX Series Gateway Junos OS configuration, QRadar SIEM Log Event Extended Format (LEEF), OCSF, STIX, JSON, RegEx, etc.)?
             DefaultValue: null
             Required: true
           - Name: productOutput
-#            PlaceHolderValue:
-            Description: The configuration or vulnerability output you would like reviewed.
+            Description: Paste the data (configuration, rule, vulnerability, etc.), that you would like reviewed. 
             DefaultValue: null
             Required: true            
         Settings:
