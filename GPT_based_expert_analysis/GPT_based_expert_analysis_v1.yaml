@@ -1,16 +1,14 @@
-# That this plugin is purely to provide a interim solution for manually reviewing sensitive configuration and/or vulnerability data when a Copilot for Security 3rd party plugin has not yet been created. 
-#
 # Input Examples:
 #  Input field 1: IBM 
 #  Input field 2: QRadar OCSF
 #  Input field 3: (copy raw file) https://github.com/ocsf/examples/blob/main/mappings/markdown/IBM/QRadar%20SIEM/samples/offense.ocsf
 #
-# Plugin updated on 2024-11-05
+# Plugin updated on 2024-11-07
 
 Descriptor:
-  Name: GPT Based Expert Analysis
-  DisplayName: GPT Based Expert Analysis
-  Description: Skills for manually analyzing and assessing configurations, vulnerabilities, and other sensitive information that cannot yet be accessed through a plugin. This includes GPT based perspectives centered around function and potential impacts on operations, security, governance, risk, and compliance.
+  Name: GPT Based Expert Analysis v1
+  DisplayName: GPT Based Expert Analysis v1
+  Description: This plugin serves as a temporary tool for manually analyzing and evaluating configurations, vulnerabilities, and other sensitive information that are not yet accessible through a dedicated plugin. The analysis focuses on functionality and its potential impact on operations, security, governance, risk, and compliance.
 
 SkillGroups:
   - Format: GPT
@@ -46,4 +44,4 @@ SkillGroups:
             
             4. Ensure your review is thorough and offers clear, actionable insights to strengthen operational efficiency, security, governance, risk, and compliance posture."
 
-            Output to review starts here: {{productOutput}}
+            Data to review starts here: {{productOutput}}
