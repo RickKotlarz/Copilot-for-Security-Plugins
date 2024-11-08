@@ -1,4 +1,4 @@
-### Example KQL plugin v1 (Updated Oct-2024)
+### Example KQL plugin v1 (Updated Nov-2024)
 
 Welcome to the Copilot for Security Example KQL plugin. This plugin illustrates the use of KQL to query information from Sentinel or Defender
 
