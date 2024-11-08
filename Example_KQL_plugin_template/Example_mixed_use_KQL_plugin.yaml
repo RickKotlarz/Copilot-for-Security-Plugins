@@ -1,32 +1,60 @@
 # Spacing matters between parent and child objects. Hitting enter is fine, but tabular spaces will cause errors.
-# Updated 2024-10-29
+# Updated 2024-11-08
 
 Descriptor:
-  Name: Example Mixed Use KQL plugin
-  DisplayName: Example KQL plugin that use Sentinel and Defender
-  Description: An example of a mixed-use KQL plugin that integrates Defender and Sentinel skills, featuring multiple configuration examples and detailed comments to guide users.
- 
-##################################################################################################
-# Leaving the 'Settings' section below as-is. This will project variable fields to the end user
-#   during plugin installation and allow these values to be referenced throughout the plugin.
-##################################################################################################
+  Name: Mixed use KQL plugin example
+  DisplayName: Mixed use KQL plugin example that includes both Sentinel and Defender
+  Description: This mixed-use KQL plugin integrates Defender and Sentinel capabilities, providing multiple configuration examples and detailed comments to guide users. Once configured you can invoke each skill directly or by using example prompts to retrieve high and critical Defender alerts from the past 7 days, fetch sign-in data based on UPN over a customizable time frame, and search Sentinel for all IP addresses a specific user has used to sign-in along with the frequency of each IP.
+  Icon: https://raw.githubusercontent.com/MicrosoftDocs/architecture-center/refs/heads/main/docs/_images/i-security.svg
+      # https://github.com/MicrosoftDocs/architecture-center/blob/main/docs/_images/i-security.svg
+
+
+#############################################################################################
+# These settings will be prompted to the end user during plugin installation. 
+#   Reference to values stored within the variables are used by Sentinel KQL queries.
+#
+# You can modify the 'DefaultValue' string to appropriate values to avoid users having to 
+#   enter these details. Additionally if set the 'Required' state to 'false' users will not 
+#   see the initial configuration screen during plugin installation but will still have the 
+#   ability to modify these settings later.
+#############################################################################################
 
   Settings:
     - Name: TenantId
-      Description: The ID of the AAD Organization that the Sentinel workspace is in.
+      Description: Your Azure Tenant ID where the Sentinel workspace is in.
+      HintText: Enter your Azure Tenant ID
+      SettingType: string
       Required: true
-    - Name: WorkspaceName
-      Description: The id of the Azure Subscription that the Sentinel workspace is in.
-      Required: true
+      
     - Name: SubscriptionId
-      Description: The name of the Resource Group that the Sentinel workspace is in.
+      Description: Your Azure Subscription ID where the Sentinel workspace is provisioned.
+      SettingType: string
       Required: true
+      HintText: Enter your Azure Subscription ID.
+    
+    - Name: WorkspaceName
+      Description: The name Sentinel workspace that you'd like to reference.
+      SettingType: string
+      Required: true
+      HintText: Enter the Sentinel workspace that you'd like to reference.
+      
     - Name: ResourceGroupName
-      Description: The name of the Sentinel workspace.
+      Description: The Resource Group where the Sentinel workspace is provisioned..
+      SettingType: string
+      HintText: Enter your Resource Group where the Sentinel workspace is provisioned.
       Required: true
+
+#####################################################################################
+# The 'SupportedAuthTypes' field set to 'None' is required for the plugin settings 
+#   configuration window to present 'Settings' variable fields to the end user.
+#####################################################################################
 
   SupportedAuthTypes:
     - None
+
+#####################################################################################
+# SkillGroups can be a single type (KQL, GPT, API) or contain a mix
+#####################################################################################
     
 SkillGroups:
   - Format: KQL
@@ -40,24 +68,25 @@ SkillGroups:
 #        DisplayName: Name of the skill that the user will see when manually selecting the skill
 #        Description: |
 #          Detailed description that the user will see when manually selecting a skill.
-#          This area can be multiple lines when using the pipe character after the colon character.
-#          You'll want to include additional information that is relevant for the Orchestreator to understand
-#        ExamplePrompt:
-#          - 'An example prompt that you would expect from a user to invoke this skill'
-#          - 'Another example prompt, make sure you exclude entities that are meant to change (e.g. IP, username)'
+#          This area can be multiple lines when using the pipe character after the 'Description' field.
+#        ExamplePrompts:
+#          - An example prompt that a user might type to invoke this skill
+#          - Another example prompt.
+#          - Make sure you exclude named entities that are meant to change from user input (e.g. IP, username, IoCs, etc.) as these will actually lower skill selection probability.
 #        Inputs:
-#          - Name: variableYouWantFromTheUserThatIsReferencedInYourKQL
-#            Description: Description or examples that user will see before filling out this variable
-#            DefaultValue: defaultValue
+#          - Name: variableNameYouWantFromTheUserThatIsReferencedInYourKQL
+#            PlaceholderValue: Description or examples that user will see before filling out this variable. Note this field is displayed to the user.
+#            Description: Description that the orchestrator will use which includes any situations that explain when this input field should or should not be skipped. For example 'this field should be only used if an IP address is in IPv4 format'. Do not use the 'PlaceholderValue' field if you don't have any specific instructions for the orchestrator. Also this field is not displayed to the user.
+#            DefaultValue: defaultValue used if the 'Required' field is set to 'False'
 #            Required: true or false
 #        Settings:
-#          Target: DefenderOrSentinel
+#          Target: Defender, Sentinel, or Log Analytics
 #          Template: |-
 #            KQLtableYouAreReferencing
 #             //KQL comment to help the Orchestrator or users responsible for maintaining the code
-#             | KQL content {{variableYouWantFromTheUserThatIsReferencedInYourKQL}}
+#             | KQLTable {{variableYouWantFromTheUserThatIsReferencedInYourKQL}}
 #             | Additional KQL content
-
+#          TemplateUrl: https://someDomain.com/template.txt // This can only be used when the 'Template' field is not in use. Using this allows for a single plugin to be deployed, while the KQL template continues to be updated over time.
 
 #######################################################################################
 # KQL Example 1 - Defender KQL example with no user input required
@@ -65,17 +94,26 @@ SkillGroups:
 #     ResourceGroupName, or WorkspaceName but are limited to in their data storage.
 #######################################################################################
 
-      - Name: GetSigninDataForLast7Days
-        DisplayName: Get High and Critical alerts over the past 7 days
+      - Name: GetHighAndCriticalAlertsForTheLast7Days
+        DisplayName: Get high and critical alerts over the past 7 days
+        PlaceholderValue: |
+          Uses KQL to get all high and critical Microsoft Defender alerts over the past 7 days
         Description: |
-          Fetches Defender for all High and Critical alerts over the past 7 days
-        ExamplePrompt:
-          - 'Get high and critical alerts for the last 7 days'
-          - 'Get high and critical alerts for the last week'
+          Gets all high and critical Microsoft Defender alerts over the past 7 days
+        ExamplePrompts:
+          - Get high and critical Defender alerts for the last 7 days
+          - Get high and critical Microsoft Defender alerts for the last 7 days
+          - Get high and critical MDE alerts for the last 7 days
+          - Get high and critical Defender alerts for the last week
+          - Get high and critical Microsoft Defender alerts for the last week
+          - Get high and critical MDE alerts for the last week          
+          - Get recent high and critical Defender alerts
+          - Get recent high and critical Microsoft Defender alerts
+          - Get recent high and critical MDE alerts
         Settings:
           Target: Defender
           Template: |-
-            // This query retrieves the most recent sign-in time for each user, within a specified time range, and displays only the user's name and their last sign-in date to validate location. Provide insights and summarize this data.
+            // This KQL query filters the AlertInfo table for high and critical alerts generated in the past 7 days, displaying only the AlertId, Title, and TimeGenerated fields.
             AlertInfo
             | where Severity in ('High', 'Critical')
             | where TimeGenerated > ago(7d)
@@ -92,67 +130,76 @@ SkillGroups:
 
       - Name: GetSigninData
         DisplayName: Get sign-in data over the past n-days
+        PlaceholderValue: Uses KQL to get sign-in data with UPN over past n-days
         Description: |
-          Fetches sign-in data with UPN over past n-days
-        ExamplePrompt:
-          - 'Get sign-in data for the last days'
-          - 'Get login data for the last days'
-          - 'Get Entra sign-in data for the last days'
-          - 'Get Entra login data for the last days'
+          Gets Entra sign-in data for a user provided UPN between now and a user suppled day count.
+        ExamplePrompts:
+          - Get sign-in data for the last days
+          - Get login data for the last days
+          - Get Entra sign-in data for the last days
+          - Get Entra login data for the last days
         Inputs:
           - Name: dayRange
-            Description: The time range for the query (e.g., 1d, 7d)
+            PlaceholderValue: The time range for the query (e.g., 1d, 7d)
+            Description: Time range to perform a KQL query in the format of day number followed by `d`.
             DefaultValue: 1d
-            Required: true
+            Required: false
         Settings:
 #=====================================================================================
-# The following 'Settings' configuration relies on data entered during plugin install
+# These 'Settings' are required when the 'Target' type uses Sentinel. Variables used
+#   within the curly brackets are refrences to those within 'Settings' area at the top
+#   of the plugin (line
 #=====================================================================================
           Target: Sentinel
           TenantId: '{{TenantId}}'
-          WorkspaceName: '{{WorkspaceName}}'
           SubscriptionId: '{{SubscriptionId}}'
           ResourceGroupName: '{{ResourceGroupName}}'
+          WorkspaceName: '{{WorkspaceName}}'
 #=====================================================================================
           Template: |-
-            // This query retrieves the most recent sign-in time for each user, within a specified time range, and displays only the user's name and their last sign-in date to validate location. Provide insights and summarize this data.
+            // This KQL query retrieves sign-in logs from the SigninLogs table for the past  days, summarizing the most recent sign-in for each user by UPN, and then displays only the UPN and  LastSignInDate fields.
             SigninLogs
             | where TimeGenerated >= ago({{dayRange}})
             | summarize LastSignInDate=max(TimeGenerated) by UserPrincipalName 
-            | project UserPrincipalName, LastSignInDate 
-
+            | project UserPrincipalName, LastSignInDate          
+        
 
 #######################################################################################
 # KQL Example 3 - Sentinel example with hard coded configuration
 #   Sentinel KQL skills require configuring the TenantId, SubscriptionId, 
-#     ResourceGroupName, and WorkspaceName. In this example I've hard coded
+#     ResourceGroupName, and WorkspaceName. In this example I've hardcoded
 #     the Sentinel configuration with sample configuration information.
 #######################################################################################
 
       - Name: ShowUserIPinfo
         DisplayName: Show user IP addresses
+        PlaceholderValue: Lists unique IP logins for a given user and last login.
         Description: |
-          Lists unique IP logins for a given user and last login
-          Searches Sentinel for all IP addresses which a given user has every used to authenticate. Then counts the frequency that each IP was used, shows only the unique results and associated count, as well as the last time that IP was used.
-        ExamplePrompt:
-          - 'Use Sentinel and show all unique for all IP addresses for this user'
-          - 'Show the unique IPs for user'
-          - 'What are the unique IP addresses for user'
+          Lists unique IP logins for a given user and last login.
+          - Searches Sentinel for all IP addresses that a given user has ever used to authenticate.
+          - Counts the frequency for each IP showing only unique results
+          - Shows the the last time that IP was used
+        ExamplePrompts:
+          - Use Sentinel and show all unique for all IP addresses for this user
+          - Show the unique IPs for user
+          - What are the unique IP addresses for user
         Inputs:
           - Name: UserPrincipalNameYouAreLookingUp
             Description: User Principal Name to search for (e.g. user@mydomain.com)
-#           DefaultValue: 
             Required: true
 #=====================================================================================
-# The following 'Settings' configuration uses a hardcoded configuration
+# The following 'Settings' configuration uses a hardcoded configuration instead of
+#   those supplied by the user during set up of the plugin. This may be useful when
+#   creating plugins that require searching different workspaces and resource groups.
 #=====================================================================================
         Settings:
           Target: Sentinel
           TenantId: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
           SubscriptionId: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-          ResourceGroupName: yourSentinalResourceGroup
+          ResourceGroupName: yourSentinelResourceGroup
           WorkspaceName: yourSentinelWorkspace
           Template: |-
+            // This KQL query filters the SigninLogs table for entries associated with a specific user (UserPrincipalNameYouAreLookingUp), then aggregates the data to count the total sign-ins (Count) and determine the most recent sign-in time (LastUsed) for each unique `IPAddress` used by that user, displaying only the `IPAddress`, `Count`, and `LastUsed` fields.
             SigninLogs
             | where UserPrincipalName == "{{UserPrincipalNameYouAreLookingUp}}"
             | summarize Count = count(), LastUsed = max(TimeGenerated) by IPAddress
