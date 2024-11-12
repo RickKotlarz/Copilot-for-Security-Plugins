@@ -42,6 +42,6 @@ SkillGroups:
             Additionally:
             3. Identify any concerns, vulnerabilities, or security risks, and recommend specific actions or best practices to mitigate these, referencing industry standards and {{personaExpert}} guidelines where relevant.
             
-            4. Ensure your review is thorough and offers clear, actionable insights to strengthen operational efficiency, security, governance, risk, and compliance posture."
+            4. Ensure your review is thorough and offers clear, actionable insights to strengthen operational efficiency, security, governance, risk, and compliance posture.
 
             Data to review starts here: {{productOutput}}
