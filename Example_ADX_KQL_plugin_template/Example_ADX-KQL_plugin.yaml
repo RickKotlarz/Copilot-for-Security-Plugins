@@ -5,17 +5,6 @@ Descriptor:
   DisplayName: ADX search demo
   Description: ADX search demo
 
-  Settings:
-    - Name: ClusterURL
-      Description: The URL to your ADX cluster
-      Required: true
-    - Name: DatabaseName
-      Description: The database name within your ADX cluster
-      Required: true
-  
-  SupportedAuthTypes:
-    - None
-
 SkillGroups:
   - Format: KQL
     Skills:
