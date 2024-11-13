@@ -18,9 +18,9 @@ SkillGroups:
         Description: |
           Gets top n rows of the Alipine ADX cluster sorted by TimeGenerated
 #          This area can be multiple lines when using the pipe character after the colon character.
-#          You'll want to include additional information that is relevant for the Orchestreator to understand
+#          You'll want to include additional information that is relevant for the Orchestreator to understand          
         ExamplePrompt:
-          - 'Gets the top 10 rows of the 'TableYouWantToQuery' table from the 'Your-Cluster-Name-01' ADX cluster sort by TimeGenerated.'
+          - Gets the top 10 rows of the TableYouWantToQuery table from the Your-Cluster-Name-01 ADX cluster sort by TimeGenerated.
         Inputs:
           - Name: numberOfRows
             Description: Number of rows you wish to return from the top (.e.g. 10)
@@ -47,7 +47,7 @@ SkillGroups:
 #          This area can be multiple lines when using the pipe character after the colon character.
 #          You'll want to include additional information that is relevant for the Orchestreator to understand
         ExamplePrompt:
-          - 'Gets the top 10 rows of the 'TableYouWantToQuery' table from the 'Your-Cluster-Name-01' ADX cluster sort by TimeGenerated.'
+          - Gets the top 10 rows of the TableYouWantToQuery table from the Your-Cluster-Name-01 ADX cluster sort by TimeGenerated.
         Inputs:
           - Name: numberOfRows
             Description: Number of rows you wish to return from the top (.e.g. 10)
