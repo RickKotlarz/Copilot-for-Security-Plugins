@@ -1,4 +1,4 @@
-$subscription = "ea2133ed-40f7-465c-ba33-07882efc8bd0"
+$subscription = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 $resourceGroup = "copilot-for-security-demo"
 $resourceName = "cop-prod-useast"
 $resourceType = "microsoft.securitycopilot/capacities"
