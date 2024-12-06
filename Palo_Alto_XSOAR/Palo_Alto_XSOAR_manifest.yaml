@@ -1,3 +1,8 @@
+# # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
+# 2024-Dec-6
+#
+# https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
+
 Descriptor:
   Name: Palo Alto XSOAR plugin
   DisplayName: Palo Alto XSOAR
@@ -8,16 +13,17 @@ Descriptor:
 
   Authorization:
     Type: APIKey
-    Key: x-xdr-auth-id
-    HintText: Enter your x-xdr-auth-id
-    Location: Header
-    AuthScheme: ''
-    
-    Type: APIKey
     Key: Authorization
-    HintText: Enter API Authorization key
     Location: Header
     AuthScheme: ''
+
+  Settings:
+  - Name: x-xdr-auth-id
+    Label: x-xdr-auth-id
+    Description: Enter your x-xdr-auth-id here
+    HintText: Enter your x-xdr-auth-id here
+    SettingType: String
+    Required: true
 
   Icon: https://avatars.githubusercontent.com/u/70215919
 
