@@ -29,11 +29,11 @@ paths:
         - 'Get all Palo Alto XSOAR dashboards'
         - 'Get all Palo Alto XSOAR dashboards details'
         - 'Get all details for Palo Alto XSOAR dashboards'
-        responses:
-          "200":
-            description: OK
-          "400":
-            description: Bad request, invalid parameters
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request, invalid parameters
 
 ####################################################################################
 #  Dashboards
@@ -56,11 +56,11 @@ paths:
             required: true
             placeholderValue: Dashboard to look up
             description: Dashboard to look up
-        responses:
-          "200":
-            description: OK
-          "400":
-            description: Bad request, invalid parameters
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request, invalid parameters
               
                     
 ####################################################################################
@@ -86,8 +86,8 @@ paths:
             required: true
             placeholderValue: Incident ID to look up (e.g. 1234)
             description: Incident ID to look up
-        responses:
-          "200":
-            description: OK
-          "400":
-            description: Bad request, invalid parameters
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request, invalid parameters
