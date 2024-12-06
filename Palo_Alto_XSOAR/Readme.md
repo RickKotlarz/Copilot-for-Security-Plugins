@@ -12,5 +12,6 @@ Welcome to the Palo Alto XSOAR plugin. This plugin is an example of leveraging t
 
 #### Utlization of the plugin:
 
+- **X-GetAllDashboardDetails** Get all dashboards details
+- **X-GetDashboardDetails** Get details for specefic dashboard
 - **X-GetIncident** Get a specific incident
-
