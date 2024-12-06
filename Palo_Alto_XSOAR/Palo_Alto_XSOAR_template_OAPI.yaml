@@ -1,0 +1,93 @@
+# # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
+# 2024-Nov-26
+#
+# https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
+
+openapi: 3.0.0
+
+info:
+  title: Palo Alto XSOAR
+  description: Plugin example leveraging the Palo Alto XSOAR API
+  version: "v1.0.0"
+    
+servers:
+  - url: https://api-yourfqdn/xsoar
+#   Replace the above URL with your Palo Alto XSOAR URL.
+
+paths:
+
+####################################################################################
+#  Dashboards
+#     Get all dashboards details
+####################################################################################
+  /public/v1/dashboards:
+    get:
+      operationId: X-GetAllDashboardDetails
+      description: |
+        Palo Alto XSOAR - Get all dashboards details
+      examplePrompts:
+        - 'Get all Palo Alto XSOAR dashboards'
+        - 'Get all Palo Alto XSOAR dashboards details'
+        - 'Get all details for Palo Alto XSOAR dashboards'
+        responses:
+          "200":
+            description: OK
+          "400":
+            description: Bad request, invalid parameters
+
+####################################################################################
+#  Dashboards
+#     Get dashboard details for the specified dashboard
+####################################################################################
+
+  /public/v1/dashboards/{dashboardId}:
+    get:
+      operationId: X-GetAllDashboardDetails
+      description: |
+        Palo Alto XSOAR - Get details for specefic dashboard
+      examplePrompts:
+        - 'Get all Palo Alto XSOAR dashboards'
+        - 'Get details for Palo Alto XSOAR dashboard'
+        parameters:
+          - in: path
+            name: dashboardId
+            schema:
+              type: string
+            required: true
+            placeholderValue: Dashboard to look up
+            description: Dashboard to look up
+        responses:
+          "200":
+            description: OK
+          "400":
+            description: Bad request, invalid parameters
+              
+                    
+####################################################################################
+#  Incidents
+#     Get a specefic incident
+####################################################################################
+
+
+  /public/v1/incident/load/{id}:
+    get:
+      operationId: X-GetIncident
+      description: |
+        Palo Alto XSOAR - Get a specific incident
+      examplePrompts:
+        - 'Get Palo Alto XSOAR incident'
+        - 'Get Palo incident'
+        - 'Get Palo XSOAR incident'
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: string
+            required: true
+            placeholderValue: Incident ID to look up (e.g. 1234)
+            description: Incident ID to look up
+        responses:
+          "200":
+            description: OK
+          "400":
+            description: Bad request, invalid parameters

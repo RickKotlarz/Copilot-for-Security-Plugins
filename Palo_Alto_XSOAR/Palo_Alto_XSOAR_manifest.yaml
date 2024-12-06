@@ -1,0 +1,25 @@
+Descriptor:
+  Name: Palo Alto XSOAR plugin
+  DisplayName: Palo Alto XSOAR
+  Description: Plugin example leveraging the Palo Alto XSOAR API
+
+  SupportedAuthTypes:
+    - ApiKey
+
+  Authorization:
+    Type: APIKey
+    Key: x-xdr-auth-id    
+    Location: Header
+    AuthScheme: ''
+    
+    Type: APIKey
+    Key: Authorization
+    Location: Header
+    AuthScheme: ''
+
+  Icon: https://avatars.githubusercontent.com/u/70215919
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Palo_Alto_XSOAR/Palo_Alto_XSOAR_template_OAPI.yaml
