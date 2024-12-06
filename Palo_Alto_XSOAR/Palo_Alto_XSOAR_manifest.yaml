@@ -8,12 +8,14 @@ Descriptor:
 
   Authorization:
     Type: APIKey
-    Key: x-xdr-auth-id    
+    Key: x-xdr-auth-id
+    HintText: Enter your x-xdr-auth-id
     Location: Header
     AuthScheme: ''
     
     Type: APIKey
     Key: Authorization
+    HintText: Enter API Authorization key
     Location: Header
     AuthScheme: ''
 
