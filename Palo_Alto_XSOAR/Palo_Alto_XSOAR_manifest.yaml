@@ -14,7 +14,6 @@ Descriptor:
   Authorization:
     Type: APIKey
     Key: Authorization
-    Label: XSOAR API key
     Location: Header
     AuthScheme: ''
 
@@ -25,6 +24,14 @@ Descriptor:
     HintText: Enter XSOAR API key ID
     SettingType: String
     Required: true
+
+  - Name: APIKey
+    Label: XSOAR API key
+    Description: Enter your API key: https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
+    HintText: Enter XSOAR API ID
+    SettingType: String
+    Required: true
+
 
   Icon: https://avatars.githubusercontent.com/u/70215919
 
