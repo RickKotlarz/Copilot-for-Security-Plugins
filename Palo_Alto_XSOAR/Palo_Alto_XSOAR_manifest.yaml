@@ -14,14 +14,15 @@ Descriptor:
   Authorization:
     Type: APIKey
     Key: Authorization
+    Label: XSOAR API key
     Location: Header
     AuthScheme: ''
 
   Settings:
   - Name: x-xdr-auth-id
-    Label: x-xdr-auth-id
-    Description: Enter your x-xdr-auth-id here
-    HintText: Enter your x-xdr-auth-id here
+    Label: XSOAR API key ID
+    Description: Enter your API key ID: https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
+    HintText: Enter XSOAR API key ID
     SettingType: String
     Required: true
 
