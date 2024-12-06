@@ -14,6 +14,20 @@ servers:
   - url: https://api-yourfqdn/xsoar/
 #   Replace the above URL with your Palo Alto XSOAR URL.
 
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+    XdrAuthId:
+      type: apiKey
+      name: x-xdr-auth-id
+      in: header
+
+security:
+  - ApiKeyAuth: [{ ApiKeyAuth: [], XdrAuthId: [] }]
+
 paths:
 
 ####################################################################################
@@ -30,7 +44,6 @@ paths:
         - 'Get all Palo Alto XSOAR dashboards details'
         - 'Get all details for Palo Alto XSOAR dashboards'
       responses:
-
         "200":
           description: A list of dashboards.
           content:
@@ -55,17 +68,7 @@ paths:
         "400":
           description: Bad request, invalid parameters
           
-    components:
-      securitySchemes:
-        ApiKeyAuth:
-        type: apiKey
-        name: Authorization
-        in: header
-      XdrAuthId:
-        type: {{x-xdr-auth-id}}
-        name: x-xdr-auth-id
-        in: header
-      
+
       
 ####################################################################################
 #  Dashboards
@@ -90,7 +93,27 @@ paths:
           description: Dashboard to look up
       responses:
         "200":
-          description: OK
+          description: A list of dashboards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The unique identifier of the dashboard.
+                      example: '12345'
+                    name:
+                      type: string
+                      description: The name of the dashboard.
+                      example: 'Incident Overview'
+                    description:
+                      type: string
+                      description: A brief description of the dashboard.
+                      example: 'Provides a high-level view of incidents.'
+                      
         "400":
           description: Bad request, invalid parameters
                     
@@ -119,7 +142,46 @@ paths:
           description: Incident ID to look up
       responses:
         "200":
-          description: OK
+          description: Successful retrieval of dashboard details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The unique identifier of the dashboard.
+                    example: 'abc123'
+                  name:
+                    type: string
+                    description: The name of the dashboard.
+                    example: 'Security Overview'
+                  description:
+                    type: string
+                    description: A brief description of the dashboard.
+                    example: 'Provides an overview of security metrics.'
+                  widgets:
+                    type: array
+                    description: A list of widgets contained in the dashboard.
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: The unique identifier of the widget.
+                          example: 'widget456'
+                        name:
+                          type: string
+                          description: The name of the widget.
+                          example: 'Incident Count'
+                        type:
+                          type: string
+                          description: The type of widget (e.g., chart, table).
+                          example: 'chart'
+                        data:
+                          type: object
+                          description: The data displayed by the widget.
+                          additionalProperties: true
         "400":
           description: Bad request, invalid parameters
           
