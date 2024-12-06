@@ -11,7 +11,7 @@ info:
   version: "v1.0.0"
     
 servers:
-  - url: https://api-yourfqdn/xsoar
+  - url: https://api-yourfqdn/xsoar/
 #   Replace the above URL with your Palo Alto XSOAR URL.
 
 paths:
@@ -30,11 +30,43 @@ paths:
         - 'Get all Palo Alto XSOAR dashboards details'
         - 'Get all details for Palo Alto XSOAR dashboards'
       responses:
+
         "200":
-          description: OK
+          description: A list of dashboards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The unique identifier of the dashboard.
+                      example: '12345'
+                    name:
+                      type: string
+                      description: The name of the dashboard.
+                      example: 'Incident Overview'
+                    description:
+                      type: string
+                      description: A brief description of the dashboard.
+                      example: 'Provides a high-level view of incidents.'          
         "400":
           description: Bad request, invalid parameters
-
+          
+    components:
+      securitySchemes:
+        ApiKeyAuth:
+        type: apiKey
+        name: Authorization
+        in: header
+      XdrAuthId:
+        type: {{x-xdr-auth-id}}
+        name: x-xdr-auth-id
+        in: header
+      
+      
 ####################################################################################
 #  Dashboards
 #     Get dashboard details for the specified dashboard
@@ -42,7 +74,7 @@ paths:
 
   /public/v1/dashboards/{dashboardId}:
     get:
-      operationId: X-GetAllDashboardDetails
+      operationId: X-GetDashboardDetails
       description: |
         Palo Alto XSOAR - Get details for specefic dashboard
       examplePrompts:
@@ -61,7 +93,6 @@ paths:
           description: OK
         "400":
           description: Bad request, invalid parameters
-              
                     
 ####################################################################################
 #  Incidents
@@ -91,3 +122,4 @@ paths:
           description: OK
         "400":
           description: Bad request, invalid parameters
+          
