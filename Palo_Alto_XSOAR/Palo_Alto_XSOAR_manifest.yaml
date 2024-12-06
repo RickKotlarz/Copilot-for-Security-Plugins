@@ -16,12 +16,12 @@ Descriptor:
     Key: Authorization
     Location: Header
     AuthScheme: ''
-    Description: Enter the API Key used for authenticating requests to the Cortex XSOAR API The API Key used for authenticating requests to the Cortex XSOAR API
+    Description: Enter the API Key
 
   Settings:
   - Name: x-xdr-auth-id
     Label: XSOAR API key ID
-    Description: Enter your API key ID: https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
+    Description: Enter your API key ID
     HintText: Enter XSOAR API key ID
     SettingType: String
     Required: true
