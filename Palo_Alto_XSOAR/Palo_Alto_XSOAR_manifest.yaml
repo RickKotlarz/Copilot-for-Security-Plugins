@@ -16,7 +16,6 @@ Descriptor:
     Key: Authorization
     Location: Header
     AuthScheme: ''
-    Description: Enter the API Key
 
   Settings:
   - Name: x-xdr-auth-id
