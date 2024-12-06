@@ -8,15 +8,6 @@ Descriptor:
   DisplayName: Palo Alto XSOAR
   Description: Plugin example leveraging the Palo Alto XSOAR API
 
-  SupportedAuthTypes:
-    - ApiKey
-
-  Authorization:
-    Type: APIKey
-    Key: Authorization
-    Location: Header
-    AuthScheme: ''
-
   Settings:
   - Name: x-xdr-auth-id
     Label: XSOAR API key ID
@@ -24,6 +15,16 @@ Descriptor:
     HintText: Enter XSOAR API key ID
     SettingType: String
     Required: true
+
+  Authorization:
+    Type: APIKey
+    Key: Authorization
+    Location: Header
+    AuthScheme: ''
+    
+  SupportedAuthTypes:
+    - ApiKey
+
 
   Icon: https://avatars.githubusercontent.com/u/70215919
 
