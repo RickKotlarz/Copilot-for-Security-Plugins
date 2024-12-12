@@ -75,7 +75,7 @@ SkillGroups:
             // Parameters Rule Summary: [Provide a summary of each rule identified within the parameters JSON field]
             // Client IP: [IP address denoted as ClientIP_WithoutPort]
             let UserMailBox = "{{UserMailBox}}";
-            let TimePeriod = TimeFrameToSearch;
+            let TimePeriod = {{TimeFrameToSearch}};
             OfficeActivity
             | where TimeGenerated >= ago(TimePeriod)
             | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
