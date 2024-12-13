@@ -45,8 +45,8 @@ SkillGroups:
 #   - https://learn.microsoft.com/en-us/dotnet/api/microsoft.exchange.webservices.data.ruleactions
 ###########################################################################################################
 
-      - Name: GetMailboxRulesForAllUsers
-        DisplayName: Gets mailbox rules for a single user (Skill:GetMailboxRulesForAllUsers)
+      - Name: GetMailboxRulesForSingleUser
+        DisplayName: Gets mailbox rules for a single user (Skill:GetMailboxRulesForSingleUser)
         Description: |
           Gets user mailbox rules over a given time frame
         ExamplePrompts:
