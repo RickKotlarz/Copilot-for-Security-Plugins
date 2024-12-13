@@ -1,0 +1,125 @@
+# Author: Rick Kotlarz
+# Updated 13-Dec-2024
+
+Descriptor:
+  Name: Perform mailbox rule investigation
+  DisplayName: Perform mailbox rule investigation
+  Description: This plugin provides KQL queries to assist with mailbox rule investigations.
+  Icon: https://raw.githubusercontent.com/RickKotlarz/icons/refs/heads/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon/Mail%20Error.svg
+  # Source: https://github.com/RickKotlarz/icons/tree/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon
+
+  Settings:
+    - Name: TenantId
+      Description: Your Azure Tenant ID where the Sentinel workspace is in.
+      HintText: Enter your Azure Tenant ID
+      SettingType: string
+      Required: true
+    - Name: SubscriptionId
+      Description: Your Azure Subscription ID where the Sentinel workspace is provisioned.
+      SettingType: string
+      Required: true
+      HintText: Enter your Azure Subscription ID.
+    - Name: WorkspaceName
+      Description: The name Sentinel workspace that you'd like to reference.
+      SettingType: string
+      Required: true
+      HintText: Enter the Sentinel workspace that you'd like to reference.
+    - Name: ResourceGroupName
+      Description: The Resource Group where the Sentinel workspace is provisioned..
+      SettingType: string
+      HintText: Enter the Resource Group where the Sentinel workspace is provisioned.
+      Required: true
+
+  SupportedAuthTypes:
+    - None
+   
+SkillGroups:
+  - Format: KQL
+    Skills:
+
+###########################################################################################################
+# Reference: OfficeActivity KQL table fields
+#   - https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/officeactivity
+#
+# Reference: Mailbox RuleAction included within the 'Parameters' JSON output
+#   - https://learn.microsoft.com/en-us/dotnet/api/microsoft.exchange.webservices.data.ruleactions
+###########################################################################################################
+
+      - Name: GetMailboxRulesForAllUsers
+        DisplayName: Gets mailbox rules for a single user (Skill:GetMailboxRulesForAllUsers)
+        Description: |
+          Gets user mailbox rules over a given time frame
+        ExamplePrompts:
+          - Get mailbox rules for user over the last days
+        Inputs:
+          - Name: TimeFrameToSearch
+            PlaceholderValue: The time range for the query (e.g., 7d)
+            Description: Time range to perform a KQL query in the format of day number followed by `d`.
+            DefaultValue: 7d
+            Required: false
+          - Name: UserMailBox
+            PlaceholderValue: Users mailbox e-mail address
+            Description: Users mailbox e-mail address
+            DefaultValue: 
+            Required: true
+        Settings:
+          Target: Sentinel
+          TenantId: '{{TenantId}}'
+          SubscriptionId: '{{SubscriptionId}}'
+          ResourceGroupName: '{{ResourceGroupName}}'
+          WorkspaceName: '{{WorkspaceName}}'
+          Template: |-
+            let UserMailBox = "{{UserMailBox}}";
+            let TimePeriod = {{TimeFrameToSearch}};
+            OfficeActivity
+            | where TimeGenerated >= ago(TimePeriod)
+            | where UserId !contains "NT AUTHORITY\\SYSTEM" // Excludes 'NT AUTHORITY\SYSTEM' due to high number of false positives
+            // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.            
+            | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
+            | where tolower(UserId) in (UserMailBox)
+            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule")
+            // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
+            // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
+            // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
+            | extend ClientIP_WithoutPort = split(ClientIP, ":")[0]
+            | project TimeGenerated, UserId, Operation, Parameters, ClientIP_WithoutPort
+
+###########################################################################################################
+# Reference: OfficeActivity KQL table fields
+#   - https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/officeactivity
+#
+# Reference: Mailbox RuleAction included within the 'Parameters' JSON output
+#   - https://learn.microsoft.com/en-us/dotnet/api/microsoft.exchange.webservices.data.ruleactions
+###########################################################################################################
+
+      - Name: GetMailboxRulesForAllUsers
+        DisplayName: Gets mailbox rules for all users within the last 30 days (Skill:GetMailboxRulesForAllUsers)
+        Description: |
+          Gets mailbox rules for all users within the last 30 days
+        ExamplePrompts:
+          - Get all mailbox rules using over the past 30 days
+          - Get all mailbox rules for every user
+          - Show me all mailbox rules
+          - Show me everyones mailbox rules
+        Settings:
+          Target: Sentinel
+          TenantId: '{{TenantId}}'
+          SubscriptionId: '{{SubscriptionId}}'
+          ResourceGroupName: '{{ResourceGroupName}}'
+          WorkspaceName: '{{WorkspaceName}}'
+          Template: |-
+            let TimePeriod = 30d;
+            OfficeActivity
+            | where TimeGenerated >= ago(TimePeriod)
+            | where UserId !contains "NT AUTHORITY\\SYSTEM" 
+            // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.
+            | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
+            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule")
+            // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
+            // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
+            // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
+            | extend ClientIP_WithoutPort = split(ClientIP, ":")[0]
+            | project TimeGenerated, UserId, Operation, Parameters, ClientIP_WithoutPort
+
+            
+###########################################################################################################

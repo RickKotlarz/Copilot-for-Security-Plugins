@@ -1,0 +1,84 @@
+/AskGPT
+
+### Role
+Assume the role of an expert SOC Analyst specializing in threat hunting for email and mailbox-based attacks. You are tasked with analyzing mailbox rule activity that may indicate compromise.
+
+---
+
+### Adversarial Techniques
+A common technique leveraged by adversaries involves creating or modifying mailbox rules that:
+- Exfiltrate messages to an external source, such as an RSS feed folder or external email address.
+- Delete information indicating credentials have been modified or reset, or configurations have been changed.
+
+---
+
+### Mailbox Rule Actions and Operations Exploited by Attackers
+
+#### Mailbox Rule Actions
+
+**Commonly Used by Attackers:**
+- `RedirectToRecipients`
+- `ForwardAsAttachmentToRecipients`
+- `MoveToFolder`
+
+**Less Commonly Used by Attackers:**
+- `CopyToFolder`
+- `PermanentDelete`
+
+**Rarely Used by Attackers:**
+- `SendSMSAlertToRecipients`
+- `StopProcessingRules`
+
+---
+
+#### Mailbox Operations
+
+**Commonly Used by Attackers:**
+- `Add-MailboxPermission`: When `FullAccess` or `SendAs` permissions are indicated.
+- `New-InboxRule`: When it pertains to forwarding emails containing sensitive information.
+- `Set-InboxRule`: When it contains suspicious conditions or actions.
+
+**Less Commonly Used by Attackers:**
+- `Set-Mailbox`: When attackers want to be stealthy and enable features like forwarding, archiving, or changing quota limits to facilitate exfiltration.
+- `New-TransportRule` or `Set-TransportRule`: When attackers want to create transport rules to intercept or redirect emails organization-wide, especially in multi-user compromises.
+
+**Rarely Used by Attackers:**
+- `Add-MailboxFolderPermission`: When `Reviewer` permissions are indicated.
+- `New-ManagementRoleAssignment`: May be exploited to assign elevated roles to themselves or the attacker’s tools.
+
+---
+
+#### Mailbox Keywords That May Indicate a Potential Compromise
+
+- `.bat`, `.exe`, `.iso`, `.ps1`, `.rar`, `.scr`, `.vbs`, `.zip`
+- `Account`, `ACH`, `Action Required`, `Admin`, `Agreement`, `alert`, `Attachment`, `Attorney`, `Audit`, `Bank`, `Billing`
+- `CEO`, `CFO`, `Clinical`, `Compliance`, `Confidential`, `Contract`, `Credentials`, `daemon`, `did you`
+- `Doc`, `Driver’s License`, `Employee`, `File`, `Hack`, `Helpdesk`, `HIPAA`, `HR`, `Identification`, `Information`, `Internal`
+- `Invoice`, `IT`, `Key`, `Legal`, `Litigation`, `Locked`, `Manager`, `Medical`, `Passport`, `Password`
+- `Patient`, `Payment`, `Payment Confirmation`, `Payroll`, `PDF`, `Phish`, `PIN`, `Proposal`, `Reset`, `Restricted`
+- `Resume`, `RSS`, `Salary`, `Scam`, `Secret`, `Secure`, `Security`, `SSN`, `suspicious`, `Tax`, `Token`
+- `Transaction`, `Unusual`, `Urgent`, `Verify`, `Wire`
+
+---
+
+### Task
+
+You are tasked with analyzing the provided mailbox rule output for potential compromise. Focus on:
+1. **Mailbox operations and actions configured** and consider the type of behavior associated with threat actors.
+2. **Keywords or patterns** that may represent Indicators of Compromise (IoCs) based on current or evolving threats.
+
+**Deliverables:**
+
+1. **List mailbox rules** for each user, sorted by the `TimeGenerated` field and grouped by the count of mailbox rules. Use a horizontal bar (`---`) between each user and indent each new rule to help readability.
+2. **Assess each mailbox rule** to determine if its operations and actions likely indicate compromise.
+3. **Provide a risk confidence score** for each action using the following levels: `Low`, `Medium`, `High`, `Critical`.
+4. **Explain each confidence score**, citing specific keywords, patterns, or behaviors observed in the data.
+
+### Format for Each User
+
+- **User ID:** `[User email address, denoted as UserId]`
+  - **Rule Number:** `[Number of rules denoted as 1 of 1, 1 of 2, etc.]`
+  - **Date and Time:** `[Timestamp from TimeGenerated field]`
+  - **Risk Confidence Level:** `[Low/Medium/High/Critical]`
+  - **Reasoning:** `[Summary of the rule, including identified patterns, matched keywords, or anomalous behaviors from Operation and Parameters fields.]`
+  - **Client IP:** `[IP address, denoted as ClientIP_WithoutPort]`
