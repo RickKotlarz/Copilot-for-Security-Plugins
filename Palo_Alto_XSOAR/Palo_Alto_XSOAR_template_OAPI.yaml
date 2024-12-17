@@ -8,25 +8,27 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v1.0.0"
+  version: "v1.0.1"
     
 servers:
   - url: https://api-yourfqdn/xsoar/
 #   Replace the above URL with your Palo Alto XSOAR URL.
 
+# https://learn.openapis.org/specification/security.html
 components:
   securitySchemes:
-  ApiKeyAuth:
-    type: apiKey
-    name: Authorization
-    in: header
   XdrAuthId:
     type: apiKey
     name: x-xdr-auth-id
     in: header
+  ApiKeyAuth:
+    type: apiKey
+    name: Authorization
+    in: header
 
 security:
-  - ApiKeyAuth: [{ ApiKeyAuth: [], XdrAuthId: [] }]
+  - XdrAuthId: []
+    ApiKeyAuth: []
 
 paths:
 
