@@ -16,6 +16,7 @@ Descriptor:
     SettingType: String
     Required: true
 
+    
   Authorization:
     Type: APIKey
     Key: Authorization
