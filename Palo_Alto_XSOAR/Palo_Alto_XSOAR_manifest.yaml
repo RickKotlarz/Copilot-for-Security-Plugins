@@ -7,35 +7,34 @@ Descriptor:
   Name: Palo Alto XSOAR plugin
   DisplayName: Palo Alto XSOAR
   Description: Plugin example leveraging the Palo Alto XSOAR API
-
-  Settings:
-  - Name: X-API-KEY-ID
-    Label: XSOAR API key ID
-    Description: Enter your API key ID
-    HintText: Enter XSOAR API key ID
-    SettingType: String
-    Required: true
-
-  - Name: X-API-KEY
-    Label: XSOAR API key
-    Description: Enter your API key
-    HintText: Enter XSOAR API key
-    SettingType: String
-    Required: true
-
-  Authorization:
-    Type: ApiKey
-    Key: X-API-KEY
-    Location: Header
-    AuthScheme: ''
-    
+  Icon: https://avatars.githubusercontent.com/u/70215919
+  
   SupportedAuthTypes:
     - ApiKey
 
+  Settings:
+  - Name: x-xdr-auth-id                  # Links to the template
+    Label: API key ID                    # Used for the UI only
+    Description: Enter your API key ID   # Used for the UI only
+    HintText: Enter API key ID           # Used for the UI only
+    SettingType: String                  # Used to ensure the key is visible to the user (default is 'SecretString')
+    Required: true
 
-  Icon: https://avatars.githubusercontent.com/u/70215919
+  - Name: Authorization
+    Label: API key                       # Used for the UI only
+    Description: Enter your API key      # Used for the UI only
+    HintText: Enter API key              # Used for the UI only
+    SettingType: String                  # Used to ensure the key is visible to the user (default is 
+    Required: true
+
+#  Authorization:
+#    Type: ApiKey
+#    Key: Authorization # Name of the header or query parm (default is 'Authorization')
+#   Value:             # Used to hardcode the API key
+#    Location: Header   # Location of key, can be 'Header' or 'QueryParams' (default is 'Header')
+#    AuthScheme: ''     # The name of the authentication scheme which will be prepended to the 'Value' when passed in the header. This can be left blank (e.g. ''), 'Bearer' or 'Basic')
 
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Palo_Alto_XSOAR/Palo_Alto_XSOAR_template_OAPI.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/Palo_Alto_XSOAR/Palo_Alto_XSOAR_template_OAPI.yaml
