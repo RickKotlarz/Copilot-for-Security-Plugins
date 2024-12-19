@@ -1,5 +1,5 @@
 # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
-# 2024-Dec-6
+# 2024-Dec-19
 #
 # https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
 
@@ -8,7 +8,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v1.0.1"
+  version: "v1.0.2"
     
 servers:
   - url:  https://httpbin.org/
@@ -18,19 +18,20 @@ servers:
 # https://learn.openapis.org/specification/security.html
 components:
   securitySchemes:
-    apiKeyID:                 # arbitrary name for the security scheme
+    apiKeyIDAuth:              # arbitrary name for the security scheme
       type: apiKey
-      in: header              # can be "header", "query" or "cookie"
-      name: X-API-KEY-ID      # name of the header, query parameter or cookie
-
-    apiKeyAuth:
+      in: header               # can be "header", "query" or "cookie"
+      name: x-xdr-auth-id      # Value sent to the endpoint in the requested (e.g. {x-xdr-auth-id: 24})
+      description: "The API Key ID for authentication."
+    apiKeySecretAuth:
       type: apiKey
       in: header
-      name: X-API-KEY
-
+      name: Authorization
+      description: "The API Key Secret for authentication."
+      
 security:
-  - apiKeyID: []
-    apiKeyAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
+  - apiKeyIDAuth: []
+    apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
 
 paths:
 
@@ -52,7 +53,25 @@ paths:
           description: OK
         "400":
           description: Bad request, invalid parameters
-
+        "401":
+          description: Authentication failed. API Key ID or API Key is incorrect.
+        "403":
+          description: Access forbidden. Check API Key permissions.
+      parameters:
+        - in: header
+          name: x-xdr-auth-id
+          schema:
+            type: string
+          required: true
+          description: API Key ID for authentication.
+          example: "24"
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: API Key for authentication.
+          example: "asdfsdfasdfsadf"
 
 ####################################################################################
 #  Dashboards
