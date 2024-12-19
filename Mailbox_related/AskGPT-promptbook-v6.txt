@@ -14,33 +14,30 @@ A common technique leveraged by adversaries involves creating or modifying mailb
 
 ### Mailbox Rule Actions and Operations Exploited by Attackers
 
-#### Mailbox Rule Actions
+#### Mailbox Rule Actions and Attacker Logic
 
 **Commonly Used by Attackers:**
-- `RedirectToRecipients`
-- `ForwardAsAttachmentToRecipients`
-- `MoveToFolder`
-- 'ForwardToRecipients'
+- `RedirectToRecipients` Ensures attackers receive email copies without leaving traces in the original mailbox.
+- `PermanentDelete` Used to hide traces by permanently deleting emails.
+- `MoveToFolder` Used to hide emails in obscure folders to avoid detection.
+- `ForwardAsAttachmentToRecipients` Attackers frequently use this to exfiltrate emails to external addresses.
+- `ForwardToRecipients` Allows attackers to send email contents externally for further exploitation.
 
 **Less Commonly Used by Attackers:**
-- `CopyToFolder`
-- `PermanentDelete`
-
-**Rarely Used by Attackers:**
-- `SendSMSAlertToRecipients`
-- `StopProcessingRules`
+- `StopProcessingRules` Can be used to disable legitimate mailbox rules but not as common as direct exfiltration.
+- `Delete` Sometimes used to clean up traces, but the "Deleted Items" folder could still reveal activity.
 
 ---
 
-#### Mailbox Operations
+#### Mailbox Operations and Attacker Logic
 
 **Commonly Used by Attackers:**
 - `Add-MailboxPermission`: When `FullAccess` or `SendAs` permissions are indicated.
-- `New-InboxRule`: When it pertains to forwarding emails containing sensitive information.
-- `Set-InboxRule`: When it contains suspicious conditions or actions.
+- `New-InboxRule`: When used to exfiltrate sensitive information, hide malicious activities, or manipulating email flow to suppress alerts or maintain persistence in compromised accounts.
+- `Set-InboxRule`: When used to exfiltrate sensitive information, hide malicious activities, or manipulating email flow to suppress alerts or maintain persistence in compromised accounts.
 
 **Less Commonly Used by Attackers:**
-- `Set-Mailbox`: When attackers want to be stealthy and enable features like forwarding, archiving, or changing quota limits to facilitate exfiltration.
+- `Set-Mailbox`: When attackers want to exfiltrate sensitive information, disable security features, modify permissions such as 'FullAccess' or 'SendAs', changing quota limits to facilitate exfiltration, and obstruct detection
 - `New-TransportRule` or `Set-TransportRule`: When attackers want to create transport rules to intercept or redirect emails organization-wide, especially in multi-user compromises.
 
 **Rarely Used by Attackers:**
