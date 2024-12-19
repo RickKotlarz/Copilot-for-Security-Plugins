@@ -1,41 +1,113 @@
-# # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
+# Author Rick Kotlarz ~ https://github.com/RickKotlarz/
 # 2024-Dec-6
 #
 # https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
 
-Descriptor:
-  Name: Palo Alto XSOAR plugin
-  DisplayName: Palo Alto XSOAR
-  Description: Plugin example leveraging the Palo Alto XSOAR API
+openapi: 3.0.0
 
-  Settings:
-  - Name: X-API-KEY-ID
-    Label: XSOAR API key ID
-    Description: Enter your API key ID
-    HintText: Enter XSOAR API key ID
-    SettingType: String
-    Required: true
-
-  - Name: X-API-KEY
-    Label: XSOAR API key
-    Description: Enter your API key
-    HintText: Enter XSOAR API key
-    SettingType: String
-    Required: true
-
-  Authorization:
-    Type: ApiKey
-    Key: X-API-KEY
-    Location: Header
-    AuthScheme: ''
+info:
+  title: Palo Alto XSOAR
+  description: Plugin example leveraging the Palo Alto XSOAR API
+  version: "v1.0.1"
     
-  SupportedAuthTypes:
-    - ApiKey
+servers:
+  - url:  https://httpbin.org/
+#  - url: https://api-yourfqdn/xsoar/
+#   Replace the above URL with your Palo Alto XSOAR URL.
+
+# https://learn.openapis.org/specification/security.html
+components:
+  securitySchemes:
+    apiKeyID:                 # arbitrary name for the security scheme
+      type: apiKey
+      in: header              # can be "header", "query" or "cookie"
+      name: X-API-KEY-ID      # name of the header, query parameter or cookie
+
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+
+security:
+  - apiKeyID: []
+    apiKeyAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
+
+paths:
+
+####################################################################################
+#  Dashboards
+#     Get all dashboards details
+####################################################################################
+  /public/v1/dashboards:
+    get:
+      operationId: X-GetAllDashboardDetails
+      description: |
+        Palo Alto XSOAR - Get all dashboards details
+      examplePrompts:
+        - 'Get all Palo Alto XSOAR dashboards'
+        - 'Get all Palo Alto XSOAR dashboards details'
+        - 'Get all details for Palo Alto XSOAR dashboards'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request, invalid parameters
 
 
-  Icon: https://avatars.githubusercontent.com/u/70215919
+####################################################################################
+#  Dashboards
+#     Get dashboard details for the specified dashboard
+####################################################################################
 
-SkillGroups:
-  - Format: API
-    Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/Palo_Alto_XSOAR/Palo_Alto_XSOAR_template_OAPI.yaml
+  /public/v1/dashboards/{dashboardId}:
+    get:
+      operationId: X-GetDashboardDetails
+      description: |
+        Palo Alto XSOAR - Get details for specefic dashboard
+      examplePrompts:
+        - 'Get all Palo Alto XSOAR dashboards'
+        - 'Get details for Palo Alto XSOAR dashboard'
+      parameters:
+        - in: path
+          name: dashboardId
+          schema:
+            type: string
+          required: true
+          placeholderValue: Dashboard to look up
+          description: Dashboard to look up
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request, invalid parameters
+                    
+####################################################################################
+#  Incidents
+#     Get a specefic incident
+####################################################################################
+
+
+  /public/v1/incident/load/{id}:
+    get:
+      operationId: X-GetIncident
+      description: |
+        Palo Alto XSOAR - Get a specific incident
+      examplePrompts:
+        - 'Get Palo Alto XSOAR incident'
+        - 'Get Palo incident'
+        - 'Get Palo XSOAR incident'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          placeholderValue: Incident ID to look up (e.g. 1234)
+          description: Incident ID to look up
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request, invalid parameters
+
+          
