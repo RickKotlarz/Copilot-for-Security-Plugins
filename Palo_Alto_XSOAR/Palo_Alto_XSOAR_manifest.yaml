@@ -9,17 +9,23 @@ Descriptor:
   Description: Plugin example leveraging the Palo Alto XSOAR API
 
   Settings:
-  - Name: x-xdr-auth-id
+  - Name: X-API-KEY-ID
     Label: XSOAR API key ID
     Description: Enter your API key ID
     HintText: Enter XSOAR API key ID
     SettingType: String
     Required: true
 
-    
+  - Name: X-API-KEY
+    Label: XSOAR API key
+    Description: Enter your API key
+    HintText: Enter XSOAR API key
+    SettingType: String
+    Required: true
+
   Authorization:
-    Type: APIKey
-    Key: Authorization
+    Type: ApiKey
+    Key: X-API-KEY
     Location: Header
     AuthScheme: ''
     
