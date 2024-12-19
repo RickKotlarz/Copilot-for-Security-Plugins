@@ -20,6 +20,7 @@ A common technique leveraged by adversaries involves creating or modifying mailb
 - `RedirectToRecipients`
 - `ForwardAsAttachmentToRecipients`
 - `MoveToFolder`
+- 'ForwardToRecipients'
 
 **Less Commonly Used by Attackers:**
 - `CopyToFolder`
