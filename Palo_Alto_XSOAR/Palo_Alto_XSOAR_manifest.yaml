@@ -9,7 +9,7 @@ Descriptor:
   Icon: https://avatars.githubusercontent.com/u/70215919
 
   Settings:
-    - Name: settingTestName                # Links to the template
+    - Name: settingTestName                # Links to the plugin but not used yet for this plugin
       Label: Label in the UI               # Used for the UI only
       Description: Description goes here   # Used for the UI only
       HintText: Hint Text goes here        # Used for the UI only
