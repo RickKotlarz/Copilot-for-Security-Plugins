@@ -1,26 +1,36 @@
 # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
 # 2024-Dec-26
-#
-# https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
 
 openapi: 3.0.0
 
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v1.0.2"
-    
+  version: "v2.0.0"
+
 servers:
   - url:  https://httpbin.org/
 #  - url: https://api-yourfqdn/xsoar/
 #   Replace the above URL with your Palo Alto XSOAR URL.
-
 # https://learn.openapis.org/specification/security.html
+    
+paths:
+    /headers:
+        get:
+
 components:
+  parameters:
+    name: x-xdr-auth-id
+    in: header
+    required: false
+    description: my API auth ID
+    schema:
+      type: string
+      default: 1234            # API authentication ID to be passed during each request
   securitySchemes:
-    apiKeyIDAuth:              # arbitrary name for the security scheme
+    apiKeyIDAuth:              # Arbitrary name to reference the security scheme 
       type: apiKey
-      in: header               # can be "header", "query" or "cookie"
+      in: header               # Can be "header", "query" or "cookie"
       name: x-xdr-auth-id      # Value sent to the endpoint in the requested (e.g. {x-xdr-auth-id: 24})
       description: "The API Key ID for authentication."
     apiKeySecretAuth:
@@ -28,43 +38,16 @@ components:
       in: header
       name: Authorization
       description: "The API Key Secret for authentication."
-
-  parameters:
-    xdrAuthId:
-      name: x-xdr-auth-id
-      in: header
-      required: false
-      description: API Key ID for authentication.
-      defaultValue: 1234
-      schema:
-        type: string
-      example: "24"
-    authorization:
-      name: Authorization
-      in: header
-      required: true
-      description: API Key for authentication.
-      schema:
-        type: string
-      example: "123asdfasdfsadf"
-    dashboardId:
-      name: dashboardId
-      in: path
-      required: true
-      description: Dashboard ID to look up.
-      schema:
-        type: string
-      example: "dashboard123"
- 
-security:
-  - apiKeyIDAuth: []
-    apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
-
+  security:
+    - apiKeyIDAuth: []
+      apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
+  
 paths:
 
 ####################################################################################
 #  Dashboards
 #     Get all dashboards details
+#     https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
 ####################################################################################
   /public/v1/dashboards:
     get:
@@ -75,16 +58,14 @@ paths:
         - 'Get all Palo Alto XSOAR dashboards'
         - 'Get all Palo Alto XSOAR dashboards details'
         - 'Get all details for Palo Alto XSOAR dashboards'
+      parameters:
+        - $ref: '#/components/parameters/XdrAuthId' # Used to pass the API ID      
       responses:
         "200":
           description: OK
         "400":
           description: Bad request, invalid parameters
-        "401":
-          description: Authentication failed. API Key ID or API Key is incorrect.
-        "403":
-          description: Access forbidden. Check API Key permissions.
-
+            
 ####################################################################################
 #  Dashboards
 #     Get dashboard details for the specified dashboard
@@ -99,6 +80,7 @@ paths:
         - 'Get all Palo Alto XSOAR dashboards'
         - 'Get details for Palo Alto XSOAR dashboard'
       parameters:
+        - $ref: '#/components/parameters/XdrAuthId' # Used to pass the API ID      
         - in: path
           name: dashboardId
           schema:
@@ -128,6 +110,7 @@ paths:
         - 'Get Palo incident'
         - 'Get Palo XSOAR incident'
       parameters:
+        - $ref: '#/components/parameters/XdrAuthId' # Used to pass the API ID      
         - in: path
           name: id
           schema:
@@ -140,5 +123,5 @@ paths:
           description: OK
         "400":
           description: Bad request, invalid parameters
-
           
+
