@@ -1,5 +1,5 @@
 # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
-# 2024-Dec-19
+# 2024-Dec-26
 #
 # https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
 
@@ -28,7 +28,34 @@ components:
       in: header
       name: Authorization
       description: "The API Key Secret for authentication."
-      
+
+  parameters:
+    xdrAuthId:
+      name: x-xdr-auth-id
+      in: header
+      required: false
+      description: API Key ID for authentication.
+      defaultValue: 1234
+      schema:
+        type: string
+      example: "24"
+    authorization:
+      name: Authorization
+      in: header
+      required: true
+      description: API Key for authentication.
+      schema:
+        type: string
+      example: "123asdfasdfsadf"
+    dashboardId:
+      name: dashboardId
+      in: path
+      required: true
+      description: Dashboard ID to look up.
+      schema:
+        type: string
+      example: "dashboard123"
+ 
 security:
   - apiKeyIDAuth: []
     apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
@@ -57,21 +84,6 @@ paths:
           description: Authentication failed. API Key ID or API Key is incorrect.
         "403":
           description: Access forbidden. Check API Key permissions.
-      parameters:
-        - in: header
-          name: x-xdr-auth-id
-          schema:
-            type: string
-          required: true
-          description: API Key ID for authentication.
-          example: "24"
-        - in: header
-          name: Authorization
-          schema:
-            type: string
-          required: true
-          description: API Key for authentication.
-          example: "asdfsdfasdfsadf"
 
 ####################################################################################
 #  Dashboards
