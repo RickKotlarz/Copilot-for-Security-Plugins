@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: 'v3.0.4'
+  version: 'v3.0.5'
 
 servers:
   - url: https://api-yourfqdn/xsoar/
@@ -28,7 +28,7 @@ components:
       name: x-xdr-auth-id
       in: header
       required: false
-      description: 'My API auth ID'
+      description: 'Alternate API key ID'
       schema:
         type: string
         default: 1234          # API authentication ID to be passed during each request. DO NOT encapsulate the value in quotes.
@@ -37,12 +37,12 @@ components:
       type: apiKey
       in: header               # Can be 'header', 'query' or 'cookie'
       name: x-xdr-auth-id      # Value sent to the endpoint in the requested (e.g. {x-xdr-auth-id: 1234})
-      description: 'The API Key ID for authentication.'
+      description: 'Your API key ID'
     apiKeySecretAuth:
       type: apiKey
       in: header
       name: Authorization
-      description: 'The API Key Secret for authentication.'
+      description: 'Your API Key Secret used for authentication.'
   security:
     - apiKeyIDAuth: []
       apiKeySecretAuth: []     # <-- No leading dash (-) as this indicates both must be present and NOT either or.
