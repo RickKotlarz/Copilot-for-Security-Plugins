@@ -4,7 +4,7 @@
 Descriptor:
   Name: Perform mailbox rule investigation
   DisplayName: Perform mailbox rule investigation
-  Description: This plugin provides KQL queries to assist with mailbox rule investigations.
+  Description: This plugin provides KQL queries to assist with mailbox rule investigations. v7.0.1
   Icon: https://raw.githubusercontent.com/RickKotlarz/icons/refs/heads/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon/Mail%20Error.svg
   # Source: https://github.com/RickKotlarz/icons/tree/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon
 
