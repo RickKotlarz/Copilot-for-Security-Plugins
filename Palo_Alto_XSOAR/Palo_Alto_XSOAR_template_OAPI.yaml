@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v2.0.9"
+  version: 'v3.0.0'
 
 servers:
   - url: https://api-yourfqdn/xsoar/
@@ -28,26 +28,27 @@ components:
       name: x-xdr-auth-id
       in: header
       required: false
-      description: "My API auth ID"
+      description: 'My API auth ID'
       schema:
         type: string
         default: 1234          # API authentication ID to be passed during each request. DO NOT encapsulate the value in quotes.
   securitySchemes:
     apiKeyIDAuth:              # Arbitrary name for the security scheme
       type: apiKey
-      in: header               # Can be "header", "query" or "cookie"
+      in: header               # Can be 'header', 'query' or 'cookie'
       name: x-xdr-auth-id      # Value sent to the endpoint in the requested (e.g. {x-xdr-auth-id: 1234})
-      description: "The API Key ID for authentication."
+      description: 'The API Key ID for authentication.'
     apiKeySecretAuth:
       type: apiKey
       in: header
       name: Authorization
-      description: "The API Key Secret for authentication."
+      description: 'The API Key Secret for authentication.'
   security:
     - apiKeyIDAuth: []
       apiKeySecretAuth: []     # <-- No leading dash (-) as this indicates both must be present and NOT either or.
 
 paths:
+
 ###################################################################################################
 #  Dashboards
 #     Get all dashboards details
@@ -66,10 +67,41 @@ paths:
       parameters:
         - $ref: '#/components/parameters/x-xdr-auth-id'
       responses:
-        "200":
-          description: OK
-        "400":
-          description: Bad request, invalid parameters
+        '200':
+          description: Successfully retrieved all dashboard details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dashboard:
+                    type: object
+                    description: 'Dictionary containing details of all dashboards, keyed by property names.'
+                    additionalProperties:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: 'Unique ID of the dashboard.'
+                        version:
+                          type: integer
+                          description: 'Version of the dashboard.'
+                        cacheVersn:
+                          type: integer
+                          description: 'Cache version of the dashboard.'
+                    example:
+                      dashboard:
+                        property1:
+                          id: 'string'
+                          version: 0
+                          cacheVersn: 0
+                        property2:
+                          id: 'string'
+                          version: 0
+                          cacheVersn: 0
+        '400':
+          description: Bad request
+
           
 ###################################################################################################
 #  Dashboards
@@ -94,10 +126,246 @@ paths:
           description: Dashboard to look up
         - $ref: '#/components/parameters/x-xdr-auth-id'
       responses:
-        "200":
-          description: OK
-        "400":
-          description: Bad request, invalid parameters
+        '200':
+          description: Successfully retrieved dashboard details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 'Dashboard ID'
+                  version:
+                    type: integer
+                    description: 'Dashboard version'
+                  cacheVersn:
+                    type: integer
+                    description: 'Cache version'
+                  sequenceNumber:
+                    type: integer
+                    description: 'Sequence number for updates'
+                  primaryTerm:
+                    type: integer
+                    description: 'Primary term for concurrency control'
+                  modified:
+                    type: string
+                    description: 'Timestamp of the last modification'
+                  sizeInBytes:
+                    type: integer
+                    description: 'Size of the dashboard in bytes'
+                  packID:
+                    type: string
+                    description: 'Pack ID associated with the dashboard'
+                  packName:
+                    type: string
+                    description: 'Name of the associated pack'
+                  itemVersion:
+                    type: string
+                    description: 'Item version'
+                  fromServerVersion:
+                    type: string
+                    description: 'Minimum server version required'
+                  toServerVersion:
+                    type: string
+                    description: 'Maximum server version supported'
+                  propagationLabels:
+                    type: array
+                    description: 'Labels for propagation'
+                    items:
+                      type: object
+                  packPropagationLabels:
+                    type: array
+                    description: 'Propagation labels from the pack'
+                    items:
+                      type: string
+                  definitionId:
+                    type: string
+                    description: 'ID of the dashboard definition'
+                  vcShouldIgnore:
+                    type: boolean
+                    description: 'Indicates if version control should ignore this item'
+                  vcShouldKeepItemLegacyProdMachine:
+                    type: boolean
+                    description: 'Indicates if the legacy production machine should keep this item'
+                  commitMessage:
+                    type: string
+                    description: 'Commit message for version control'
+                  shouldCommit:
+                    type: boolean
+                    description: 'Indicates if this dashboard should be committed'
+                  fromDate:
+                    type: string
+                    description: 'Start date of the period'
+                  toDate:
+                    type: string
+                    description: 'End date of the period'
+                  period:
+                    type: object
+                    description: 'Period details'
+                    properties:
+                      by:
+                        type: string
+                      byTo:
+                        type: string
+                      byFrom:
+                        type: string
+                      toValue:
+                        type: object
+                      fromValue:
+                        type: integer
+                      field:
+                        type: string
+                  fromDateLicense:
+                    type: string
+                    description: 'License start date for the dashboard'
+                  name:
+                    type: string
+                    description: 'Dashboard name'
+                  prevName:
+                    type: string
+                    description: 'Previous name of the dashboard'
+                  layout:
+                    type: array
+                    description: 'Layout details of the dashboard'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        forceRange:
+                          type: boolean
+                        x:
+                          type: integer
+                        y:
+                          type: integer
+                        i:
+                          type: string
+                        w:
+                          type: integer
+                        h:
+                          type: integer
+                        widget:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            version:
+                              type: integer
+                            cacheVersn:
+                              type: integer
+                            modified:
+                              type: string
+                            sizeInBytes:
+                              type: integer
+                            packID:
+                              type: string
+                            packName:
+                              type: string
+                            itemVersion:
+                              type: string
+                            fromServerVersion:
+                              type: string
+                            toServerVersion:
+                              type: string
+                            definitionId:
+                              type: string
+                            vcShouldIgnore:
+                              type: boolean
+                            vcShouldKeepItemLegacyProdMachine:
+                              type: boolean
+                            commitMessage:
+                              type: string
+                            shouldCommit:
+                              type: boolean
+                            Cache:
+                              type: object
+                            name:
+                              type: string
+                            prevName:
+                              type: string
+                            dataType:
+                              type: string
+                            widgetType:
+                              type: string
+                            query:
+                              type: string
+                            isPredefined:
+                              type: boolean
+                            dateRange:
+                              type: object
+                              properties:
+                                fromDate:
+                                  type: string
+                                toDate:
+                                  type: string
+                                period:
+                                  type: object
+                                  properties:
+                                    by:
+                                      type: string
+                                    byTo:
+                                      type: string
+                                    byFrom:
+                                      type: string
+                                    toValue:
+                                      type: object
+                                    fromValue:
+                                      type: integer
+                                    field:
+                                      type: string
+                                fromDateLicense:
+                                  type: string
+                            params:
+                              type: object
+                              properties:
+                                groupBy:
+                                  type: array
+                                  items:
+                                    type: string
+                                hideLegend:
+                                  type: boolean
+                                colors:
+                                  type: object
+                                  properties:
+                                    isEnabled:
+                                      type: boolean
+                                    items:
+                                      type: object
+                                      additionalProperties:
+                                        type: object
+                                        properties:
+                                          value:
+                                            type: integer
+                                    type:
+                                      type: string
+                            category:
+                              type: string
+                        reflectDimensions:
+                          type: boolean
+                  system:
+                    type: boolean
+                    description: 'Indicates if the dashboard is a system dashboard'
+                  isCommon:
+                    type: boolean
+                    description: 'Indicates if the dashboard is common'
+                  owner:
+                    type: string
+                    description: 'Owner of the dashboard'
+                  locked:
+                    type: boolean
+                    description: 'Indicates if the dashboard is locked'
+                  hidePivot:
+                    type: boolean
+                    description: 'Indicates if pivot functionality is hidden'
+                  hideSearch:
+                    type: boolean
+                    description: 'Indicates if search functionality is hidden'
+                  modulePage:
+                    type: boolean
+                    description: 'Indicates if this is a module page dashboard'
+        '400':
+          description: Bad request
           
 ###################################################################################################
 #  Incidents
@@ -123,7 +391,193 @@ paths:
           description: Incident ID to look up
         - $ref: '#/components/parameters/x-xdr-auth-id'
       responses:
-        "200":
-          description: OK
-        "400":
-          description: Bad request, invalid parameters
+        '200':
+          description: Successfully retrieved incident details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the incident.
+                  version:
+                    type: integer
+                    format: int64
+                    example: 0
+                  cacheVersn:
+                    type: integer
+                    format: int64
+                    example: 0
+                  autime:
+                    type: integer
+                    format: int64
+                    description: 'Almost unique time for sorting incidents.'
+                    example: 1682865388000000000
+                  account:
+                    type: string
+                    description: 'The tenant name for slicing and dicing on the master.'
+                  activated:
+                    type: string
+                    format: date-time
+                    description: 'Timestamp when the incident was activated.'
+                  activatingingUserId:
+                    type: string
+                    description: 'The user that activated this investigation.'
+                  name:
+                    type: string
+                    description: 'The name of the incident as given by the user.'
+                  rawName:
+                    type: string
+                    description: 'Raw name of the incident.'
+                  description:
+                    type: string
+                    description: 'Description of the incident.'
+                  modified:
+                    type: string
+                    format: date-time
+                    description: 'Timestamp of the last modification.'
+                  created:
+                    type: string
+                    format: date-time
+                    description: 'Timestamp when the incident was created.'
+                  occurred:
+                    type: string
+                    format: date-time
+                    description: 'Timestamp when the incident occurred.'
+                  closed:
+                    type: string
+                    format: date-time
+                    description: 'Timestamp when the incident was closed.'
+                  severity:
+                    type: number
+                    format: double
+                    description: 'Severity of the incident (0 to 4).'
+                    minimum: 0
+                    maximum: 4
+                    example: 2
+                  status:
+                    type: number
+                    format: double
+                    description: 'Status of the incident (0 to 2).'
+                    minimum: 0
+                    maximum: 2
+                    example: 2
+                  labels:
+                    type: array
+                    description: 'Labels associated with the incident.'
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          description: 'Label type.'
+                        value:
+                          type: string
+                          description: 'Label value.'
+                  details:
+                    type: string
+                    description: 'Detailed information about the incident.'
+                  dueDate:
+                    type: string
+                    format: date-time
+                    description: 'Incident SLA due date.'
+                  reminder:
+                    type: string
+                    format: date-time
+                    description: 'Reminder date, if set.'
+                  owner:
+                    type: string
+                    description: 'The user assigned as the owner of this incident.'
+                  phase:
+                    type: string
+                    description: 'The phase of the incident lifecycle.'
+                  sourceInstance:
+                    type: string
+                    description: 'Source instance triggering the incident.'
+                  sourceBrand:
+                    type: string
+                    description: 'Source brand triggering the incident.'
+                  dbotMirrorDirection:
+                    type: string
+                    description: 'Mirroring direction (in/out/both).'
+                  dbotMirrorInstance:
+                    type: string
+                    description: 'Mirror integration instance name.'
+                  dbotMirrorTags:
+                    type: array
+                    description: 'Tags for syncing to a remote system.'
+                    items:
+                      type: string
+                  dbotMirrorLastSync:
+                    type: string
+                    format: date-time
+                    description: 'Last synchronization timestamp.'
+                  linkedIncidents:
+                    type: array
+                    description: 'Incidents linked to this incident.'
+                    items:
+                      type: string
+                  attachment:
+                    type: array
+                    description: 'Attachments for the incident.'
+                    items:
+                      type: object
+                  xsoarReadOnlyRoles:
+                    type: array
+                    description: 'Read-only roles assigned to this incident.'
+                    items:
+                      type: string
+                  dbotDirtyFields:
+                    type: array
+                    description: 'Fields that were modified and require mirroring.'
+                    items:
+                      type: string
+                  dbotCurrentDirtyFields:
+                    type: array
+                    description: 'Current fields marked as dirty for mirroring.'
+                    items:
+                      type: string
+                  lastJobRunTime:
+                    type: string
+                    format: date-time
+                    description: 'Timestamp of the last job run triggering this incident.'
+                  playbookId:
+                    type: string
+                    description: 'Playbook associated with this incident.'
+                  roles:
+                    type: array
+                    description: 'Roles assigned to this incident.'
+                    items:
+                      type: string
+                  syncHash:
+                    type: string
+                    description: 'Synchronization hash.'
+                  numericId:
+                    type: integer
+                    format: int64
+                    description: 'Numerical ID of the incident.'
+                  category:
+                    type: string
+                    description: 'Incident category.'
+                  rawCategory:
+                    type: string
+                    description: 'Raw category of the incident.'
+                  canvases:
+                    type: array
+                    description: 'Canvases related to the incident.'
+                    items:
+                      type: string
+                  todoTaskIds:
+                    type: array
+                    description: 'To-do task IDs associated with this incident.'
+                    items:
+                      type: string
+                  parent:
+                    type: string
+                    description: 'Parent incident ID, if applicable.'
+                  retained:
+                    type: boolean
+                    description: 'Whether the incident is retained.'
+        '400':
+          description: Bad request
