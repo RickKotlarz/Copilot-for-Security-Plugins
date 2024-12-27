@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v2.0.1"
+  version: "v2.0.2"
 
 servers:
   - url:  https://httpbin.org/
@@ -33,9 +33,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/XdrAuthId' # Used to pass the API ID
       responses:
-        "200":
+        200:
           description: OK
-        "400":
+        400:
           description: Bad request, invalid parameters
           
 ####################################################################################
@@ -60,9 +60,9 @@ paths:
           placeholderValue: Dashboard to look up
           description: Dashboard to look up
       responses:
-        "200":
+        200:
           description: OK
-        "400":
+        400:
           description: Bad request, invalid parameters
           
 ####################################################################################
@@ -88,9 +88,9 @@ paths:
           placeholderValue: Incident ID to look up (e.g. 1234)
           description: Incident ID to look up
       responses:
-        "200":
+        200:
           description: OK
-        "400":
+        400:
           description: Bad request, invalid parameters
 
 components:
