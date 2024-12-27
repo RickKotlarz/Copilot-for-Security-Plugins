@@ -5,16 +5,8 @@
 Descriptor:
   Name: Palo Alto XSOAR plugin
   DisplayName: Palo Alto XSOAR
-  Description: Plugin example leveraging the Palo Alto XSOAR API - v2.0.2
+  Description: Plugin example leveraging the Palo Alto XSOAR API - v2.0.3
   Icon: https://avatars.githubusercontent.com/u/70215919
-
-  Settings:
-    - Name: settingTestName                # Links to the plugin but not used yet for this plugin
-      Label: Label in the UI               # Used for the UI only
-      Description: Description goes here   # Used for the UI only
-      HintText: Hint Text goes here        # Used for the UI only
-      SettingType: String                  # Used to ensure the key is visible to the user (default is 'SecretString')
-      Required: false
 
   SupportedAuthTypes:
     - ApiKey
@@ -29,4 +21,4 @@ Descriptor:
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/main/Palo_Alto_XSOAR/Palo_Alto_XSOAR_template_OAPI.yaml
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/Palo_Alto_XSOAR/Palo_Alto_XSOAR_template_OAPI.yaml
