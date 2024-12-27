@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v2.0.2"
+  version: "v2.0.4"
 
 servers:
   - url:  https://httpbin.org/
@@ -31,11 +31,11 @@ paths:
         - 'Get all Palo Alto XSOAR dashboards details'
         - 'Get all details for Palo Alto XSOAR dashboards'
       parameters:
-        - $ref: '#/components/parameters/XdrAuthId' # Used to pass the API ID
+        - $ref: '#/components/parameters/x-xdr-auth-id'
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           description: Bad request, invalid parameters
           
 ####################################################################################
@@ -51,7 +51,7 @@ paths:
         - 'Get all Palo Alto XSOAR dashboards'
         - 'Get details for Palo Alto XSOAR dashboard'
       parameters:
-        - $ref: '#/components/parameters/XdrAuthId' # Used to pass the API ID
+        - $ref: '#/components/parameters/x-xdr-auth-id'
         - in: path
           name: dashboardId
           schema:
@@ -60,15 +60,17 @@ paths:
           placeholderValue: Dashboard to look up
           description: Dashboard to look up
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           description: Bad request, invalid parameters
           
 ####################################################################################
 #  Incidents
 #     Get a specefic incident
 ####################################################################################
+
+paths:
   /public/v1/incident/load/{id}:
     get:
       operationId: X-GetIncident
@@ -79,7 +81,7 @@ paths:
         - 'Get Palo incident'
         - 'Get Palo XSOAR incident'
       parameters:
-        - $ref: '#/components/parameters/XdrAuthId' # Used to pass the API ID
+        - $ref: '#/components/parameters/x-xdr-auth-id'
         - in: path
           name: id
           schema:
@@ -88,22 +90,25 @@ paths:
           placeholderValue: Incident ID to look up (e.g. 1234)
           description: Incident ID to look up
       responses:
-        200:
+        "200":
           description: OK
-        400:
+        "400":
           description: Bad request, invalid parameters
 
+####################################################################################
 components:
   parameters:
-    name: x-xdr-auth-id
-    in: header
-    required: false
-    description: my API auth ID
-    schema:
-      type: string
-      default: 1234            # API authentication ID to be passed during each request
+    x-xdr-auth-id:
+      name: x-xdr-auth-id
+      in: header
+      required: false
+      description: "My API auth ID"
+      schema:
+        type: string
+        default: 1234          # API authentication ID to be passed during each request. DO NOT encapsulate the value in quotes.
+#        default: {{settingTestName}}
   securitySchemes:
-    apiKeyIDAuth:              # Arbitrary name to reference the security scheme
+    apiKeyIDAuth:              # Arbitrary name for the security scheme
       type: apiKey
       in: header               # Can be "header", "query" or "cookie"
       name: x-xdr-auth-id      # Value sent to the endpoint in the requested (e.g. {x-xdr-auth-id: 24})
@@ -116,3 +121,5 @@ components:
   security:
     - apiKeyIDAuth: []
       apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
+  
+
