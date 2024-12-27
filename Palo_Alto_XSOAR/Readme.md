@@ -5,10 +5,12 @@ Welcome to the Palo Alto XSOAR plugin. This plugin is an example of leveraging t
 ### Instructions
 #### Upload the Custom Plugin
 
-1. Download the plugin manifest and OAPI file from this directory.
-2. Update the API endpoint within the OAPI file file (Palo_Alto_XSOAR_template_OAPI.yaml)
-3. Update the URL reference to your OAPI file within the manifest file (Palo_Alto_XSOAR_manifest.yaml)
-2. Install the plugin within Security Copilot
+1. Download both plugin files (`Palo_Alto_XSOAR_template_OAPI.yaml` and `Palo_Alto_XSOAR_manifest.yaml`) from this directory
+2. Edit the `Palo_Alto_XSOAR_template_OAPI.yaml` file and update the API endpoint (line 12) with your Palo Alto XSOAR API endpoint.
+3. Edit the `Palo_Alto_XSOAR_template_OAPI.yaml` file and update the API key ID (line 34) denoted as 'default: 1234'.
+4. Upload the `Palo_Alto_XSOAR_template_OAPI.yaml` file to a public resource (e.g. GitHub) and copy the raw source URL (Hint: You can find this by selecting the `Raw` button at the top right corner of the GitHub page.)
+5. Edit the `Palo_Alto_XSOAR_manifest.yaml` file and update the `OpenApiSpecUrl` with the raw URL (line 24).
+6. Install the plugin within Security Copilot by either uploading the `Palo_Alto_XSOAR_manifest.yaml` file or referencing the raw source URL for the `Palo_Alto_XSOAR_manifest.yaml` file 
 
 #### Utlization of the plugin:
 
