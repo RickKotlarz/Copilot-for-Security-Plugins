@@ -1,5 +1,5 @@
 # Author: Rick Kotlarz
-# Updated 13-Dec-2024
+# Updated 27-Dec-2024
 
 Descriptor:
   Name: Perform mailbox rule investigation
@@ -46,7 +46,7 @@ SkillGroups:
 ###########################################################################################################
 
       - Name: GetMailboxRulesForSingleUser
-        DisplayName: Gets mailbox rules for a single user (Skill:GetMailboxRulesForSingleUser)
+        DisplayName: GetMailboxRulesForSingleUser
         Description: |
           Gets user mailbox rules over a given time frame
         ExamplePrompts:
@@ -93,7 +93,7 @@ SkillGroups:
 ###########################################################################################################
 
       - Name: GetMailboxRulesForAllUsers
-        DisplayName: Gets mailbox rules for all users within the last 30 days (Skill:GetMailboxRulesForAllUsers)
+        DisplayName: GetMailboxRulesForAllUsers
         Description: |
           Gets mailbox rules for all users within the last 30 days
         ExamplePrompts:
