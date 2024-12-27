@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v2.0.5"
+  version: "v2.0.6"
 
 servers:
   - url:  https://httpbin.org/
@@ -20,7 +20,8 @@ paths:
 #     Get all dashboards details
 #     https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
 ####################################################################################
-  /public/v1/dashboards:
+#  /public/v1/dashboards:
+  /headers:
     get:
       operationId: X-GetAllDashboardDetails
       description: |
@@ -119,5 +120,3 @@ components:
   security:
     - apiKeyIDAuth: []
       apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
-  
-
