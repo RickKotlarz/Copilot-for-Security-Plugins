@@ -14,10 +14,6 @@ servers:
 #   Replace the above URL with your Palo Alto XSOAR URL.
 # https://learn.openapis.org/specification/security.html
     
-paths:
-    /headers:
-        get:
-
 components:
   parameters:
     name: x-xdr-auth-id
@@ -41,7 +37,7 @@ components:
   security:
     - apiKeyIDAuth: []
       apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either or.
-  
+
 paths:
 
 ####################################################################################
