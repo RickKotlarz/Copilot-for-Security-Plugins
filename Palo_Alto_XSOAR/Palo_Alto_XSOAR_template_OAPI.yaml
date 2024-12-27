@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v2.0.0"
+  version: "v2.0.1"
 
 servers:
   - url:  https://httpbin.org/
