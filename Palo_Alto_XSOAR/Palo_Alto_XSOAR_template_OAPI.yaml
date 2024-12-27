@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: "v2.0.4"
+  version: "v2.0.5"
 
 servers:
   - url:  https://httpbin.org/
@@ -15,7 +15,6 @@ servers:
 # https://learn.openapis.org/specification/security.html
     
 paths:
-
 ####################################################################################
 #  Dashboards
 #     Get all dashboards details
@@ -70,7 +69,6 @@ paths:
 #     Get a specefic incident
 ####################################################################################
 
-paths:
   /public/v1/incident/load/{id}:
     get:
       operationId: X-GetIncident
