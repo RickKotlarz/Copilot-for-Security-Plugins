@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
-  version: 'v3.0.3'
+  version: 'v3.0.4'
 
 servers:
   - url: https://api-yourfqdn/xsoar/
@@ -58,6 +58,7 @@ paths:
   /public/v1/dashboards:
     get:
       operationId: X-GetAllDashboardDetails
+      displayName: X-GetAllDashboardDetails
       description: |
         Palo Alto XSOAR - Get all dashboards details
       examplePrompts:
@@ -111,6 +112,7 @@ paths:
   /public/v1/dashboards/{dashboardId}:
     get:
       operationId: X-GetDashboardDetails
+      displayName: X-GetDashboardDetails
       description: |
         Palo Alto XSOAR - Get details for specefic dashboard
       examplePrompts:
@@ -375,6 +377,7 @@ paths:
   /public/v1/incident/load/{id}:
     get:
       operationId: X-GetIncident
+      displayName: X-GetIncident
       description: |
         Palo Alto XSOAR - Get a specific incident
       examplePrompts:
