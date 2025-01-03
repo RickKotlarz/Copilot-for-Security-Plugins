@@ -5,7 +5,7 @@ Welcome to the HTTPbin Security Copilot plugin. This plugin provides a means int
 ### Instructions
 #### Upload the Custom Plugin
 
-1. Download the plugin file (`HTTPbin.org_template_manifest`) from this directory.
+1. Download the plugin file `HTTPbin.org_template_manifest` from this directory.
 2. Edit the `HTTPbin.org_template_OAPI` file to indiciate the default value to pass (line 31 and 37) to your endpoint.
 
 
