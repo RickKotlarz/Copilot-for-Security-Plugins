@@ -2,7 +2,7 @@
 # Updated 2025-01-03
 
 Descriptor:
-  Name: SampleAPIForApiKeyAuth
+  Name: HTTPbin.org Example
   DisplayName: httpbin.org - API Key Authentication
   Description: Plugin for making example http requests - v0.9.16
 
