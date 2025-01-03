@@ -1,0 +1,53 @@
+# Author Rick Kotlarz ~ https://github.com/RickKotlarz/
+# Updated 2025-01-03
+
+openapi: 3.0.0
+
+info:
+  title: httpbin.org
+  description: A simple HTTP Request & Response Service.
+  version: "0.9.16"
+
+servers:
+  - url: https://httpbin.org/
+     
+paths:
+  /headers:
+    get:
+      operationId: TestApiKeyAuth
+      summary: Returns the provided headers
+      parameters:
+        - $ref: '#/components/parameters/x-xdr-auth-id'
+        # The above parameter inserts the 'x-xdr-auth-id' and default value into the header when the 'TestApiKeyAuth' is executed by the user.
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad request, invalid parameters
+
+components:
+  parameters:
+    x-xdr-auth-id:
+      name: x-xdr-auth-id
+      in: header
+      required: false
+      description: "My API auth ID"
+      schema:
+        type: string
+        default: 1234          # API authentication ID to be passed during each request. DO NOT encapsulate the value in quotes.
+#       default: {{settingTestName}}
+  securitySchemes:
+    apiKeyIDAuth:              # Arbitrary name for the security scheme
+      type: apiKey
+      in: header               # Can be "header", "query" or "cookie"
+      name: x-xdr-auth-id      # Value sent to the endpoint in the requested (e.g. {x-xdr-auth-id: 24})
+      description: "The API Key ID for authentication."
+    apiKeySecretAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "The API Key Secret for authentication."
+  security:
+    - apiKeyIDAuth: []
+      apiKeySecretAuth: []   # <-- No leading dash (-) as this indicates both must be present and NOT either OR.
+  
