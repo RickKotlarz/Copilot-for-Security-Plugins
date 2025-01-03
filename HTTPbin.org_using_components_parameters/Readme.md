@@ -1,9 +1,6 @@
 ### HTTPbin.org v1 plugin (Updated Jan-03-2025)
 
-Welcome to the HTTPbin Security Copilot plugin. This plugin provides a means to 
-
-
-leveraging the Palo Alto XSOAR API but does require modification from the user to function correctly.
+Welcome to the HTTPbin Security Copilot plugin. This plugin provides a means interact with the HTTPbin service to view headers so you can write your own plugins.
 
 ### Instructions
 #### Upload the Custom Plugin
