@@ -1,6 +1,6 @@
 ### HTTPbin.org v1 plugin (Updated Jan-03-2025)
 
-Welcome to the HTTPbin Security Copilot plugin. This plugin provides a means interact with the HTTPbin service to view headers so you can write your own plugins.
+Welcome to the HTTPbin Security Copilot plugin. This plugin provides a means interact with the HTTPbin service to view headers so you can write your own plugins. This example sends an API key along with a second API ID key within the headers of each request.
 
 ### Instructions
 #### Upload the Custom Plugin
