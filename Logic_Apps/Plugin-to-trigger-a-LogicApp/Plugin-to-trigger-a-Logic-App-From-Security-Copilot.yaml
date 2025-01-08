@@ -1,0 +1,24 @@
+Descriptor:
+  Name: Plugin to trigger a Logic App From Security-Copilot
+  DisplayName: Trigger a Logic App From Security-Copilot
+  Description: High-level description of the Plugin for users to read
+  DescriptionForModel: A verbose and detailed description to help the model select this plugin over other plugins.  
+
+SkillGroups:
+  - Format: LogicApp  
+    Skills:
+      - Name: nameOfSkillThatYouWillCallFromSecurityCopilot
+        DisplayName: nameOfSkillThatYouWillCallFromSecurityCopilot
+        Description: Name of skill that you will call from Security Copilot
+        DescriptionForModel: A verbose or detailed description to help the model select this skil over other skills.
+        ExamplePrompts:
+          - Compare the permissions of all users who report to        
+        Inputs: 
+          - Name: variableToSend
+            Description: Variable you want to send to the Logic App
+            Required: true
+        Settings:
+          SubscriptionId: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+          ResourceGroup: Resource_group_of_your_Logic_App
+          WorkflowName: SecCopilot-sendJokeByemail
+          TriggerName: manual
