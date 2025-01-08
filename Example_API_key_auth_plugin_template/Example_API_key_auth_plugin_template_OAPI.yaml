@@ -1,6 +1,6 @@
 # This example API key auth plugin template using the VirusTotal API as an example to illustrate GET and POST calls
 # Author Rick Kotlarz - https://github.com/RickKotlarz/
-# Updated 2025-01-08
+# Plugin updated 2025-Jan-08
 
 openapi: 3.0.0
 
