@@ -1,9 +1,25 @@
-# Updated 2024-11-12
+# Updated 2025-Jan-08
 
 Descriptor:
   Name: ADX search demo
   DisplayName: ADX search demo
   Description: ADX search demo
+  DescriptionForModel: A verbose and detailed description to help the model select this plugin over other plugins.
+
+  Settings:
+    - Name: ClusterURL
+      HintText: https://YourClusterName.eastus.kusto.windows.net
+      Description: The URL to your ADX cluster
+      SettingType: string      
+      Required: true
+    - Name: DatabaseName
+      HintText: DatabaseName001
+      Description: The database name within your ADX cluster
+      SettingType: string
+      Required: true
+  
+  SupportedAuthTypes:
+    - None
 
 SkillGroups:
   - Format: KQL
@@ -13,23 +29,26 @@ SkillGroups:
 ## Cluster 'settings' referenced from variables set during plugin setup / configuration
 ##########################################################################################
 
-      - Name: GetADXAlipineLogs
-        DisplayName: GetADXAlipineLogs
+      - Name: GetADXlogs
+        DisplayName: GetADXlogs
         Description: |
-          Gets top n rows of the Alipine ADX cluster sorted by TimeGenerated
-#          This area can be multiple lines when using the pipe character after the colon character.
-#          You'll want to include additional information that is relevant for the Orchestreator to understand          
-        ExamplePrompt:
-          - Gets the top 10 rows of the TableYouWantToQuery table from the Your-Cluster-Name-01 ADX cluster sort by TimeGenerated.
+          Gets top n rows of the ADX cluster sorted by TimeGenerated
+        # This area can be multiple lines when using the pipe character after the colon character.
+        # You'll want to include additional information that is relevant for the Orchestreator to understand
+        DescriptionForModel: Gets top n rows of the ADX cluster sorted by TimeGenerated.
+      # DescriptionForModel: A verbose and detailed description to help the model select this skil over other skills.
+        ExamplePrompts:
+          - 'Gets the top 10 rows of the 'TableYouWantToQuery' table from the 'Your-Cluster-Name-01' ADX cluster sort by TimeGenerated.'
         Inputs:
           - Name: numberOfRows
-            Description: Number of rows you wish to return from the top (.e.g. 10)
+            PlaceholderValue: Number of rows you wish to return from the top (.e.g. 10)
+            Description: Number of rows to return from the top
             DefaultValue: 3
             Required: true
         Settings:
           Target: Kusto
-          Cluster: https://your-cluster-name-01.eastus.kusto.windows.net
-          Database: YourDatabaseName
+          Cluster: '{{ClusterURL}}'
+          Database: '{{DatabaseName}}'
           Template: |-
             //KQL comment to help the Orchestrator or users responsible for maintaining the code
             TableYouWantToQuery
@@ -40,23 +59,26 @@ SkillGroups:
 # Cluster 'settings' hardcoded which don't reference plugin settings variables
 ##########################################################################################
 
-      - Name: GetADXAlipineLogsV2
-        DisplayName: GetADXAlipineLogsV2
+      - Name: GetADXlogsV2
+        DisplayName: GetADXlogsV2
         Description: |
           Gets top n rows of the Alipine ADX cluster sorted by TimeGenerated-V2
-#          This area can be multiple lines when using the pipe character after the colon character.
-#          You'll want to include additional information that is relevant for the Orchestreator to understand
-        ExamplePrompt:
-          - Gets the top 10 rows of the TableYouWantToQuery table from the Your-Cluster-Name-01 ADX cluster sort by TimeGenerated.
+        # This area can be multiple lines when using the pipe character after the colon character.
+        # You'll want to include additional information that is relevant for the Orchestreator to understand
+        DescriptionForModel: Gets top n rows of the Alipine ADX cluster sorted by TimeGenerated-V2.
+      # DescriptionForModel: A verbose and detailed description to help the model select this skil over other skills.
+        ExamplePrompts:
+          - 'Gets the top 10 rows of the 'TableYouWantToQuery' table from the 'Your-Cluster-Name-01' ADX cluster sort by TimeGenerated.'
         Inputs:
           - Name: numberOfRows
-            Description: Number of rows you wish to return from the top (.e.g. 10)
+            PlaceholderValue: V2 - Number of rows you wish to return from the top (.e.g. 10)
+            Description: Version 2 Number of rows you wish to return from the top
             DefaultValue: 3
             Required: true
         Settings:
           Target: Kusto
           Cluster: https://your-cluster-name-01.eastus.kusto.windows.net
-          Database: YourDatabaseName
+          Database: DatabaseName
           Template: |-
             //KQL comment to help the Orchestrator or users responsible for maintaining the code
             TableYouWantToQuery
