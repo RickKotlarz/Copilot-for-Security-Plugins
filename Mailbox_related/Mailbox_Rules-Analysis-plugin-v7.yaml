@@ -6,7 +6,7 @@ Descriptor:
   DisplayName: Perform mailbox rule investigation
   Description: This plugin provides KQL queries to assist with mailbox rule investigations.
   DescriptionForModel: | 
-    This plugin provides KQL queries to assist with mailbox rule investigations.
+    This query analyzes user mailbox activities within the past 30 days, focusing on potentially malicious operations such as "Add-MailboxPermission", "New-InboxRule", and "Set-InboxRule", which are commonly associated with unauthorized access and attacker behavior. It filters out system-generated events to reduce false positives and helps identify abnormal mailbox permission and rule changes, often indicative of malicious activity.
   Icon: https://raw.githubusercontent.com/RickKotlarz/icons/refs/heads/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon/Mail%20Error.svg
   # Source: https://github.com/RickKotlarz/icons/tree/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon
 
