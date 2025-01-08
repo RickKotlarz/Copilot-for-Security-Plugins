@@ -1,14 +1,24 @@
+# Author Rick Kotlarz - https://github.com/RickKotlarz/
+# Updated 2025-01-08
+
 Descriptor:
   Name: Example API key auth plugin template using VirusTotal
   DisplayName: Example API key auth plugin template using VirusTotal
   Description: Example API key auth plugin template using VirusTotal
+  DescriptionForModel: A verbose and detailed description to help the model select this plugin over other plugins.
+
+Icon: https://raw.githubusercontent.com/icons8/windows-10-icons/refs/heads/master/svg/production/airport.svg
+
   SupportedAuthTypes:
     - ApiKey
+
   Authorization:
     Type: APIKey
-    Key: x-apikey
     Location: Header
-    AuthScheme: ''
+    Key: Authorization
+    AuthScheme: 'Bearer'
+#   Key: x-apikey
+#   AuthScheme: ''
 
 SkillGroups:
   - Format: API
