@@ -1,11 +1,12 @@
 # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
-# 2024-Dec-27
+# Updated 2025-Jan-8
 
 openapi: 3.0.0
 
 info:
   title: Palo Alto XSOAR
   description: Plugin example leveraging the Palo Alto XSOAR API
+  descriptionForModel: Plugin example leveraging the Palo Alto XSOAR API
   version: 'v3.0.5'
 
 servers:
@@ -59,7 +60,7 @@ paths:
     get:
       operationId: X-GetAllDashboardDetails
       displayName: X-GetAllDashboardDetails
-      description: |
+      descriptionForModel: |
         Palo Alto XSOAR - Get all dashboards details
       examplePrompts:
         - 'Get all Palo Alto XSOAR dashboards'
@@ -67,6 +68,7 @@ paths:
         - 'Get all details for Palo Alto XSOAR dashboards'
       parameters:
         - $ref: '#/components/parameters/x-xdr-auth-id'
+        # The above parameter inserts the 'x-xdr-auth-id' and default value into the header when the 'TestApiKeyAuth' is executed by the user.
       responses:
         '200':
           description: Successfully retrieved all dashboard details
@@ -113,7 +115,8 @@ paths:
     get:
       operationId: X-GetDashboardDetails
       displayName: X-GetDashboardDetails
-      description: |
+      description: Palo Alto XSOAR - Get details for specefic dashboard
+      descriptionForModel: |
         Palo Alto XSOAR - Get details for specefic dashboard
       examplePrompts:
         - 'Get all Palo Alto XSOAR dashboards'
@@ -378,7 +381,8 @@ paths:
     get:
       operationId: X-GetIncident
       displayName: X-GetIncident
-      description: |
+      description: Palo Alto XSOAR - Get a specific incident
+      descriptionForModel: |
         Palo Alto XSOAR - Get a specific incident
       examplePrompts:
         - 'Get Palo Alto XSOAR incident'
