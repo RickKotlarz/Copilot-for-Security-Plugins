@@ -1,10 +1,11 @@
-# Author Rick Kotlarz ~ https://github.com/RickKotlarz/
-# Updated 2025-01-03
+# Author Rick Kotlarz - https://github.com/RickKotlarz/
+# Plugin updated 2025-Jan-08
 
 Descriptor:
   Name: HTTPbin.org Example
   DisplayName: httpbin.org - API Key Authentication
-  Description: Plugin for making example http requests - v0.9.16
+  Description: Plugin example for making example http requests - v0.9.17
+  DescriptionForModel: Plugin example for making example http requests
 
 #  Settings:
 #    - Name: settingTestName                # Links to the plugin but not used yet for this plugin
@@ -27,5 +28,5 @@ Descriptor:
 SkillGroups:
   - Format: API
     Settings:
-      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins/refs/heads/main/HTTPbin.org_using_components_parameters/HTTPbin.org_template_OAPI.yaml
+      OpenApiSpecUrl: https://github.com/RickKotlarz/Copilot-for-Security-Plugins/tree/main/main/HTTPbin.org_using_components_parameters/HTTPbin.org_template_manifest.yaml
 #      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/tmp-public/refs/heads/main/HTTPbin.org_using_components_parameters/HTTPbin.org_template_OAPI.yaml      
