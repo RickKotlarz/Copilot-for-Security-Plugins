@@ -3,20 +3,22 @@
 #  Input field 2: QRadar OCSF
 #  Input field 3: (copy raw file) https://github.com/ocsf/examples/blob/main/mappings/markdown/IBM/QRadar%20SIEM/samples/offense.ocsf
 #
-# Plugin updated on 2024-11-07
+# Author Rick Kotlarz - https://github.com/RickKotlarz/
+# Plugin updated 2025-Jan-08
 
 Descriptor:
   Name: GPT Based Expert Analysis v1
   DisplayName: GPT Based Expert Analysis v1
   Description: This plugin serves as a temporary tool for manually analyzing and evaluating configurations, vulnerabilities, and other sensitive information that are not yet accessible through a dedicated plugin. The analysis focuses on functionality and its potential impact on operations, security, governance, risk, and compliance.
-
+  DescriptionForModel: This plugin serves as a temporary tool for manually analyzing and evaluating configurations, vulnerabilities, and other sensitive information that are not yet accessible through a dedicated plugin. The analysis focuses on functionality and its potential impact on operations, security, governance, risk, and compliance.
+  
 SkillGroups:
   - Format: GPT
     Skills:
       - Name: PerformGPTbasedExpertAnalysis
         DisplayName: Perform a GPT based expert analysis
         Description: Perform a GPT based expert analysis focused on OPSEC and GRC.
-        DescriptionForModel: Performs an expert analysis using GPT to assess and evaluate configurations, vulnerabilities, and other sensitive information. The output provides insights into functionality, potential impacts on operational performance, security posture, governance frameworks, risk levels, and compliance requirements.
+        DescriptionForModel: Perform a GPT based expert analysis focused on OPSEC and GRC.
         Inputs:
           - Name: personaExpert
             Description: Provide a high-level reference to the type of expert persona that you'd like reviewing your data (e.g., Microsoft Azure, Cisco, Palo-Alto, Juniper Networks, IBM, etc.).  
