@@ -1,11 +1,13 @@
-# Author Rick Kotlarz ~ https://github.com/RickKotlarz/
-# Updated 2025-01-03
+# Author Rick Kotlarz - https://github.com/RickKotlarz/
+# Plugin updated 2025-Jan-08
 
 openapi: 3.0.0
 
 info:
   title: httpbin.org
   description: A simple HTTP Request & Response Service.
+  descriptionForModel: A simple HTTP Request & Response Service.
+  # descriptionForModel: A verbose and detailed description to help the model select this skil over other skills.
   version: "0.9.16"
 
 servers:
