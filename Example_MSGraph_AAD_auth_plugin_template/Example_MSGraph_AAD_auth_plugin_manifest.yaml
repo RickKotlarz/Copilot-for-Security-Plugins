@@ -5,7 +5,8 @@ Descriptor:
   Name: Defender Specific Alert Details Plugin
   DisplayName: Skills demo associated with requestion information via Graph API calls with OData filters
   Description: Skills demo associated with requestion information via Graph API calls with OData filters
-  DescriptionForModel: The skills in this plugin will help get specific Defender alert details via Graph API Call.
+  DescriptionForModel: |
+    Skills demo associated with requestion information via Graph API calls with OData
 
   SupportedAuthTypes:
     - AADDelegated
