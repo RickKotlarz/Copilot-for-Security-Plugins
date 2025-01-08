@@ -1,10 +1,12 @@
 # Spacing matters between parent and child objects. Hitting enter is fine, but tabular spaces will cause errors.
-# Plugin updated 2024-11-08
+# Author Rick Kotlarz ~ https://github.com/RickKotlarz/Copilot-for-Security-Plugins/
+# Plugin updated 2025-01-08
 
 Descriptor:
   Name: Combined Defender and Sentinel Example Plugin
   DisplayName: Combined Defender and Sentinel example plugin includes both Sentinel and Defender
   Description: This combined KQL plugin integrates Defender and Sentinel capabilities, providing multiple configuration examples and detailed comments to guide users. Once configured you can invoke each skill directly or by using example prompts to retrieve high and critical Defender alerts from the past 7 days, fetch sign-in data based on UPN over a customizable time frame, and search Sentinel for all IP addresses a specific user has used to sign-in along with the frequency of each IP.
+  DescriptionForModel: This combined KQL plugin integrates Defender and Sentinel capabilities, providing multiple configuration examples and detailed comments to guide users. Once configured you can invoke each skill directly or by using example prompts to retrieve high and critical Defender alerts from the past 7 days, fetch sign-in data based on UPN over a customizable time frame, and search Sentinel for all IP addresses a specific user has used to sign-in along with the frequency of each IP. 
   Icon: https://raw.githubusercontent.com/MicrosoftDocs/architecture-center/refs/heads/main/docs/_images/i-security.svg
 #  Source: https://github.com/MicrosoftDocs/architecture-center/blob/main/docs/_images/i-security.svg
 
@@ -64,6 +66,7 @@ SkillGroups:
 #        Description: |
 #          Detailed description that the user will see when manually selecting a skill.
 #          This area can be multiple lines when using the pipe character after the 'Description' field.
+#        DescriptionForModel: A verbose and detailed description to help the model select this skil over other skills.
 #        ExamplePrompts:
 #          - An example prompt that a user might type to invoke this skill
 #          - Another example prompt.
@@ -91,8 +94,9 @@ SkillGroups:
 
       - Name: GetHighAndCriticalAlertsForTheLast7Days
         DisplayName: Get high and critical alerts over the past 7 days
-        Description: |
-          Gets all high and critical Microsoft Defender alerts over the past 7 days
+        Description: Gets all high and critical Microsoft Defender alerts over the past 7 days
+        DescriptionForModel: |
+          This query filters and retrieves alerts from the AlertInfo table where the severity is either 'High' or 'Critical' and the alert was generated within the past 7 days. It helps identify recent high-priority issues for quick action or review.
         ExamplePrompts:
           - Get high and critical Defender alerts for the last 7 days
           - Get high and critical Microsoft Defender alerts for the last 7 days
@@ -123,8 +127,9 @@ SkillGroups:
 
       - Name: GetSigninData
         DisplayName: Get sign-in data over the past n-days
-        Description: |
-          Gets Entra sign-in data for a user provided UPN between now and a user suppled day count.
+        Description: Gets Entra sign-in data for a user provided UPN between now and a user suppled day count.
+        DescriptionForModel: |
+          This query retrieves the latest sign-in date for a specified user within a given range of days, based on the UserPrincipalName. It is useful for tracking recent user activity and monitoring sign-in patterns within a defined timeframe.
         ExamplePrompts:
           - Get sign-in data for the last days
           - Get login data for the last days
@@ -165,8 +170,8 @@ SkillGroups:
 
       - Name: ShowUserIPinfo
         DisplayName: Show user IP addresses
-        Description: |
-          Lists unique IP logins for a given user and last login, searches for all IP addresses that a given user has ever used to authenticate, counts the frequency for each IP showing only unique results, and shows the the last time that IP was used.
+        Description: Lists unique IP logins for a given user
+        DescriptionForModel: This query retrieves the unique IP addresses a specific user has used for authentication, counting the frequency of each IP and showing the last login time. It helps track user activity across different IPs and the most recent usage of each.
         ExamplePrompts:
           - Use Sentinel and show all unique for all IP addresses for this user
           - Show the unique IPs for user
