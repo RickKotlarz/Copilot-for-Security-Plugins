@@ -1,6 +1,6 @@
 # Spacing matters between parent and child objects. Hitting enter is fine, but tabular spaces will cause errors.
 # Author Rick Kotlarz ~ https://github.com/RickKotlarz/Copilot-for-Security-Plugins/
-# Plugin updated 2025-01-08
+# Plugin updated 2025-Jan-08
 
 Descriptor:
   Name: Combined Defender and Sentinel Example Plugin
