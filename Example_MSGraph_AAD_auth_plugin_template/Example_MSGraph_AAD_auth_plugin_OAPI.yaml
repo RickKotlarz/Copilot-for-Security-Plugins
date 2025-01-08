@@ -5,13 +5,15 @@
 # When building out a Graph API based plugin, you'll want to use the Graph Explorer.
 # https://developer.microsoft.com/en-us/graph/graph-explorer
 #####################################################################################
-# Updated 2024-10-29
+# Author Rick Kotlarz - https://github.com/RickKotlarz/
+# Plugin updated 2025-Jan-08
 
 openapi: 3.0.0
 
 info:
     title: MS Graph API call demo
     description: Skills demo associated with requestion information via Graph API calls with OData filters
+    descriptionForModel: A verbose and detailed description to help the model select this plugin over other plugins.
     version: "v1"
 
 servers:
@@ -25,10 +27,10 @@ paths:
     /me:
         get:
             operationId: GetEntraProfile
-            description: |
-              Gets Entra profile information from the MS Graph
-            descriptionForModel: Gets the current users Entra profile information using the Microsoft Graph API
-            ExamplePrompt:
+            description: Gets Entra profile information from the MS Graph
+            descriptionForModel: |
+              Gets the current users Entra profile information using the Microsoft Graph API
+            ExamplePrompts:
               - 'Get my Entra profile'
               - 'Who am I'
               - 'Get my user details'
@@ -47,10 +49,10 @@ paths:
     /security/alerts_v2?$select=id,title:
         get:
             operationId: GetAlertIdsFromIncidentId
-            description: |
+            description: List all alert ID's based on a user provided incident ID
+            descriptionForModel: |
               List all alert ID's based on a user provided incident ID
-            descriptionForModel: List all alert ID's based on a user provided incident ID
-            ExamplePrompt:
+            ExamplePrompts:
               - 'show me alert ids for the specified incident id'
               - 'Get me all alert ids where incident id is provided'
             parameters:
@@ -77,10 +79,10 @@ paths:
    /security/alerts_v2/{alertid}?$select=evidence:
         get:
             operationId: GetEvidenceForSpecificAlert
-            description: |
-              Get all the evidence details of a specific alert id
-            descriptionForModel: Get all the evidence details of a specific user provided alert id
-            ExamplePrompt:
+            description: Get all the evidence details of a specific alert id
+            descriptionForModel: |
+              Get all the evidence details of a specific user provided alert id
+            ExamplePrompts:
               - 'Get all the evidence details for alert ID'
             parameters:
 #             Parameters can be be denoted as 'path', 'query, 'header', or 'cookie'. For most situations you'll simply need to denote "path" or "query"
