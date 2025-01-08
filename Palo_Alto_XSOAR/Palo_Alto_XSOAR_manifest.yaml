@@ -1,11 +1,12 @@
 # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
 # https://cortex-panw.stoplight.io/docs/cortex-xsoar-8/
-# 2024-Dec-27
+# Updated 2025-Jan-8
 
 Descriptor:
   Name: Palo Alto XSOAR plugin
   DisplayName: Palo Alto XSOAR
   Description: Plugin example leveraging the Palo Alto XSOAR API - v3.0.5
+  DescriptionForModel: Plugin example leveraging the Palo Alto XSOAR API - v3.0.5
   Icon: https://avatars.githubusercontent.com/u/70215919
 
   SupportedAuthTypes:
