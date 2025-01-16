@@ -1,5 +1,5 @@
 # Author Rick Kotlarz
-# Plugin updated 2025-Jan-08
+# Plugin updated 2025-Jan-16
 
 Descriptor:
   Name: Plugin to trigger a Logic App From Security-Copilot
@@ -15,7 +15,7 @@ SkillGroups:
         Description: Name of skill that you will call from Security Copilot
         DescriptionForModel: A verbose or detailed description to help the model select this skil over other skills.
         ExamplePrompts:
-          - Compare the permissions of all users who report to        
+          - Example prompts that users may type    
         Inputs: 
           - Name: variableToSend
             Description: Variable you want to send to the Logic App
