@@ -3,7 +3,7 @@
 #  Input field 2: QRadar OCSF
 #  Input field 3: (copy raw file) https://github.com/ocsf/examples/blob/main/mappings/markdown/IBM/QRadar%20SIEM/samples/offense.ocsf
 #
-# Author Rick Kotlarz - https://github.com/RickKotlarz/
+# Author Rick Kotlarz
 # Plugin updated 2025-Jan-08
 
 Descriptor:
