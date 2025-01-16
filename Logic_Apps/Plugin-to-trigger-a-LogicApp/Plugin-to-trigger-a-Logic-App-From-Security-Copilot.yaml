@@ -1,3 +1,6 @@
+# Author Rick Kotlarz
+# Plugin updated 2025-Jan-08
+
 Descriptor:
   Name: Plugin to trigger a Logic App From Security-Copilot
   DisplayName: Trigger a Logic App From Security-Copilot
