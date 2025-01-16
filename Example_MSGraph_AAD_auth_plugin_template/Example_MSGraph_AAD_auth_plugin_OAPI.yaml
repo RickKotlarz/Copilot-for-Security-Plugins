@@ -5,7 +5,7 @@
 # When building out a Graph API based plugin, you'll want to use the Graph Explorer.
 # https://developer.microsoft.com/en-us/graph/graph-explorer
 #####################################################################################
-# Author Rick Kotlarz - https://github.com/RickKotlarz/
+# Author Rick Kotlarz
 # Plugin updated 2025-Jan-08
 
 openapi: 3.0.0
