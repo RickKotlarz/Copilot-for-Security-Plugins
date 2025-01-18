@@ -79,7 +79,7 @@ SkillGroups:
             // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.            
             | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
             | where tolower(UserId) in (UserMailBox)
-            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule")
+            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule", "Set-Mailbox", "New-TransportRule", "Set-TransportRule", "Add-MailboxFolderPermission", "New-ManagementRoleAssignment")
             // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
             // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
             // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
@@ -116,7 +116,7 @@ SkillGroups:
             | where UserId !contains "NT AUTHORITY\\SYSTEM" 
             // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.
             | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
-            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule")
+            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule", "Set-Mailbox", "New-TransportRule", "Set-TransportRule", "Add-MailboxFolderPermission", "New-ManagementRoleAssignment")
             // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
             // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
             // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
