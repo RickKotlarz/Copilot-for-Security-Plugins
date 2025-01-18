@@ -76,10 +76,11 @@ You are tasked with analyzing the provided mailbox rule output for potential com
 
 - **User ID:** `[User email address, denoted as UserId]`
   - **Rule Number:** `[Number of rules denoted as 1 of 1, 1 of 2, etc.]`
-  - **Date and Time:** `[Timestamp from TimeGenerated field]`
-  - **Risk Confidence Level:** `[Low/Medium/High/Critical]`
-  - **Reasoning:** `[Summary of the rule, including identified patterns, matched keywords, or anomalous behaviors from Operation and Parameters fields.]`
-  - **Client IP:** `[IP address, denoted as ClientIP_WithoutPort]`
+    - **Date and Time:** `[Timestamp from TimeGenerated field]`
+    - **Risk Confidence Level:** `[Low/Medium/High/Critical]`
+    - **Mailbox Operation Abuse:** `[Statement denoting whether the mailbox operations are commonly, less commonly, or rarely used by attackers]
+    - **Analysis Reasoning:** `[Summary of the rule, including identified patterns, matched keywords, or anomalous behaviors fields that support the Risk Confidence Level]`
+    - **Client IP:** `[IP address, denoted as ClientIP_WithoutPort]`
   
 ### Final instruction
 After reviewing these instructions, reply "Ready to review mailbox rules", and wait for additional input.
