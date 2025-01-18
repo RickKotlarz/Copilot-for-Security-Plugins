@@ -1,5 +1,5 @@
 # Author Rick Kotlarz - https://github.com/RickKotlarz/
-# Plugin updated 2025-Jan-08
+# Plugin updated 2025-Jan-18
 
 Descriptor:
   Name: Perform mailbox rule investigation
@@ -47,6 +47,43 @@ SkillGroups:
 #   - https://learn.microsoft.com/en-us/dotnet/api/microsoft.exchange.webservices.data.ruleactions
 ###########################################################################################################
 
+      - Name: GetMailboxRulesForAllUsers
+        DisplayName: Gets mailbox rules for all users within the last 30 days (Skill:GetMailboxRulesForAllUsers)
+        Description: Gets mailbox rules for all users within the last 30 days
+        DescriptionForModel: This query examines all mailbox activity over the last 30 days, focusing on operations like "Add-MailboxPermission", "New-InboxRule", and "Set-InboxRule", which are often associated with malicious behavior. It helps to identify potentially unauthorized changes to mailbox permissions and rules while excluding system-generated actions to reduce false positives.
+        ExamplePrompts:
+          - Get all mailbox rules using over the past 30 days
+          - Get all mailbox rules for every user
+          - Show me all mailbox rules
+          - Show me everyones mailbox rules
+        Settings:
+          Target: Sentinel
+          TenantId: '{{TenantId}}'
+          SubscriptionId: '{{SubscriptionId}}'
+          ResourceGroupName: '{{ResourceGroupName}}'
+          WorkspaceName: '{{WorkspaceName}}'
+          Template: |-
+            let TimePeriod = 30d;
+            OfficeActivity
+            | where TimeGenerated >= ago(TimePeriod)
+            | where UserId !contains "NT AUTHORITY\\SYSTEM" 
+            // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.
+            | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
+            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule", "Set-Mailbox", "New-TransportRule", "Set-TransportRule", "Add-MailboxFolderPermission", "New-ManagementRoleAssignment")
+            // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
+            // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
+            // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
+            | extend ClientIP_WithoutPort = split(ClientIP, ":")[0]
+            | project TimeGenerated, UserId, Operation, Parameters, ClientIP_WithoutPort
+            
+###########################################################################################################
+# Reference: OfficeActivity KQL table fields
+#   - https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/officeactivity
+#
+# Reference: Mailbox RuleAction included within the 'Parameters' JSON output
+#   - https://learn.microsoft.com/en-us/dotnet/api/microsoft.exchange.webservices.data.ruleactions
+###########################################################################################################
+
       - Name: GetMailboxRulesForSingleUser
         DisplayName: Gets mailbox rules for a single user (Skill:GetMailboxRulesForSingleUser)
         Description: Gets user mailbox rules over a given time frame
@@ -85,43 +122,5 @@ SkillGroups:
             // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
             | extend ClientIP_WithoutPort = split(ClientIP, ":")[0]
             | project TimeGenerated, UserId, Operation, Parameters, ClientIP_WithoutPort
-
-###########################################################################################################
-# Reference: OfficeActivity KQL table fields
-#   - https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/officeactivity
-#
-# Reference: Mailbox RuleAction included within the 'Parameters' JSON output
-#   - https://learn.microsoft.com/en-us/dotnet/api/microsoft.exchange.webservices.data.ruleactions
-###########################################################################################################
-
-      - Name: GetMailboxRulesForAllUsers
-        DisplayName: Gets mailbox rules for all users within the last 30 days (Skill:GetMailboxRulesForAllUsers)
-        Description: Gets mailbox rules for all users within the last 30 days
-        DescriptionForModel: This query examines all mailbox activity over the last 30 days, focusing on operations like "Add-MailboxPermission", "New-InboxRule", and "Set-InboxRule", which are often associated with malicious behavior. It helps to identify potentially unauthorized changes to mailbox permissions and rules while excluding system-generated actions to reduce false positives.
-        ExamplePrompts:
-          - Get all mailbox rules using over the past 30 days
-          - Get all mailbox rules for every user
-          - Show me all mailbox rules
-          - Show me everyones mailbox rules
-        Settings:
-          Target: Sentinel
-          TenantId: '{{TenantId}}'
-          SubscriptionId: '{{SubscriptionId}}'
-          ResourceGroupName: '{{ResourceGroupName}}'
-          WorkspaceName: '{{WorkspaceName}}'
-          Template: |-
-            let TimePeriod = 30d;
-            OfficeActivity
-            | where TimeGenerated >= ago(TimePeriod)
-            | where UserId !contains "NT AUTHORITY\\SYSTEM" 
-            // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.
-            | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
-            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule", "Set-Mailbox", "New-TransportRule", "Set-TransportRule", "Add-MailboxFolderPermission", "New-ManagementRoleAssignment")
-            // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
-            // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
-            // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
-            | extend ClientIP_WithoutPort = split(ClientIP, ":")[0]
-            | project TimeGenerated, UserId, Operation, Parameters, ClientIP_WithoutPort
-
-            
+           
 ###########################################################################################################
