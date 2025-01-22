@@ -1,4 +1,4 @@
-### Mailbox Rules Analysis plugin v7 (updaed 16-Dec-2024)
+### Mailbox Rules Analysis plugin v7 (updated 22-Jan-2025)
 
 This KQL plugin queries user mailboxes for rules that may indiciate they've been compromised.
 
