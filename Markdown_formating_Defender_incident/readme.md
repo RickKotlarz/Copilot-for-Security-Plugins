@@ -1,5 +1,5 @@
 # Prompt 1
- - Notice column headers are default starting with "Incident ID", "Display Name", "Severity"
+ - Notice column headers are default, starting left to right with "Incident ID", "Display Name", "Severity" ...
  ```
 List the last 3 incidents from Defender.
 ```
@@ -14,7 +14,7 @@ List the last 3 incidents from Defender.
 ```
 
 # Prompt 3
- - Notice column headers have been changed and now start with "Created Date", "Incidend ID", Status"
+ - Notice column headers have been changed and now show left to right with "Created Date", "Incidend ID", "Status" ...
  ```
 List the last 3 incidents from Defender.
 ```
