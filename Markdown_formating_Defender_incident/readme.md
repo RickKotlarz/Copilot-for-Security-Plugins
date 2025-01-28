@@ -1,10 +1,11 @@
 # Prompt 1
- - Notice column headers are default, starting left to right with "Incident ID", "Display Name", "Severity" ...
+ Notice column headers are default, starting left to right with "Incident ID", "Display Name", "Severity" ...
  ```
 List the last 3 incidents from Defender.
 ```
 
 # Prompt 2
+Use the following AskGPT prompt to instruct the model to reformat subseqent prompt output.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
 ## Markdown example
@@ -14,14 +15,14 @@ List the last 3 incidents from Defender.
 ```
 
 # Prompt 3
- - Notice column headers have been changed and now show left to right with "Created Date", "Incidend ID", "Status" ...
+Once the model understand how you want to format the output, resubmit the initial prompt. Notice that the column headers have been changed and now show left to right with "Created Date", "Incidend ID", "Status" ...
  ```
 List the last 3 incidents from Defender.
 ```
 
 
 # Prompt 4
- - Notice that prompt invokes the Defender plugin and explicitly states the format within the request.
+The following combines the two prompts by asking for the last 3 incidents from Defender and specifies the output format in markdown. 
  ```
 List the last 3 incidents from Defender. Ensure the output is formatted to conform to the following markdown example.
 ## Markdown example
