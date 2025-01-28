@@ -17,7 +17,7 @@ Use the following AskGPT prompt to instruct the model to reformat subsequent pro
 ```
 
 ### Prompt 3
-Once the model understands how you want to format the output, resubmit the initial prompt. Notice that the column headers have been changed and now show left to right with "Created Date", "Incident ID", "Status" ...
+Once the model understands how you want to format the output, resubmit the initial prompt. Notice that updated output now shows that the column headers have been changed and now show left to right with "Created Date", "Incident ID", "Status" ...
 ```
 List the last 3 incidents from Defender.
 ```
