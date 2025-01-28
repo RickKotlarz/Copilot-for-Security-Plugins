@@ -5,7 +5,7 @@ List the last 3 incidents from Defender.
 ```
 
 # Prompt 2
-Use the following AskGPT prompt to instruct the model to reformat subseqent prompt output.
+Use the following AskGPT prompt to instruct the model to reformat subsequent prompt output.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
 ## Markdown example
@@ -15,8 +15,8 @@ Use the following AskGPT prompt to instruct the model to reformat subseqent prom
 ```
 
 # Prompt 3
-Once the model understand how you want to format the output, resubmit the initial prompt. Notice that the column headers have been changed and now show left to right with "Created Date", "Incidend ID", "Status" ...
- ```
+Once the model understands how you want to format the output, resubmit the initial prompt. Notice that the column headers have been changed and now show left to right with "Created Date", "Incident ID", "Status" ...
+```
 List the last 3 incidents from Defender.
 ```
 
