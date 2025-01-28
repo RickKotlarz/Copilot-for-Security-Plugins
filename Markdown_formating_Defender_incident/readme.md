@@ -14,7 +14,7 @@ List the last 3 incidents from Defender.
 ```
 
 # Prompt 3
- - Notice column headers have been changed and now show "Created Date", "Incidend ID", Status"
+ - Notice column headers have been changed and now start with "Created Date", "Incidend ID", Status"
  ```
 List the last 3 incidents from Defender.
 ```
