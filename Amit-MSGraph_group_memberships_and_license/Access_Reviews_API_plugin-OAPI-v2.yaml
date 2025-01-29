@@ -1,0 +1,152 @@
+# Author Amit Singh
+# Jan-29-2025
+
+openapi: 3.0.0
+
+info:
+    title: EntraID Access Review Plugin
+    description: The skills in this plugin will help create access reviews in EntraID, including User details like groups, licenses via Graph API Call
+    version: "v1.0.10"
+servers:
+    - url: https://graph.microsoft.com/v1.0
+     
+paths:
+
+#############################################################################################################
+# List a user's memberships (direct and transitive)
+#   https://learn.microsoft.com/en-us/graph/api/user-list-transitivememberof
+#############################################################################################################
+
+  /users/{userIdentifier}/transitiveMemberOf:
+    get:
+      operationId: RetrieveTransitiveMemberOf
+      description: Fetch all transitive memberships details for a user.
+      descriptionForModel: Fetch all transitive memberships of a user, including groups and directory roles in Entra ID. Transitive memberships include both direct and indirect memberships, such as those assigned via group nesting.
+      examplePrompts:
+        - Get all memberships for user
+        - Get all transitive memberships for user        
+        - Get the transitive group memberships for user
+        - Get the group memberships for user        
+        - Get the transitive group memberships for user objectID
+        - Get the group memberships for user objectID        
+        - What are the group memberships for user
+        - What are the transitive group memberships for user        
+        - What Entra group memberships does user have
+        - What Entra transitive group memberships does user have        
+      parameters:
+        - in: path
+          name: userIdentifier
+          schema:
+            type: string
+          required: true
+          description: The unique identifier (ID) or userPrincipalName of the user to retrieve.
+      responses:
+        "200":
+           description: OK
+           content:
+             application/json:
+               schema:
+                 type: object
+                 properties:
+                   "@odata.context":
+                     type: string
+                     example: "https://graph.microsoft.com/v1.0/$metadata#directoryObjects"
+                   value:
+                     type: array
+                     items:
+                       type: object
+                       properties:
+                         "@odata.type":
+                           type: string
+                           example: "#microsoft.graph.group"
+                         displayName:
+                           type: string
+                           example: "All_Contoso_Licensing"
+                         mailEnabled:
+                           type: boolean
+                           example: true
+                         mailNickname:
+                           type: string
+                           example: "ContosoMailNickName"
+                         securityEnabled:
+                           type: boolean
+                           example: true          
+        "400":
+          description: Bad request, invalid parameters
+          
+#############################################################################################################
+# List licenseDetails
+#   https://learn.microsoft.com/en-us/graph/api/user-list-licensedetails
+#############################################################################################################
+
+  /users/{userIdentifier}/licenseDetails:
+    get:
+      operationId: RetrieveTheLicenseDetailsOfUser
+      description: Fetch the license details assigned to a user in Entra ID.
+      descriptionForModel: Fetch the license details assigned to a user in Entra ID.
+      examplePrompts:
+        - Get license details assigned to a user
+        - Get license details assigned to a UPN
+        - Get license details assigned to user object ID
+        - Get Entra license details assigned to the user
+        - Get Entra license details assigned to the UPN        
+        - Get Entra license details assigned to the user object ID
+      parameters:
+        - in: path
+          name: userIdentifier
+          schema:
+            type: string
+          required: true
+          description: The unique identifier (ID) or userPrincipalName of the user to retrieve.
+      requestBody:
+        required: true
+        description: Fetch the license details assigned to a user in Entra ID.
+      responses:
+        
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  "@odata.context":
+                    type: string
+                    example: "https://graph.microsoft.com/v1.0/$metadata#users('48d31887-5fad-4d73-a9f5-3c356e68a038')/licenseDetails"
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "3RnS3Gi8m0u_C0ozp5a-NWAn38eBLPdOtXhbU5K1cd8"
+                        skuId:
+                          type: string
+                          example: "c7df2760-2c81-4ef7-b578-5b5392b571df"
+                        skuPartNumber:
+                          type: string
+                          example: "ENTERPRISEPREMIUM"
+                        servicePlans:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              servicePlanId:
+                                type: string
+                                example: "cd31b152-6326-4d1b-ae1b-997b625182e6"
+                              servicePlanName:
+                                type: string
+                                example: "MIP_S_Exchange"
+                              provisioningStatus:
+                                type: string
+                                example: "PendingProvisioning"
+                              appliesTo:
+                                type: string
+                                example: "User"
+                required: ["@odata.context", "value"]
+          
+        "400":
+          description: Bad request, invalid parameters
+
+  
