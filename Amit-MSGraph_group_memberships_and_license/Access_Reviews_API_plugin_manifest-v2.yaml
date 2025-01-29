@@ -1,0 +1,21 @@
+# Author Amit Singh
+# Jan-29-2025
+
+Descriptor:
+  Name: EntraID Access Review Plugin
+  DisplayName: EntraID Access Review Plugin
+  Description: The skills in this plugin will help create access reviews in EntraID, including User details like groups, licenses via Graph API Call
+  DescriptionForModel: The skills in this plugin will help create access reviews in EntraID, including User details like groups, licenses via Graph API Call
+
+  Authorization:
+    Type: OAuthAuthorizationCodeFlow
+#    ClientId: {clientID} # Application (Client) ID from Entra App Registration which can be hardcoded in the plugin
+    AuthorizationEndpoint: https://login.microsoftonline.com/{Tenant-ID}/oauth2/v2.0/authorize #Directory(tenant)ID from Overview page of your App Registration in EntraID
+    TokenEndpoint: https://login.microsoftonline.com/{Tenant-ID}/oauth2/v2.0/token #Directory(tenant)ID from Overview page of your App Registration in EntraID
+    Scopes: offline_access GroupMember.Read.All user.read User.Read.All AccessReview.ReadWrite.All AccessReview.ReadWrite.Membership Directory.Read.All Group.ReadWrite.All RoleManagement.Read.All Sites.Read.All TeamsActivity.Read TeamSettings.ReadWrite.All    #EntraID permissions for this App & delegated permissions assigned to your App in EntraID
+    AuthorizationContentType: application/x-www-form-urlencoded
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/Copilot-for-Security-Plugins//main/Amit-MSGraph_group_memberships_and_license/Access_Reviews_API_plugin-OAPI-v2.yaml
