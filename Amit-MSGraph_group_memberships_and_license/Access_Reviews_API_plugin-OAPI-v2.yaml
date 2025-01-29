@@ -98,11 +98,7 @@ paths:
             type: string
           required: true
           description: The unique identifier (ID) or userPrincipalName of the user to retrieve.
-      requestBody:
-        required: true
-        description: Fetch the license details assigned to a user in Entra ID.
       responses:
-        
         "200":
           description: OK
           content:
