@@ -6,7 +6,7 @@ openapi: 3.0.0
 info:
     title: EntraID Access Review Plugin
     description: The skills in this plugin will help create access reviews in EntraID, including User details like groups, licenses via Graph API Call
-    version: "v1.0.10"
+    version: "v1.0.11"
 servers:
     - url: https://graph.microsoft.com/v1.0
      
