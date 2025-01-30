@@ -1,20 +1,23 @@
 The following example prompts illustrate how a user can alter the output from a plugin skill using markdown.
 
-1. [Default output](#default-output)
+1. [Default output](#Default-prompt-output)
+2. [Formating with AskGPT](#Formating-with-AskGPT)
+3. [Combining a request with markdown formatting instructions](#Combined-instructions-and-markdown-formatting)
+4. [Increase effeciency](#Increase-effeciency)
 
-<a name="default-output" />
+<a name="Default-prompt-output" />
 
-###  Default output
+###  Default prompt
+
+> Running this prompt usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
 ```
 List the last 3 incidents from Defender.
 ```
-> Running this prompt usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
+<a name="Formating-with-AskGPT" />
 
+### Formating with AskGPT
 
-
-
-### Prompt 2
-Use the following AskGPT prompt to instruct the model to reformat subsequent prompt output.
+> Large Language Models (LLMs) grasp context and follow instructions more effectively when delimiters and markdown are used in prompts. Although natural language works, it demands more explanation than most users prefer. We can minimize output variance by beginning with an /AskGPT prompt that tells the model "no actions are needed at this time" and to format subsequent output using markdown, including an example of the desired markdown format.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
 ## Markdown example
@@ -22,18 +25,32 @@ Use the following AskGPT prompt to instruct the model to reformat subsequent pro
 |-------------------------|-----------------|------------|-------------------|----------------------|--------------|-----------------|--------------------|-------------------|------------------------------| 
 | 2025-01-08T12:09:40.47Z |     1234        |   Active   | https://12.aka.ms | Multi-stage incident | High         | John.Doe        | Malware            | True Positive     | 2025-01-22T23:33:21.1733333Z |
 ```
-
-### Prompt 3
-Once the model understands how you want to format the output, resubmit the initial prompt. Notice that updated output now shows that the column headers have been changed and now show left to right with "Created Date", "Incident ID", "Status" ...
+> After giving these instructions, rerunning the default prompt will show that the first element is now "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." Note that these instructions **MUST** must occur before the subsequent prompts. You can store this prompt seperately in a promptbook for easier access and organization.
+>
+> Below is another example of formatting using bullets, indentations, and a horizontal bar after each incident.
 ```
-List the last 3 incidents from Defender.
+/AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
+- **Created Date**: `2025-01-08T12:09:40.47Z`
+  - **Incident ID**: `1234`
+  - **Status**: Active
+  - **Title**: Multi-stage incident
+        - **Severity**: High
+        - **Assigned To**: John.Doe
+  - **Classification**: Malware
+  - **Determination**: True Positive
+  - **Last Updated**: `2025-01-22T23:33:21.1733333Z`
+        - **Incident URL**: [Incident Details](https://12.aka.ms)
+---
 ```
 
 ---
 
-### Recommended method - Prompt 1
+<a name="Combined-instructions-and-markdown-formatting" />
 
-The following combines the two prompts by asking for the last 3 incidents from Defender and specifies the output format in markdown. 
+### Combining a request with markdown formatting instructions
+
+> Instead of separating the request, you can include the formatting within the prompt itself. Combining both prompt and formatting instructions can be useful when used with Logic Apps and helps reduce SCU utilization.
+
  ```
 List the last 3 incidents from Defender. Ensure the output is formatted to conform to the following markdown example.
 ## Markdown example
@@ -44,7 +61,12 @@ List the last 3 incidents from Defender. Ensure the output is formatted to confo
 
 ---
 
-> Note that all of the markdown formatting methods above include extra characters to help users understand what this format looks like visually. To increase effeciency you can remove double spaces and extra hyphens. Example of what this looks like:
+<a name="Increase-effeciency" />
+
+### Increase-effeciency
+
+> All the markdown formatting methods above include extra characters to help users visualize the format. To increase efficiency, you can remove double spaces and extra hyphens. Here's an example of what this looks like:
+
 ```
 |**Incident ID**|**Status**|**Incident URL**|
 |-|-|-|
