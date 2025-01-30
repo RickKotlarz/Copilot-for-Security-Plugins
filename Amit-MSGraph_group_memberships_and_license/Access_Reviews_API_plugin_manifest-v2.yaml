@@ -13,7 +13,6 @@ Descriptor:
     AuthorizationEndpoint: https://login.microsoftonline.com/{Tenant-ID}/oauth2/v2.0/authorize #Directory(tenant)ID from Overview page of your App Registration in EntraID
     TokenEndpoint: https://login.microsoftonline.com/{Tenant-ID}/oauth2/v2.0/token #Directory(tenant)ID from Overview page of your App Registration in EntraID
     Scopes: offline_access GroupMember.Read.All user.read User.Read.All Directory.Read.All RoleManagement.Read.All Sites.Read.All TeamsActivity.Read #EntraID permissions for this App & delegated permissions assigned to your App in EntraID
-
     AuthorizationContentType: application/x-www-form-urlencoded
 
 SkillGroups:
