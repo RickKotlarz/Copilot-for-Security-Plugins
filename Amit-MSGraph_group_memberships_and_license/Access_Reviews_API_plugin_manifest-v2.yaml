@@ -12,7 +12,7 @@ Descriptor:
 #    ClientId: {clientID} # Application (Client) ID from Entra App Registration which can be hardcoded in the plugin
     AuthorizationEndpoint: https://login.microsoftonline.com/{Tenant-ID}/oauth2/v2.0/authorize #Directory(tenant)ID from Overview page of your App Registration in EntraID
     TokenEndpoint: https://login.microsoftonline.com/{Tenant-ID}/oauth2/v2.0/token #Directory(tenant)ID from Overview page of your App Registration in EntraID
-    Scopes: offline_access GroupMember.Read.All user.read User.Read.All AccessReview.ReadWrite.All AccessReview.ReadWrite.Membership Directory.Read.All Group.ReadWrite.All RoleManagement.Read.All Sites.Read.All TeamsActivity.Read TeamSettings.ReadWrite.All    #EntraID permissions for this App & delegated permissions assigned to your App in EntraID
+    Scopes: offline_access GroupMember.Read.All user.read User.Read.All Directory.Read.All Group.ReadWrite.All RoleManagement.Read.All Sites.Read.All TeamsActivity.Read TeamSettings.ReadWrite.All    #EntraID permissions for this App & delegated permissions assigned to your App in EntraID
     AuthorizationContentType: application/x-www-form-urlencoded
 
 SkillGroups:
