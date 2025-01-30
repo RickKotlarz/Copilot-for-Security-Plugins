@@ -37,7 +37,7 @@ List the last 3 incidents from Defender. Ensure the output is formatted to confo
 
 ---
 
-Note that all of the markdown formatting methods above include extra characters to help users understand what this format looks like visually. To increase effeciency you can remove double spaces and extra hyphens. Example of what this looks like:
+> Note that all of the markdown formatting methods above include extra characters to help users understand what this format looks like visually. To increase effeciency you can remove double spaces and extra hyphens. Example of what this looks like:
 ```
 |**Incident ID**|**Status**|**Incident URL**|
 |-|-|-|
