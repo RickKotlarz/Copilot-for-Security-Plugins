@@ -1,10 +1,17 @@
-The following prompts illustrate how a user can alter the output from a plugin skill using markdown.
+The following example prompts illustrate how a user can alter the output from a plugin skill using markdown.
 
-###  Prompt 1
- Notice column headers are default, starting left to right with "Incident ID", "Display Name", "Severity" ...
- ```
+1. [Default output](#default-output)
+
+<a name="default-output" />
+
+###  Default output
+```
 List the last 3 incidents from Defender.
 ```
+> Running this prompt usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
+
+
+
 
 ### Prompt 2
 Use the following AskGPT prompt to instruct the model to reformat subsequent prompt output.
