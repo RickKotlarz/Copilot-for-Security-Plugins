@@ -1,11 +1,9 @@
 The following example prompts illustrate how a user can alter the output from a plugin skill using markdown.
 
-1. [Default output](#Default-prompt-output)
+1. [Default output](#default-prompt)
 2. [Formating with AskGPT](#formating-with-askgpt)
-3. [Combining a request with markdown formatting instructions](#Combined-instructions-and-markdown-formatting)
-4. [Increase effeciency](#Increase-effeciency)
-
-<a name="Default-prompt-output" />
+3. [Combining a request with markdown formatting instructions](#combined-instructions-and-markdown-formatting)
+4. [Increase effeciency](#increase-effeciency)
 
 ###  Default prompt
 
@@ -13,7 +11,6 @@ The following example prompts illustrate how a user can alter the output from a 
 ```
 List the last 3 incidents from Defender.
 ```
-<a name="Formating-with-AskGPT" />
 
 ### Formating with AskGPT
 
@@ -42,7 +39,6 @@ List the last 3 incidents from Defender.
 
 ---
 
-<a name="Combined-instructions-and-markdown-formatting" />
 
 ### Combining a request with markdown formatting instructions
 
@@ -57,8 +53,6 @@ List the last 3 incidents from Defender. Ensure the output is formatted to confo
 ```
 
 ---
-
-<a name="Increase-effeciency" />
 
 ### Increase-effeciency
 
