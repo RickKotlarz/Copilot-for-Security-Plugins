@@ -27,17 +27,14 @@ List the last 3 incidents from Defender.
 ```
 > After giving these instructions, rerunning the default prompt will show that the first element is now "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." Note that these instructions **MUST** must occur before the subsequent prompts. You can store this prompt seperately in a promptbook for easier access and organization.
 >
-> Below is another example of formatting using bullets, indentations, and a horizontal bar after each incident.
+> Below is another example of formatting using bullets, indentations, and a horizontal bar after each incident. In this example, the "Assigned To," "Classification," and "Determination" fields have also been omitted from the formatted output.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
 - **Created Date**: `2025-01-08T12:09:40.47Z`
   - **Incident ID**: `1234`
-  - **Status**: Active
-  - **Title**: Multi-stage incident
-        - **Severity**: High
-        - **Assigned To**: John.Doe
-  - **Classification**: Malware
-  - **Determination**: True Positive
+  - **Status**: `Active`
+  - **Title**: `Multi-stage incident`
+        - **Severity**: `High`
   - **Last Updated**: `2025-01-22T23:33:21.1733333Z`
         - **Incident URL**: [Incident Details](https://12.aka.ms)
 ---
