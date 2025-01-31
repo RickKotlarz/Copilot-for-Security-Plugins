@@ -69,7 +69,7 @@ List the last 3 incidents from Defender. Ensure the output is formatted to confo
 |-----------------|------------|-------------------|----------------------|--------------|-----------------|--------------------|-------------------|--------------------------|-----------------------------| 
 |     1234        |   Active   | https://12.aka.ms | Multi-stage incident | High         | John.Doe        | Malware            | True Positive     | 2025-01-08T12:09:40.47Z | 2025-01-22T23:33:21.1733333Z |
 ```
-[![004_prompt_that_includes_markdown_formatting.png](./images/004_prompt_that_includes_markdown_formatting.png)](./images/004_prompt_that_includes_markdown_formatting.png)
+[![006_prompt_that_includes_markdown_formatting.png](./images/006_prompt_that_includes_markdown_formatting.png)](./images/006_prompt_that_includes_markdown_formatting.png)
 
 
 ---
