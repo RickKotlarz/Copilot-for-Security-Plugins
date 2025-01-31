@@ -48,9 +48,9 @@ List the last 3 incidents from Defender.
   - **Incident ID**: `1234`
   - **Status**: `Active`
   - **Title**: `Multi-stage incident`
-        - **Severity**: `High`
+    - **Severity**: `High`
   - **Last Updated**: `2025-01-22T23:33:21.1733333Z`
-        - **Incident URL**: [Incident Details](https://12.aka.ms)
+    -  **Incident URL**: [Incident Details](https://12.aka.ms)
 ---
 ```
 
