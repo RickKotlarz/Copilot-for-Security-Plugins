@@ -2,7 +2,7 @@ The following example prompts illustrate how a user can alter the output from a 
 
 1. [Default output](#default-prompt)
 2. [Formating with AskGPT](#formating-with-askgpt)
-3. [Combining a request with markdown formatting instructions](#combined-instructions-and-markdown-formatting)
+3. [Combining a request with markdown formatting instructions](##combining-a-request-with-markdown-formatting-instructions)
 4. [Increase effeciency](#increase-effeciency)
 
 ###  Default prompt
