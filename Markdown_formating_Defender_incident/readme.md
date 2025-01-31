@@ -5,7 +5,7 @@
 #### ⌛ Estimated time to complete this lab: 15 minutes
 #### 🎓 Level: 100 (Beginner)
 
-The following example prompts show how users can modify the output from a plugin skill using markdown. Large Language Models (LLMs) understand context and follow directions better when delimiters and markdown are used in prompts. While natural language works, it requires more explanation than most users want to provide. We can reduce output variance by giving detailed instructions and using markdown.
+The following example prompts demonstrate how users can modify the output from a plugin skill using markdown. Large Language Models (LLMs) interpret context and follow instructions more effectively when delimiters and markdown are included in prompts. Although natural language can be used, it often requires more detailed explanations than most users are willing to provide. By offering clear instructions and utilizing markdown, as covered in this module, you can reduce the likelihood of output variance.
 
 1. [Initial prompt](#initial-prompt)
 2. [Formating with AskGPT](#formating-with-askgpt)
@@ -14,11 +14,8 @@ The following example prompts show how users can modify the output from a plugin
 
 ###  Initial prompt
 
-> Running this prompt usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
-> Running a prompt without providing the output expectations can result in output formatting being varried between a table and bullet points. Additionally when 
->
->
->  usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
+> Running a prompt without specifying output expectations can lead to inconsistent formatting, such as alternating between tables and bullet points. When users don't provide detailed instructions on the desired output format, the skill will return all available data. In this example, the output starts with "Incident ID," followed by "Display Name," "Severity," and so on.
+
 ```
 List the last 3 incidents from Defender.
 ```
@@ -26,7 +23,7 @@ List the last 3 incidents from Defender.
 
 ### Formating with AskGPT
 
-> This /AskGPT prompt starts by telling the model that "no actions are needed at this time" and to simply format subsequent output using markdown, including an example of the desired markdown format. For this particular set of instructions, the prompt below should be submitted **before** the [Initial prompt](#initial-prompt) is provided.
+> To modify the default output, we can use the /AskGPT skill and instruct the model to take no action other than reading the instructions. Then, specify that subsequent outputs should follow the provided markdown format. Keep in mind that this will not reformat existing results; the instruction must be set **before** the prompt for which you want to change the output format.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
 ## Markdown example
@@ -34,10 +31,9 @@ List the last 3 incidents from Defender.
 |-------------------------|-----------------|------------|-------------------|----------------------|--------------|-----------------|--------------------|-------------------|------------------------------| 
 | 2025-01-08T12:09:40.47Z |     1234        |   Active   | https://12.aka.ms | Multi-stage incident | High         | John.Doe        | Malware            | True Positive     | 2025-01-22T23:33:21.1733333Z |
 ```
-> When you resubmit the 'Initial prompt,' the first element will now be "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." **Apply these instructions before formatting the other prompts.** For better organization and easy access, consider saving this prompt in a promptbook.
+> Notice that re-running the [Initial prompt](#initial-prompt) now results with the first column of "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." **Be sure to apply these instructions before formatting other prompts.** For better organization and easier access, consider saving this prompt in a promptbook.
 
 [![002_AskGPT_markdown_formatting.png](./images/002_AskGPT_markdown_formatting.png)](./images/002_AskGPT_markdown_formatting.png)
-
 
 > Another example of markdown formatting is shown below, using bullets, indentations, and a horizontal bar after each incident. In this example, the "Assigned To," "Classification," and "Determination" fields have been excluded from the formatted output by removing them from the markdown example.
 ```
