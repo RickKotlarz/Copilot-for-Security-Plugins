@@ -1,3 +1,10 @@
+## Formatting with markdown in Microsoft Security Copilot
+
+![Security CoPilot Logo](https://github.com/Azure/Copilot-For-Security/blob/main/Images/ic_fluent_copilot_64_64%402x.png)
+
+#### ⌛ Estimated time to complete this lab: 15 minutes
+#### 🎓 Level: 100 (Beginner)
+
 The following example prompts show how users can modify the output from a plugin skill using markdown. Large Language Models (LLMs) understand context and follow directions better when delimiters and markdown are used in prompts. While natural language works, it requires more explanation than most users want to provide. We can reduce output variance by giving detailed instructions and using markdown.
 
 1. [Initial prompt](#initial-prompt)
@@ -11,7 +18,7 @@ The following example prompts show how users can modify the output from a plugin
 ```
 List the last 3 incidents from Defender.
 ```
-[![Initial prompt](./images/001_prompt_no_markdown.png)](./images/001_prompt_no_markdown.png)
+![Initial prompt](./images/001_prompt_no_markdown.png)](./images/001_prompt_no_markdown.png)
 
 ### Formating with AskGPT
 
@@ -25,7 +32,7 @@ List the last 3 incidents from Defender.
 ```
 > When you resubmit the 'Initial prompt,' the first element will now be "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." **Apply these instructions before formatting the other prompts.** For better organization and easy access, consider saving this prompt in a promptbook.
 
-[![Initial prompt](./images/002_AskGPT_markdown_formatting.png)](./images/002_AskGPT_markdown_formatting.png)
+![Initial prompt](./images/002_AskGPT_markdown_formatting.png)](./images/002_AskGPT_markdown_formatting.png)
 
 
 
@@ -42,7 +49,7 @@ List the last 3 incidents from Defender.
 ---
 ```
 
-[![Initial prompt](./images/003_initial_prompt_after_AskGPT_markdown_formatting.png)](./images/003_initial_prompt_after_AskGPT_markdown_formatting.png)
+![Initial prompt](./images/003_initial_prompt_after_AskGPT_markdown_formatting.png)](./images/003_initial_prompt_after_AskGPT_markdown_formatting.png)
 
 ---
 
@@ -58,7 +65,7 @@ List the last 3 incidents from Defender. Ensure the output is formatted to confo
 |-----------------|------------|-------------------|----------------------|--------------|-----------------|--------------------|-------------------|--------------------------|-----------------------------| 
 |     1234        |   Active   | https://12.aka.ms | Multi-stage incident | High         | John.Doe        | Malware            | True Positive     | 2025-01-08T12:09:40.47Z | 2025-01-22T23:33:21.1733333Z |
 ```
-[![Initial prompt](./images/004_prompt_that_includes_markdown_formatting.png)](./images/004_prompt_that_includes_markdown_formatting.png)
+![Initial prompt](./images/004_prompt_that_includes_markdown_formatting.png)](./images/004_prompt_that_includes_markdown_formatting.png)
 
 
 ---
