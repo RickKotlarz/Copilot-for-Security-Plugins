@@ -1,11 +1,11 @@
-The following example prompts illustrate how a user can alter the output from a plugin skill using markdown.
+The following example prompts show how users can modify the output from a plugin skill using markdown. Large Language Models (LLMs) understand context and follow directions better when delimiters and markdown are used in prompts. While natural language works, it requires more explanation than most users want to provide. We can reduce output variance by giving detailed instructions and using markdown.
 
-1. [Default output](#default-prompt)
+1. [Initial prompt](#initial-prompt)
 2. [Formating with AskGPT](#formating-with-askgpt)
 3. [Combining a request with markdown formatting instructions](##combining-a-request-with-markdown-formatting-instructions)
 4. [Increase effeciency](#increase-effeciency)
 
-###  Default prompt
+###  Initial prompt
 
 > Running this prompt usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
 ```
@@ -14,7 +14,7 @@ List the last 3 incidents from Defender.
 
 ### Formating with AskGPT
 
-> Large Language Models (LLMs) grasp context and follow instructions more effectively when delimiters and markdown are used in prompts. Although natural language works, it demands more explanation than most users prefer. We can minimize output variance by beginning with an /AskGPT prompt that tells the model "no actions are needed at this time" and to format subsequent output using markdown, including an example of the desired markdown format.
+> This /AskGPT prompt starts by telling the model that "no actions are needed at this time" and to simply format subsequent output using markdown, including an example of the desired markdown format. For this particular set of instructions, the prompt below should be submitted **before** the [Initial prompt](#initial-prompt) is provided.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
 ## Markdown example
@@ -22,9 +22,10 @@ List the last 3 incidents from Defender.
 |-------------------------|-----------------|------------|-------------------|----------------------|--------------|-----------------|--------------------|-------------------|------------------------------| 
 | 2025-01-08T12:09:40.47Z |     1234        |   Active   | https://12.aka.ms | Multi-stage incident | High         | John.Doe        | Malware            | True Positive     | 2025-01-22T23:33:21.1733333Z |
 ```
-> After giving these instructions, rerunning the default prompt will show that the first element is now "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." Note that these instructions **MUST** must occur before the subsequent prompts. You can store this prompt seperately in a promptbook for easier access and organization.
+> When you resubmit the 'Initial prompt,' the first element will now be "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." **Apply these instructions before formatting the other prompts.** For better organization and easy access, consider saving this prompt in a promptbook.
+> 
 >
-> Below is another example of formatting using bullets, indentations, and a horizontal bar after each incident. In this example, the "Assigned To," "Classification," and "Determination" fields have also been omitted from the formatted output.
+> Another example of markdown formatting is shown below, using bullets, indentations, and a horizontal bar after each incident. In this example, the "Assigned To," "Classification," and "Determination" fields have been excluded from the formatted output by removing them from the markdown example.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following markdown example.
 - **Created Date**: `2025-01-08T12:09:40.47Z`
