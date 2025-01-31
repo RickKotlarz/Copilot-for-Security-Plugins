@@ -21,7 +21,7 @@ The following example prompts demonstrate how users can modify the output from a
 ```
 List the last 3 incidents from Defender.
 ```
-[![Image](./images/001_prompt_no_markdown.png)](./images/001_prompt_no_markdown.png)
+![Image](./images/001_prompt_no_markdown.png)
 
 ### Formating as a table with AskGPT
 
@@ -33,11 +33,11 @@ List the last 3 incidents from Defender.
 |-------------------------|-----------------|------------|-------------------|----------------------|--------------|-----------------|--------------------|-------------------|------------------------------| 
 | 2025-01-08T12:09:40.47Z |     1234        |   Active   | https://12.aka.ms | Multi-stage incident | High         | John.Doe        | Malware            | True Positive     | 2025-01-22T23:33:21.1733333Z |
 ```
-[![Image](./images/002_AskGPT_markdown_formatting.png)](./images/002_AskGPT_markdown_formatting.png)
+![Image](./images/002_AskGPT_markdown_formatting.png)
 
 > Notice that re-running the [Initial prompt](#initial-prompt) now results with the first column of "Created Date," followed by "Incident ID," and then "Status," instead of "Incident ID," "Display Name," and "Severity." **Be sure to apply these instructions before formatting other prompts.** For better organization and easier access, consider saving this prompt in a promptbook.
 
-[![Image](./images/003_AskGPT_formatting_as_a_table_prompt.png)](./images/003_AskGPT_formatting_as_a_table_prompt.png)
+![Image](./images/003_AskGPT_formatting_as_a_table_prompt.png)
 
 ### Formating as a list with AskGPT
 
@@ -55,9 +55,10 @@ List the last 3 incidents from Defender.
 ```
 
 
-[![Image](./images/004_AskGPT_formatting_as_a_list_prompt.png](./images/004_AskGPT_formatting_as_a_list_prompt.png)
+![Image](./images/004_AskGPT_formatting_as_a_list_prompt.png)
 
-[![Image](./images/005_AskGPT_formatting_as_a_list_result.png](./images/005_AskGPT_formatting_as_a_list_result.png)
+
+![Image](./images/005_AskGPT_formatting_as_a_list_result.png)
 
 ---
 
@@ -73,7 +74,7 @@ List the last 3 incidents from Defender. Ensure the output is formatted to confo
 |-----------------|------------|-------------------|----------------------|--------------|-----------------|--------------------|-------------------|--------------------------|-----------------------------| 
 |     1234        |   Active   | https://12.aka.ms | Multi-stage incident | High         | John.Doe        | Malware            | True Positive     | 2025-01-08T12:09:40.47Z | 2025-01-22T23:33:21.1733333Z |
 ```
-[![Image](./images/006_prompt_that_includes_AskGPT_formatting.png)](./images/006_prompt_that_includes_AskGPT_formatting.png)
+![Image](./images/006_prompt_that_includes_AskGPT_formatting.png)
 
 
 ---
