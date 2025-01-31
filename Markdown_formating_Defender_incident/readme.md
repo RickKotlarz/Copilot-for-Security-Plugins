@@ -2,7 +2,7 @@ The following example prompts show how users can modify the output from a plugin
 
 1. [Initial prompt](#initial-prompt)
 2. [Formating with AskGPT](#formating-with-askgpt)
-3. [Combining a request with markdown formatting instructions](##combining-a-request-with-markdown-formatting-instructions)
+3. [Combining a prompt with markdown formatting instructions](##combining-a-prompt-with-markdown-formatting-instructions)
 4. [Increase effeciency](#increase-effeciency)
 
 ###  Initial prompt
@@ -41,7 +41,7 @@ List the last 3 incidents from Defender.
 ---
 
 
-### Combining a request with markdown formatting instructions
+### Combining a prompt with markdown formatting instructions
 
 > Instead of separating the request, you can include the formatting within the prompt itself. Combining both prompt and formatting instructions can be useful when used with Logic Apps and helps reduce SCU utilization.
 
