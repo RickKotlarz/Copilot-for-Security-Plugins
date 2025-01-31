@@ -15,6 +15,10 @@ The following example prompts show how users can modify the output from a plugin
 ###  Initial prompt
 
 > Running this prompt usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
+> Running a prompt without providing the output expectations can result in output formatting being varried between a table and bullet points. Additionally when 
+>
+>
+>  usually returns a table, though it may occasionally be a bulleted list. In either format, the first element is "Incident ID," followed by "Display Name," "Severity," and so forth.
 ```
 List the last 3 incidents from Defender.
 ```
