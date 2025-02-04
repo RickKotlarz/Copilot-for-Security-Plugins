@@ -28,5 +28,5 @@ Using delimiters within Markdown can significantly help Large Language Models (L
 
 ## Workshop Modules
 
-- [**Module 1 – Using Markdown for formatting**](./Markdown%20workshop/Module%201%20-%20Formatting%20with%20markdown)
+- [**Module 1 – Using Markdown for formatting**](./Module%201%20-%20Formatting%20with%20markdown)
 - [**Module 2 - Improving reasoning with Markdown**](https://wwww.bing.com)
