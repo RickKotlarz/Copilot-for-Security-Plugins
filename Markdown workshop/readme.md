@@ -30,4 +30,4 @@ Using Markdown provides:
 ## Workshop Modules
 
 - [**Module 1 – Using Markdown for formatting**](./Module%201%20-%20Formatting%20with%20markdown)
-- [**Module 2 - Improving reasoning with Markdown**](./Module%201%20-%20Formatting%20with%20markdown)
+
