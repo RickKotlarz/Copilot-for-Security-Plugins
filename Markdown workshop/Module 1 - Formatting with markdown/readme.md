@@ -8,11 +8,11 @@
 The following example prompts demonstrate how users can modify the output from a plugin skill using Markdown. Large Language Models (LLMs) interpret context and follow instructions more effectively when delimiters and Markdown are included in prompts. Although natural language can be used, it often requires more detailed explanations than most users are willing to provide. By offering clear instructions and utilizing Markdown, as covered in this module, you can reduce the likelihood of output variance.
 
 1. [Initial prompt](#initial-prompt)
-2. [Formating as a table with AskGPT](#formating-as-a-table-with-askgpt)
-3. [Formating as a list with AskGPT](#formating-as-a-list-with-askgpt)
+2. [Formatting as a table with AskGPT](#formatting-as-a-table-with-askgpt)
+3. [Formatting as a list with AskGPT](#formatting-as-a-list-with-askgpt)
 4. [Combining a prompt with Markdown formatting instructions](#combining-a-prompt-with-Markdown-formatting-instructions)
 5. [Available Markdown](#available-markdown)
-6. [Increasing effeciency](#increasing-effeciency)
+6. [Increasing efficiency](#increasing-efficiency)
 
 
 ###  Initial prompt
@@ -24,7 +24,7 @@ List the last 3 incidents from Defender.
 ```
 ![Image](./images/001_prompt_no_Markdown.png)
 
-### Formating as a table with AskGPT
+### Formatting as a table with AskGPT
 
 To modify the default output, we can use the /AskGPT skill and instruct the model to take no action other than reading the instructions. Then, specify that subsequent outputs should follow the provided Markdown format. Keep in mind that this will not reformat existing results; the instruction must be set **before** the prompt for which you want to change the output format.
 ```
@@ -40,7 +40,7 @@ Notice that re-running the [Initial prompt](#initial-prompt) now results with th
 
 ![Image](./images/003_AskGPT_formatting_as_a_table_prompt.png)
 
-### Formating as a list with AskGPT
+### Formatting as a list with AskGPT
 
 Another example of Markdown formatting is shown below, using bullets, indentations, and a horizontal bar after each incident. In this example, the "Assigned To," "Classification," and "Determination" fields have been excluded from the formatted output by removing them from the Markdown example.
 ```
@@ -86,11 +86,11 @@ Given the speed of change within Security Copilot, the best way to visualize whi
 Please note that the standalone instance of Security Copilot currently does not support rendering all Markdown syntax elements (e.g., certain headings and images). While you can still include these elements in your prompts, the output will need to be processed and rendered by another service.
 
 ```
-/AskGPT Assume the role of a Markdown syntax expert. Provide a comprehensive list of Markdown syntax elements that includes elements such as tables and numbered lists, task lists, horizontal rules. For each element, provide instructions on how I can replicate them myself and what it would look like when rendered. 
+/AskGPT Assume the role of a Markdown syntax expert. Provide a comprehensive list of Markdown syntax elements that include elements such as tables and numbered lists, task lists, horizontal rules. For each element, provide instructions on how I can replicate them myself and what it would look like when rendered. 
 ```
 For the official Markdown specification visit [CommonMark](https://commonmark.org/help/)
 
-### Increasing effeciency
+### Increasing efficiency
 
 All the Markdown formatting methods above include extra characters to help users visualize the format. To increase efficiency, you can remove double spaces and extra hyphens. Here's an example of what this looks like:
 
