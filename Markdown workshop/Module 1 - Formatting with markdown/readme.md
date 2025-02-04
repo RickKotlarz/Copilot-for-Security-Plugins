@@ -11,7 +11,7 @@ The following example prompts demonstrate how users can modify the output from a
 2. [Formating as a table with AskGPT](#formating-as-a-table-with-askgpt)
 3. [Formating as a list with AskGPT](#formating-as-a-list-with-askgpt)
 4. [Combining a prompt with Markdown formatting instructions](#combining-a-prompt-with-Markdown-formatting-instructions)
-5. [Available Markdown](#available-Markdown)
+5. [Available Markdown](#available-markdown)
 6. [Increasing effeciency](#increasing-effeciency)
 
 
