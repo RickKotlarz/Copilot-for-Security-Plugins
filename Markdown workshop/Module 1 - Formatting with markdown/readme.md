@@ -42,7 +42,7 @@ Notice that re-running the [Initial prompt](#initial-prompt) now results with th
 
 ### Formating as a list with AskGPT
 
-Another example of Markdown formatting is shown below, using bullets, indentations, and a horizontal bar after each incident. In this example, the "Assigned To," "Classification," and "Determination" fields have been _excluded_ from the formatted output by removing them from the Markdown example.
+Another example of Markdown formatting is shown below, using bullets, indentations, and a horizontal bar after each incident. In this example, the "Assigned To," "Classification," and "Determination" fields have been excluded from the formatted output by removing them from the Markdown example.
 ```
 /AskGPT No action is needed at this time, simply review the following instructions and respond with 'Ready!'. Instructions: All additional responses will be formatted to conform to the following Markdown example.
 - **Created Date**: `2025-01-08T12:09:40.47Z`
@@ -88,6 +88,7 @@ Please note that the standalone instance of Security Copilot currently does not 
 ```
 /AskGPT Assume the role of a Markdown syntax expert. Provide a comprehensive list of Markdown syntax elements that includes elements such as tables and numbered lists, task lists, horizontal rules. For each element, provide instructions on how I can replicate them myself and what it would look like when rendered. 
 ```
+For the official Markdown specification visit [CommonMark](https://commonmark.org/help/)
 
 ### Increasing effeciency
 
