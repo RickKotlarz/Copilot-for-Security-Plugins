@@ -27,8 +27,7 @@ Using Markdown provides:
  - Prompting LLMs with specific formatting
  - Facilitating conditional output
 
-
 ## Workshop Modules
 
 - [**Module 1 – Using Markdown for formatting**](./Module%201%20-%20Formatting%20with%20markdown)
-- [**Module 2 - Improving reasoning with Markdown**](https://wwww.bing.com)
+- [**Module 2 - Improving reasoning with Markdown**](./Module%201%20-%20Formatting%20with%20markdown)
