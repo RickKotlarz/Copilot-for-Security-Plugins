@@ -11,7 +11,8 @@ The following example prompts demonstrate how users can modify the output from a
 2. [Formating as a table with AskGPT](#formating-as-a-table-with-askgpt)
 3. [Formating as a list with AskGPT](#formating-as-a-list-with-askgpt)
 4. [Combining a prompt with markdown formatting instructions](#combining-a-prompt-with-markdown-formatting-instructions)
-5. [Increasing effeciency](#increasing-effeciency)
+5. [Available markdown](#available-markdown)
+6. [Increasing effeciency](#increasing-effeciency)
 
 
 ###  Initial prompt
@@ -78,13 +79,20 @@ List the last 3 incidents from Defender. Ensure the output is formatted to confo
 
 
 ---
+### Available markdown
+
+Given the speed of change within Security Copilot, the best way to visualize markdown that's available to you is by using the following prompt.
+```
+/AskGPT Assume the role of a markdown language expert. Provide a comprehensive list of markdown elements that includes elements such as tables and numbered lists, task lists, horizontal rules. For each element, provide instructions on how I can replicate them myself and what it would look like when rendered. 
+```
+> Please note that the standalone instance of Security Copilot currently does not support rendering all Markdown syntax elements (e.g., certain headings and images). While you can still include these elements in your prompts, the output will need to be processed and rendered by another service that supports them, such as Outlook or Teams.
 
 ### Increasing effeciency
 
 > All the markdown formatting methods above include extra characters to help users visualize the format. To increase efficiency, you can remove double spaces and extra hyphens. Here's an example of what this looks like:
 
 ```
-|**Incident ID**|**Status**|**Incident URL**|
-|-|-|-|
-|1234|Active|https://12.aka.ms|
+| **Incident ID** | **Status** | **Incident URL** |
+| --- | --- | --- |
+| 1234 | Active | https://12.aka.ms |
 ```
