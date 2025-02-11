@@ -1,5 +1,5 @@
 # Author Rick Kotlarz - https://github.com/RickKotlarz/
-# Plugin updated 2025-Jan-18
+# Plugin updated 2025-Feb-11
 
 Descriptor:
   Name: Perform mailbox rule investigation
@@ -49,7 +49,7 @@ SkillGroups:
 ###########################################################################################################
 
       - Name: GetMailboxRulesForAllUsers
-        DisplayName: Gets mailbox rules for all users within the last 30 days (Skill:GetMailboxRulesForAllUsers)
+        DisplayName: Gets mailbox rules for all users within the last 30 days // Skill:GetMailboxRulesForAllUsers
         Description: Gets mailbox rules for all users within the last 30 days
         DescriptionForModel: This query examines all mailbox activity over the last 30 days, focusing on operations like "Add-MailboxPermission", "New-InboxRule", and "Set-InboxRule", which are often associated with malicious behavior. It helps to identify potentially unauthorized changes to mailbox permissions and rules while excluding system-generated actions to reduce false positives.
         ExamplePrompts:
@@ -86,7 +86,7 @@ SkillGroups:
 ###########################################################################################################
 
       - Name: GetMailboxRulesForSingleUser
-        DisplayName: Gets mailbox rules for a single user (Skill:GetMailboxRulesForSingleUser)
+        DisplayName: Gets mailbox rules for a single user // Skill:GetMailboxRulesForSingleUser
         Description: Gets user mailbox rules over a given time frame
         DescriptionForModel: This query identifies specific user mailbox activities, filtering for potentially malicious operations like "Add-MailboxPermission", "New-InboxRule", and "Set-InboxRule" within a defined time period, while excluding system-generated events. It helps detect abnormal behavior related to mailbox permissions and rule changes, which are commonly used by attackers.
         ExamplePrompts:
