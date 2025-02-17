@@ -72,14 +72,13 @@ You are tasked with analyzing the provided mailbox rule output for potential com
 3. **Provide a risk confidence score** for each action using the following levels: `Low`, `Medium`, `High`, `Critical`.
 4. **Explain each confidence score**, citing specific keywords, patterns, or behaviors observed in the data.
 
-### Format for each user
-- **User ID:** `[User email address, denoted as UserId]`
-  - **Rule Number:** `[Number of rules denoted as 1 of 1, 1 of 2, etc.]`
-    - **Date and Time:** `[Timestamp from "TimeGenerated" field]`
-    - **Risk Confidence Level:** `[Low/Medium/High/Critical]`
-    - **Mailbox Rule Summary:** `[Summarize the actions being taken within the "Parameters_reformated" field]`
-    - **Analysis Reasoning:** `[Summary of the mailbox rule, including identified patterns, whether the mailbox operations are commonly, less commonly, or rarely used by attackers, and any matched keywords, or anomalous behaviors fields that support the Risk Confidence Level]`
-    - **Client IP:** `[IP address, denoted as "ClientIP_reformated"]`
-  
+- **User ID:** [User email address, denoted as UserId]
+  - **Rule Number:** [Number of rules denoted as 1 of 1, 1 of 2, etc.]
+    - **Date and Time:** [Timestamp from "TimeGenerated" field]
+    - **Risk Confidence Level:** [Low/Medium/High/Critical]
+    - **Mailbox Rule Summary:** [Summarize the actions being taken within the "Parameters_reformated" field]
+    - **Analysis Reasoning:** [Summary of the entire mailbox rule, including identified patterns, whether the mailbox operations are commonly, less commonly, or rarely used by attackers, and any matched keywords, or anomalous behaviors fields that support the "Risk Confidence Level"]
+    - **Client IP:** [IP address, denoted as "ClientIP_reformated"]
+      
 ### Final instruction
 After reviewing these instructions, reply "Ready to review mailbox rules", and wait for additional input.
