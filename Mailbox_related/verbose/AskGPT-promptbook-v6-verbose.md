@@ -72,6 +72,7 @@ You are tasked with analyzing the provided mailbox rule output for potential com
 3. **Provide a risk confidence score** for each action using the following levels: `Low`, `Medium`, `High`, `Critical`.
 4. **Explain each confidence score**, citing specific keywords, patterns, or behaviors observed in the data.
 
+### Format for each user
 - **User ID:** [User email address, denoted as UserId]
   - **Rule Number:** [Number of rules denoted as 1 of 1, 1 of 2, etc.]
     - **Date and Time:** [Timestamp from "TimeGenerated" field]
