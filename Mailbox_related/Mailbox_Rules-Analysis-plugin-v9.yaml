@@ -1,5 +1,5 @@
 # Author Rick Kotlarz - https://github.com/RickKotlarz/
-# Plugin updated 2025-Feb-11
+# Plugin updated 2025-Feb-17
 
 Descriptor:
   Name: Perform mailbox rule investigation
@@ -10,28 +10,6 @@ Descriptor:
     It filters out system-generated events to reduce false positives and helps identify abnormal mailbox permission and rule changes, often indicative of malicious activity.
   Icon: https://raw.githubusercontent.com/RickKotlarz/icons/refs/heads/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon/Mail%20Error.svg
   # Source: https://github.com/RickKotlarz/icons/tree/main/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Entra%20architecture%20icons%20-%20Oct%202023/Microsoft%20Blue%2048x48%20Grey%20%26%20Blue%20Icon
-
-  Settings:
-    - Name: TenantId
-      Description: Your Azure Tenant ID where the Sentinel workspace is in.
-      HintText: Enter your Azure Tenant ID
-      SettingType: string
-      Required: true
-    - Name: SubscriptionId
-      Description: Your Azure Subscription ID where the Sentinel workspace is provisioned.
-      SettingType: string
-      Required: true
-      HintText: Enter your Azure Subscription ID.
-    - Name: WorkspaceName
-      Description: The name Sentinel workspace that you'd like to reference.
-      SettingType: string
-      Required: true
-      HintText: Enter the Sentinel workspace that you'd like to reference.
-    - Name: ResourceGroupName
-      Description: The Resource Group where the Sentinel workspace is provisioned..
-      SettingType: string
-      HintText: Enter the Resource Group where the Sentinel workspace is provisioned.
-      Required: true
 
   SupportedAuthTypes:
     - None
@@ -49,34 +27,41 @@ SkillGroups:
 ###########################################################################################################
 
       - Name: GetMailboxRulesForAllUsers
-        DisplayName: Gets mailbox rules for all users within the last 30 days // Skill:GetMailboxRulesForAllUsers
+        DisplayName: Gets mailbox rules for all users within the last 30 days (GetMailboxRulesForAllUsers)
         Description: Gets mailbox rules for all users within the last 30 days
-        DescriptionForModel: This query examines all mailbox activity over the last 30 days, focusing on operations like "Add-MailboxPermission", "New-InboxRule", and "Set-InboxRule", which are often associated with malicious behavior. It helps to identify potentially unauthorized changes to mailbox permissions and rules while excluding system-generated actions to reduce false positives.
+        DescriptionForModel: |-
+          This query analyzes user mailbox activities within the past 30 days, focusing on potentially malicious mailbox operations which are commonly associated with unauthorized access and attacker behavior. It filters out system-generated events to reduce false positives and helps identify abnormal mailbox permission and rule changes, often indicative of malicious activity.
         ExamplePrompts:
           - Get all mailbox rules using over the past 30 days
           - Get all mailbox rules for every user
           - Show me all mailbox rules
           - Show me everyones mailbox rules
         Settings:
-          Target: Sentinel
-          TenantId: '{{TenantId}}'
-          SubscriptionId: '{{SubscriptionId}}'
-          ResourceGroupName: '{{ResourceGroupName}}'
-          WorkspaceName: '{{WorkspaceName}}'
+          Target: Defender
           Template: |-
-            let TimePeriod = 30d;
+            let TimePeriod = 30d; 
             OfficeActivity
             | where TimeGenerated >= ago(TimePeriod)
             | where UserId !contains "NT AUTHORITY\\SYSTEM" 
             // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.
             | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
-            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule", "Set-Mailbox", "New-TransportRule", "Set-TransportRule", "Add-MailboxFolderPermission", "New-ManagementRoleAssignment")
+            | where Operation in (
+                "Add-MailboxPermission", 
+                "New-InboxRule", 
+                "Set-InboxRule", 
+                "Set-Mailbox", 
+                "New-TransportRule", 
+                "Set-TransportRule", 
+                "Add-MailboxFolderPermission", 
+                "New-ManagementRoleAssignment"
+            )
             // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
-            // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
-            // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
-            | extend ClientIP_WithoutPort = split(ClientIP, ":")[0]
-            | project TimeGenerated, UserId, Operation, Parameters, ClientIP_WithoutPort
-            
+            // Noisy Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
+            // Noisy Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
+            | extend Parameters_reformated = replace(@"\[|\]", "", tostring(Parameters)) // Remove square brackets from Parameters field to ensure propper JSON formatting
+            | extend ClientIP_reformated = replace(@"\[|\]", "", tostring(extract("^(.*):.*$", 1, ClientIP))) // Drop everything after the last colon and remove square brackets on IPv6 addresses
+            | project TimeGenerated, UserId, Operation, Parameters_reformated, ClientIP_reformated
+
 ###########################################################################################################
 # Reference: OfficeActivity KQL table fields
 #   - https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/officeactivity
@@ -86,28 +71,24 @@ SkillGroups:
 ###########################################################################################################
 
       - Name: GetMailboxRulesForSingleUser
-        DisplayName: Gets mailbox rules for a single user // Skill:GetMailboxRulesForSingleUser
+        DisplayName: Gets mailbox rules for a single user (GetMailboxRulesForSingleUser)
         Description: Gets user mailbox rules over a given time frame
         DescriptionForModel: This query identifies specific user mailbox activities, filtering for potentially malicious operations like "Add-MailboxPermission", "New-InboxRule", and "Set-InboxRule" within a defined time period, while excluding system-generated events. It helps detect abnormal behavior related to mailbox permissions and rule changes, which are commonly used by attackers.
         ExamplePrompts:
           - Get mailbox rules for user over the last days
         Inputs:
-          - Name: TimeFrameToSearch
-            PlaceholderValue: The time range for the query (e.g., 7d)
-            Description: Time range to perform a KQL query in the format of day number followed by `d`.
-            DefaultValue: 7d
-            Required: false
           - Name: UserMailBox
             PlaceholderValue: Users mailbox e-mail address
             Description: Users mailbox e-mail address
             DefaultValue: 
             Required: true
+          - Name: TimeFrameToSearch
+            PlaceholderValue: The time range for the query (e.g., 30d)
+            Description: Time range to perform a KQL query in the format of day number followed by `d`.
+            DefaultValue: 30d
+            Required: false
         Settings:
-          Target: Sentinel
-          TenantId: '{{TenantId}}'
-          SubscriptionId: '{{SubscriptionId}}'
-          ResourceGroupName: '{{ResourceGroupName}}'
-          WorkspaceName: '{{WorkspaceName}}'
+          Target: Defender
           Template: |-
             let UserMailBox = "{{UserMailBox}}";
             let TimePeriod = {{TimeFrameToSearch}};
@@ -116,12 +97,22 @@ SkillGroups:
             | where UserId !contains "NT AUTHORITY\\SYSTEM" // Excludes 'NT AUTHORITY\SYSTEM' due to high number of false positives
             // The above line excludes 'NT AUTHORITY\SYSTEM' due to the high number of false positives from tooling actions such as eDiscovery. Note that when investigating advanced threat actors you will want to include these records.            
             | extend EST = datetime_utc_to_local(TimeGenerated, "US/Eastern")
-            | where tolower(UserId) in (UserMailBox)
-            | where Operation in ("Add-MailboxPermission", "New-InboxRule", "Set-InboxRule", "Set-Mailbox", "New-TransportRule", "Set-TransportRule", "Add-MailboxFolderPermission", "New-ManagementRoleAssignment")
+            | where UserId contains_cs UserMailBox
+            | where Operation in (
+                "Add-MailboxPermission", 
+                "New-InboxRule", 
+                "Set-InboxRule", 
+                "Set-Mailbox", 
+                "New-TransportRule", 
+                "Set-TransportRule", 
+                "Add-MailboxFolderPermission", 
+                "New-ManagementRoleAssignment"
+            )
             // Operations more commonly used by attackers: "Add-MailboxPermission", "New-InboxRule", "Set-InboxRule"
-            // Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
-            // Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
-            | extend ClientIP_WithoutPort = split(ClientIP, ":")[0]
-            | project TimeGenerated, UserId, Operation, Parameters, ClientIP_WithoutPort
+            // Noisy Operations less commonly used by attackers: "Set-Mailbox", "New-TransportRule", "Set-TransportRule"
+            // Noisy Operations rarely used by attackers: "Add-MailboxPermission", "New-ManagementRoleAssignment"
+            | extend Parameters_reformated = replace(@"\[|\]", "", tostring(Parameters)) // Remove square brackets from Parameters field to ensure propper JSON formatting
+            | extend ClientIP_reformated = replace(@"\[|\]", "", tostring(extract("^(.*):.*$", 1, ClientIP))) // Drop everything after the last colon and remove square brackets on IPv6 addresses
+            | project TimeGenerated, UserId, Operation, Parameters_reformated, ClientIP_reformated
            
 ###########################################################################################################
