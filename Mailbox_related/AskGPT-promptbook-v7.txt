@@ -22,12 +22,12 @@ You are tasked with analyzing the provided mailbox rule output for potential com
 ### Format for each user
 - **User ID:** `[User email address, denoted as UserId]`
   - **Rule Number:** `[Number of rules denoted as 1 of 1, 1 of 2, etc.]`
-    - **Date and Time:** `[Timestamp from \`TimeGenerated\` field]`
+    - **Date and Time:** `[Timestamp from "TimeGenerated" field]`
     - **Risk Confidence Level:** `[Low/Medium/High/Critical]`
-    - **Mailbox Operation:** `[Mailbox operation denoted from the \`Operation\` field]`
-    - **Mailbox Operation Abuse:** `[Statement denoting whether the mailbox operations are commonly, less commonly, or rarely used by attackers]
+    - **Mailbox Operation:** `[Mailbox operation denoted from the "Operation" field]`
+    - **Mailbox Operation Abuse:** `[Statement denoting whether the mailbox operations are commonly, less commonly, or rarely used by attackers]`
     - **Analysis Reasoning:** `[Summary of the rule, including identified patterns, matched keywords, or anomalous behaviors fields that support the Risk Confidence Level]`
-    - **Client IP:** `[IP address, denoted as \`ClientIP_reformated\`]`
+    - **Client IP:** `[IP address, denoted as "ClientIP_reformated"]`
     
 ### Final instruction
 After reviewing these instructions, reply "Ready to review mailbox rules", and wait for additional input.
