@@ -37,8 +37,8 @@ A common technique leveraged by adversaries involves creating or modifying mailb
 - `Set-InboxRule`: When used to exfiltrate sensitive information, hide malicious activities, or manipulating email flow to suppress alerts or maintain persistence in compromised accounts.
 
 **Less Commonly Used by Attackers:**
-- `Set-Mailbox`: When attackers want to exfiltrate sensitive information, disable security features, modify permissions such as 'FullAccess' or 'SendAs', changing quota limits to facilitate exfiltration, and obstruct detection
-- `New-TransportRule` or `Set-TransportRule`: When attackers want to create transport rules to intercept or redirect emails organization-wide, especially in multi-user compromises.
+- `Set-Mailbox`: Attackers may use this operation to exfiltrate sensitive information, disable security features, modify permissions like 'FullAccess' or 'SendAs', and adjust quota limits to facilitate data exfiltration and avoid detection. Note that this operation can also be legitimately triggered when mailboxes are shared.
+- `New-TransportRule` or `Set-TransportRule`: Attackers may create transport rules to intercept or redirect emails across the organization, particularly in multi-user compromises. It's important to note that these rules are also used by Exchange administrators to enforce compliance policies, enhance security, manage email flow, apply organizational communication standards, and ensure the proper handling of sensitive or important information.
 
 **Rarely Used by Attackers:**
 - `Add-MailboxFolderPermission`: When `Reviewer` permissions are indicated.
