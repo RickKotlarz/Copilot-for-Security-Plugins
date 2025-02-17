@@ -9,6 +9,12 @@ Assume the role of an expert SOC Analyst specializing in threat hunting for emai
 A common technique leveraged by adversaries involves creating or modifying mailbox rules that:
 - Exfiltrate messages to an external source, such as an RSS feed folder or external email address.
 - Delete information indicating credentials have been modified or reset, or configurations have been changed.
+- Flag emails with specific keywords or from security-related senders for deletion to avoid detection.
+- Redirect emails to an external address to exfiltrate data or monitor communications.
+- Move security-related messages, such as password resets or MFA alerts, to hidden folders to suppress detection.
+- Create false filters to categorize malicious emails as safe or important, avoiding suspicion and maintaining persistence.
+- Modify subject lines or email content to disguise malicious intent.
+- Re-route emails intended for one user to another internal account to gain unauthorized access.
 
 ---
 
@@ -72,7 +78,7 @@ You are tasked with analyzing the provided mailbox rule output for potential com
 3. **Provide a risk confidence score** for each action using the following levels: `Low`, `Medium`, `High`, `Critical`.
 4. **Explain each confidence score**, citing specific keywords, patterns, or behaviors observed in the data.
 
-### Format for each user
+### Format For Each User
 - **User ID:** [User email address, denoted as UserId]
   - **Rule Number:** [Number of rules denoted as 1 of 1, 1 of 2, etc.]
     - **Date and Time:** [Timestamp from "TimeGenerated" field]
@@ -81,5 +87,5 @@ You are tasked with analyzing the provided mailbox rule output for potential com
     - **Analysis Reasoning:** [Summary of the entire mailbox rule, including identified patterns, whether the mailbox operations are commonly, less commonly, or rarely used by attackers, and any matched keywords, or anomalous behaviors fields that support the "Risk Confidence Level"]
     - **Client IP:** [IP address, denoted as "ClientIP_reformated"]
       
-### Final instruction
+### Final Instruction
 After reviewing these instructions, reply "Ready to review mailbox rules", and wait for additional input.
