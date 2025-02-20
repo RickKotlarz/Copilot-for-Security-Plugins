@@ -1,6 +1,6 @@
 # Spacing matters between parent and child objects. Hitting enter is fine, but tabular spaces will cause errors.
-# Author Rick Kotlarz
-# Plugin updated 2025-Jan-08
+# Author Rick Kotlarz ~ https://github.com/RickKotlarz/Copilot-for-Security-Plugins/
+# Plugin updated 2025-Feb-20
 
 Descriptor:
   Name: Combined Defender and Sentinel Example Plugin
@@ -24,6 +24,7 @@ Descriptor:
       Required: true
       
     - Name: SubscriptionId
+#   - Name: SubscriptionName (Alternate to using 'SubscriptionId')
       Description: Your Azure Subscription ID where the Sentinel workspace is provisioned.
       SettingType: string
       Required: true
@@ -78,7 +79,7 @@ SkillGroups:
 #            DefaultValue: defaultValue used if the 'Required' field is set to 'False'
 #            Required: true or false
 #        Settings:
-#          Target: Defender, Sentinel, or Log Analytics
+#          Target: Defender, Sentinel, LogAnalytics, or Kusto (for ADX cluster DBs)
 #          Template: |-
 #            KQLtableYouAreReferencing
 #             //KQL comment to help the Orchestrator or users responsible for maintaining the code
@@ -150,6 +151,7 @@ SkillGroups:
           Target: Sentinel
           TenantId: '{{TenantId}}'
           SubscriptionId: '{{SubscriptionId}}'
+#         SubscriptionName: '{{SubscriptionName}}' // Alternate for 'SubscriptionId'
           ResourceGroupName: '{{ResourceGroupName}}'
           WorkspaceName: '{{WorkspaceName}}'
 #=====================================================================================
@@ -189,6 +191,7 @@ SkillGroups:
           Target: Sentinel
           TenantId: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
           SubscriptionId: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#         SubscriptionName: '{{SubscriptionName}}' // Alternate for 'SubscriptionId'
           ResourceGroupName: yourSentinelResourceGroup
           WorkspaceName: yourSentinelWorkspace
           Template: |-
