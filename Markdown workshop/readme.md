@@ -30,5 +30,5 @@ Using Markdown provides:
 ## Workshop Modules
 
 - [**Module 1 – Using Markdown for formatting**](./Module%201%20-%20Formatting%20with%20markdown)
-- [**Module 2 – Enhancing reasoning and formatting with markdown**](./Module%202%20-%20Enhancing%20reasoning and%20formatting%20with%20markdown)
+- [**Module 2 – Enhancing reasoning and formatting with markdown**](./Module%202%20-%20Enhancing%20reasoning%20and%20formatting%20with%20markdown)
 
