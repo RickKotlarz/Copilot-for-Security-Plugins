@@ -110,16 +110,20 @@ paths:
           description: Internal Server Error.
 
         
-#################################################################################
-# https://api.securitycenter.microsoft.com/api/indicators?$filter=contains(title,'demo')
+#####################################################################################################
+# Search for all MDE indicators with the a given word
+#  https://learn.microsoft.com/en-us/defender-endpoint/api/get-ti-indicators-collection
+#####################################################################################################
 
-  /indicators?$filter=contains(tolower(title),'unapproved'):
+# https://api.securitycenter.microsoft.com/api/indicators?$filter=contains(title,'unapproved')
+
+  /indicators?$filter=contains(tolower(title),'unapproved'): 
     get:
       operationId: MDE-SearchInTitle
-      description: Searche the MDE threat indicators title field for Demo
+      description: Search the MDE threat indicators title field for Demo
       descriptionForModel: Searches the MDE threat indicators title for Demo
       examplePrompts: |
-       - 'Searche the MDE threat indicators title field for Demo'
+       - 'Search the MDE threat indicators title field for Demo'
 #     parameters:
 #       - name: searchQuery
 #         in: path
@@ -130,6 +134,115 @@ paths:
 #          schema:
 #            type: string
 #            example: "demo"
+      responses:
+        "200":
+          description: Successful response with a list of threat indicators.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  "@odata.context":
+                    type: string
+                    example: "https://api.securitycenter.microsoft.com/api/$metadata#Indicators"
+                  value:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "995"
+                        indicatorValue:
+                          type: string
+                          example: "12.13.14.15"
+                        indicatorType:
+                          type: string
+                          enum: [IpAddress, FileSha1, FileSha256, Domain, Url]
+                          example: "IpAddress"
+                        action:
+                          type: string
+                          enum: [Alert, AlertAndBlock, Allow, Block]
+                          example: "Alert"
+                        application:
+                          type: string
+                          nullable: true
+                          example: "demo-test"
+                        source:
+                          type: string
+                          example: "TestPrdApp"
+                        sourceType:
+                          type: string
+                          example: "AadApp"
+                        title:
+                          type: string
+                          example: "test"
+                        creationTimeDateTimeUtc:
+                          type: string
+                          format: date-time
+                          example: "2018-10-24T11:15:35.3688259Z"
+                        createdBy:
+                          type: string
+                          example: "45097602-1234-5678-1234-9f453233e62c"
+                        expirationTime:
+                          type: string
+                          format: date-time
+                          example: "2020-12-12T00:00:00Z"
+                        lastUpdateTime:
+                          type: string
+                          format: date-time
+                          example: "2019-10-24T10:54:23.2009016Z"
+                        lastUpdatedBy:
+                          type: string
+                          example: "TestPrdApp"
+                        severity:
+                          type: string
+                          enum: [Informational, Low, Medium, High]
+                          example: "Informational"
+                        description:
+                          type: string
+                          example: "test"
+                        recommendedActions:
+                          type: string
+                          example: "test"
+                        rbacGroupNames:
+                          type: array
+                          items:
+                            type: string
+                          example: []
+        "401":
+          description: Unauthorized - Invalid or missing authentication token.
+        "403":
+          description: Forbidden - Insufficient permissions.
+        "500":
+          description: Internal Server Error.
+          
+          
+#####################################################################################################
+# Search for all MDE indicators with the a given word
+#  https://learn.microsoft.com/en-us/defender-endpoint/api/get-ti-indicators-collection
+#####################################################################################################
+
+# https://api.securitycenter.microsoft.com/api/indicators?$filter=contains(title,'unapproved')
+
+  /indicators?$filter=contains(tolower(title),'{searchQuery}'):
+#  /indicators?$filter=contains(tolower(title),'%7BsearchQuery%7D'):
+    get:
+      operationId: MDE-SearchInTitle-v2
+      description: Search the MDE threat indicators title field for Demo
+      descriptionForModel: Searches the MDE threat indicators title for Demo
+      examplePrompts: |
+       - 'Search the MDE threat indicators title field for Demo'
+     parameters:
+       - name: searchQuery
+         in: path
+         required: true
+         description: String to search for in the MDE exclusion description field
+         placeholderValue: String to search for in the MDE exclusion description field
+         defaultValue: demo
+          schema:
+            type: string
+            example: "demo"
       responses:
         "200":
           description: Successful response with a list of threat indicators.
