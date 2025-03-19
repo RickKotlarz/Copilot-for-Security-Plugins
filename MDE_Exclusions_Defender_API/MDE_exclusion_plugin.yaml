@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
     title: MDE exclusion plugin
     description: API plugin skills to retrieve threat indicators from Microsoft Defender for Endpoint.
-    version: "v1.9.2"
+    version: "v1.9.3"
 
 servers:
   - url: https://api.securitycenter.microsoft.com/api
@@ -219,11 +219,11 @@ paths:
 # Search for all MDE indicators with the a given word
 #  https://learn.microsoft.com/en-us/defender-endpoint/api/get-ti-indicators-collection
 #####################################################################################################
-
+#
 # https://api.securitycenter.microsoft.com/api/indicators?$filter=contains(title,'unapproved')
-
-  /indicators?$filter=contains(tolower(title),'{searchQuery}'):
-#  /indicators?$filter=contains(tolower(title),'%7BsearchQuery%7D'):
+#
+  /indicators?$filter=contains(tolower(title),'%7BsearchQuery%7D'):
+#  /indicators?$filter=contains(tolower(title),'{searchQuery}'):
     get:
       operationId: MDE-SearchInTitle-v2
       description: Search the MDE threat indicators title field for Demo
