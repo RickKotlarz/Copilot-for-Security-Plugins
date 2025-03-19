@@ -120,16 +120,16 @@ paths:
       descriptionForModel: Searches the MDE threat indicators title for Demo
       examplePrompts: |
        - 'Searche the MDE threat indicators title field for Demo'
- #     parameters:
- #       - name: searchQuery
- #         in: path
- #         required: true
- #         description: String to search for in the MDE exclusion description field
+#     parameters:
+#       - name: searchQuery
+#         in: path
+#         required: true
+#         description: String to search for in the MDE exclusion description field
 #         placeholderValue: String to search for in the MDE exclusion description field
 #         defaultValue: demo
-          schema:
-            type: string
-            example: "demo"
+#          schema:
+#            type: string
+#            example: "demo"
       responses:
         "200":
           description: Successful response with a list of threat indicators.
