@@ -113,9 +113,9 @@ paths:
 #################################################################################
 # https://api.securitycenter.microsoft.com/api/indicators?$filter=contains(title,'demo')
 
-  /indicators?$filter=contains(tolower(title),'Demo'):
+  /indicators?$filter=contains(tolower(title),'unapproved'):
     get:
-      operationId: MDE-SearchForDemo
+      operationId: MDE-SearchInTitle
       description: Searche the MDE threat indicators title field for Demo
       descriptionForModel: Searches the MDE threat indicators title for Demo
       examplePrompts: |
