@@ -2,7 +2,7 @@
 
 Welcome to the Palo Alto XSOAR plugin. This plugin is an example of leveraging the Palo Alto XSOAR API but does require modification from the user to function correctly.
 
-Note this is a work in progress and these 3 skills are meant to serve as nothing more than a starting point.
+Note this is a work in progress and these 3 skills are meant to serve as a starting point for additional development.
 
 ### Instructions
 #### Upload the Custom Plugin
