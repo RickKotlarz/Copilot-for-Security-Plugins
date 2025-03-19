@@ -1,0 +1,49 @@
+Descriptor:
+  Name: MDE exclusion plugin
+  DisplayName: MDE exclusion plugin
+  Description: This plugin supports reasoning over MDE AV exclusions.
+  DescriptionForModel: This plugin supports reasoning over MDE AV exclusions.
+
+  Authorization:
+    Type: OAuthAuthorizationCodeFlow
+    ClientId: {replace-with-your-registerd-application-(client)-id}
+    AuthorizationEndpoint: https://login.microsoftonline.com/{replace-with-your-tenant-id}/oauth2/v2.0/authorize
+    TokenEndpoint: https://login.microsoftonline.com/{replace-with-your-tenant-id}/oauth2/v2.0/token
+
+# ====================================================================================================================
+# Scopes that work...
+# ====================================================================================================================
+#   Scopes: offline_access User.Read # this works
+#   Scopes: offline_access https://graph.microsoft.com/User.Read # works
+#   Scopes: offline_access https://graph.microsoft.com/.default # works
+#   Scopes: offline_access https://api.securitycenter.microsoft.com/.default # works
+#   Scopes: offline_access https://api.securitycenter.microsoft.com/Ti.ReadWrite # works
+#   Scopes: offline_access https://api.securitycenter.microsoft.com/Ti.ReadWrite User.Read # works
+
+    Scopes:
+      offline_access
+      https://api.securitycenter.microsoft.com/Ti.ReadWrite
+      User.Read
+
+# ====================================================================================================================
+# Scopes that DO NOT work....
+# ====================================================================================================================
+#    Scopes:
+#      offline_access
+#      https://api.securitycenter.microsoft.com/Ti.ReadWrite
+#      https://graph.microsoft.com/.default # failed setup auth
+
+#   Scopes: offline_access User.Read https://api.securitycenter.microsoft.com/Ti.ReadWrite # role auth fails during API call
+#   Scopes: offline_access https://api.securitycenter.microsoft.com/Ti.ReadWrite https://graph.microsoft.com/User.Read  # failed setup auth
+#   Scopes: offline_access https://graph.microsoft.com/.default https://api.securitycenter.microsoft.com/.default # failed setup auth
+#   Scopes: offline_access https://graph.microsoft.com/User.Read https://api.securitycenter.microsoft.com/Ti.ReadWrite # failed setup auth
+#   Scopes: offline_access,User.Read,https://api.securitycenter.microsoft.com/Ti.ReadWrite # failed upload
+#   Scopes: "offline_access","https://api.securitycenter.microsoft.com/Ti.ReadWrite","https://graph.microsoft.com/User.Read" # failed upload
+
+    AuthorizationContentType: application/x-www-form-urlencoded
+
+SkillGroups:
+  - Format: API
+    Settings:
+      OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/tmp-public/refs/heads/main/MDE_exclusion_plugin.yaml
+#     OpenApiSpecUrl: https://raw.githubusercontent.com/RickKotlarz/tmp-public/main/MDE_exclusion_plugin.yaml
