@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
     title: MDE exclusion plugin
     description: API plugin skills to retrieve threat indicators from Microsoft Defender for Endpoint.
-    version: "v1.9.1"
+    version: "v1.9.2"
 
 servers:
   - url: https://api.securitycenter.microsoft.com/api
