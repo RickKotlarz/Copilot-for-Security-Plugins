@@ -3,7 +3,7 @@ openapi: 3.0.0
 info:
     title: MDE exclusion plugin
     description: API plugin skills to retrieve threat indicators from Microsoft Defender for Endpoint.
-    version: "v1.9.7"
+    version: "v1.10.0"
 
 servers:
   - url: https://api.securitycenter.microsoft.com/api
@@ -120,8 +120,8 @@ paths:
   /indicators?$filter=contains(tolower(title),'unapproved'): 
     get:
       operationId: MDE-SearchInTitle
-      description: Search the MDE threat indicators title field for unapproved
-      descriptionForModel: Searches the MDE threat indicators title for unapproved
+      description: Search the MDE threat indicators title field for "unapproved"
+      descriptionForModel: Searches the MDE threat indicators title for "unapproved"
       examplePrompts: |
        - 'Search the MDE threat indicators title field for unapproved'
 #     parameters:
@@ -224,13 +224,15 @@ paths:
 #
 # NOTE: This is an example to illustrate that while it will run, it will not process the request correctly.
 #
+# Demo by searching for "unapproved" and notice that it doesn't work due to the existance of "path" and "query" input types being used
+#
   /indicators?$filter=contains(tolower(title),'{searchQuery}'):
     get:
       operationId: MDE-SearchInTitle-v2
-      description: Search the MDE threat indicators title field for Demo
-      descriptionForModel: Searches the MDE threat indicators title for Demo
+      description: Search the MDE threat indicators title field
+      descriptionForModel: Searches the MDE threat indicators title field
       examplePrompts: |
-       - 'Search the MDE threat indicators title field for Demo'
+       - 'Search the MDE threat indicators title field for a string'
       parameters:
        - name: searchQuery
          in: path
@@ -327,21 +329,21 @@ paths:
 #
 # https://api.securitycenter.microsoft.com/api/indicators?$filter=contains(title,'unapproved')
 #
-# Search string: contains(tolower(title),'unapproved')
+# Search string:                contains(tolower(title),'unapproved')
 #
   /indicators?$filter:
     get:
       operationId: MDE-SearchInTitle-v3
-      description: Search the MDE threat indicators title field for Demo
-      descriptionForModel: Searches the MDE threat indicators title for Demo
+      description: Search the MDE threat indicators title field
+      descriptionForModel: Searches the MDE threat indicators title field
       examplePrompts: |
-       - 'Search the MDE threat indicators title field for Demo'
+       - 'Search the MDE threat indicators title field for a string'
       parameters:
-       - name: searchQuery
-         in: path
+       - name: filter
+         in: query
          required: true
          description: String to search for in the MDE exclusion description field
-         placeholderValue: String to search for in the MDE exclusion description field
+         placeholderValue: Enter: contains(tolower(title),'unapproved')
       responses:
         "200":
           description: Successful response with a list of threat indicators.
