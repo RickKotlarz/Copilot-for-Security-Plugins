@@ -1,4 +1,4 @@
-### Palo Alto XSOAR v3 plugin (Updated Dec-27-2024)
+### Palo Alto XSOAR v3 plugin (Updated 2025-March-25)
 
 Welcome to the Palo Alto XSOAR plugin. This plugin is an example of leveraging the Palo Alto XSOAR API but does require modification from the user to function correctly.
 
