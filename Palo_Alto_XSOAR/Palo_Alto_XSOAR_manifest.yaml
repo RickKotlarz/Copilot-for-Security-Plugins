@@ -3,10 +3,10 @@
 # Updated 2025-March-25
 
 Descriptor:
-  Name: Palo Alto XSOAR plugin
-  DisplayName: Palo Alto XSOAR
-  Description: Plugin example leveraging the Palo Alto XSOAR API - v3.0.5
-  DescriptionForModel: Plugin example leveraging the Palo Alto XSOAR API - v3.0.5
+  Name: Palo Alto XSOAR plugin - v3.0.6
+  DisplayName: Palo Alto XSOAR - v3.0.6
+  Description: Plugin example leveraging the Palo Alto XSOAR API - v3.0.6
+  DescriptionForModel: Plugin example leveraging the Palo Alto XSOAR API
   Icon: https://avatars.githubusercontent.com/u/70215919
 
   SupportedAuthTypes:
