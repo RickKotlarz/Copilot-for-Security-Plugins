@@ -1,12 +1,13 @@
 # Author Rick Kotlarz ~ https://github.com/RickKotlarz/
-# Updated 2025-Jan-8
+# Updated 2025-March-25
+
 openapi: 3.0.0
 
 info:
-  title: Palo Alto XSOAR
-  description: Plugin example leveraging the Palo Alto XSOAR API
+  title: Palo Alto XSOAR - v3.0.6
+  description: Plugin example leveraging the Palo Alto XSOAR API - v3.0.6
   descriptionForModel: Plugin example leveraging the Palo Alto XSOAR API
-  version: 'v3.0.5'
+  version: 'v3.0.6'
 
 servers:
   - url: https://api-yourfqdn/xsoar/
