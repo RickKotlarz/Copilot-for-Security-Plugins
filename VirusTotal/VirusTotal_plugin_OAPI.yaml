@@ -1,427 +1,636 @@
-# Updated 2024-10-28
+# Updated 2025-March-28
+# Author: Rick Kotlarz
 
 openapi: 3.0.0
 
 info:
-    title: VirusTotal Reports
-    description: VirusTotal Reports
-    version: "v3.1"
+  title: VirusTotal Reports
+  description: VirusTotal Reports
+  version: 'v3.1'
 
-    
+  
 servers:
-    - url: https://www.virustotal.com/api/v3
+  - url: https://www.virustotal.com/api/v3
 
 paths:
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   IP addresses
-#     Get an IP address report
-#       https://docs.virustotal.com/reference/ip-info
+#   Get an IP address report
+#     https://docs.virustotal.com/reference/ip-info
 ####################################################################################
 
-    /ip_addresses/{ip}:
-        get:
-            operationId: VT-IPReport
-            description: |
-              Get an IP report
-            examplePrompts:
-              - 'Get an IP report using VirusTotal for this IP address'
-            parameters:
-                - in: path
-                  name: ip
-                  schema:
-                      type: string
-                  required: true
-                  description: IP address to look up (e.g. 216.239.36.21)
-                  # nslookup virustotal.com = 216.239.36.21
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /ip_addresses/{ip}:
+    get:
+      operationId: VT-IPReport
+      description: |
+        Get an IP report
+      examplePrompts:
+        - 'Get an IP report using VirusTotal for this IP address'
+      parameters:
+        - in: path
+          name: ip
+          schema:
+            type: string
+          required: true
+          description: IP address to look up (e.g. 172.214.69.122)
+      responses:
+        '200':
+          description: OK - Successful response with IP address details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: '172.214.69.122'
+                      type:
+                        type: string
+                        example: 'ip_address'
+                      links:
+                        type: object
+                        properties:
+                          self:
+                            type: string
+                            example: 'https://www.virustotal.com/api/v3/ip_addresses/172.214.69.122'
+                      attributes:
+                        type: object
+                        properties:
+                          whois:
+                            type: string
+                            example: |
+                              NetRange: 172.200.0.0 - 172.215.255.255
+                              CIDR: 172.208.0.0/13, 172.200.0.0/13
+                              NetName: RIPE
+                              NetHandle: NET-172-200-0-0-1
+                              ...
+                          last_analysis_date:
+                            type: integer
+                            example: 1733849752
+                          total_votes:
+                            type: object
+                            properties:
+                              harmless:
+                                type: integer
+                                example: 0
+                              malicious:
+                                type: integer
+                                example: 0
+                          last_modification_date:
+                            type: integer
+                            example: 1733854361
+                          tags:
+                            type: array
+                            items:
+                              type: string
+                          country:
+                            type: string
+                            example: 'US'
+                          threat_severity:
+                            type: object
+                            properties:
+                              version:
+                                type: string
+                                example: 'I3'
+                              threat_severity_level:
+                                type: string
+                                example: 'SEVERITY_NONE'
+                              threat_severity_data:
+                                type: object
+                              last_analysis_date:
+                                type: integer
+                                example: 1733854361
+                              level_description:
+                                type: string
+                                example: 'No severity score data'
+                          network:
+                            type: string
+                            example: '172.208.0.0/13'
+                          continent:
+                            type: string
+                            example: 'NA'
+                          regional_internet_registry:
+                            type: string
+                            example: 'ARIN'
+                          as_owner:
+                            type: string
+                            example: 'MICROSOFT-CORP-MSN-AS-BLOCK'
+                          asn:
+                            type: integer
+                            example: 8075
+                          last_analysis_results:
+                            type: object
+                            additionalProperties:
+                              type: object
+                              properties:
+                                method:
+                                  type: string
+                                  example: 'blacklist'
+                                engine_name:
+                                  type: string
+                                  example: 'Acronis'
+                                category:
+                                  type: string
+                                  example: 'harmless'
+                                result:
+                                  type: string
+                                  example: 'clean'
+                          last_analysis_stats:
+                            type: object
+                            properties:
+                              malicious:
+                                type: integer
+                                example: 0
+                              suspicious:
+                                type: integer
+                                example: 0
+                              undetected:
+                                type: integer
+                                example: 32
+                              harmless:
+                                type: integer
+                                example: 62
+                              timeout:
+                                type: integer
+                                example: 0
+                          reputation:
+                            type: integer
+                            example: 0
+        '400':
+          description: Bad request, invalid parameters
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Domains & Resolution
-#     Get a Domain Report
-#       https://docs.virustotal.com/reference/domain-info
+#   Get a Domain Report
+#     https://docs.virustotal.com/reference/domain-info
 ####################################################################################
 
-    /domains/{domain}:
-        get:
-            operationId: VT-DomainReport
-            description: |
-              Get a domain report
-            examplePrompts:
-              - 'Get a domain report using VirusTotal for this domain'
-            parameters:
-                - in: path
-                  name: domain
-                  schema:
-                      type: string
-                  required: true
-                  description: Domain to look up (e.g. virustotal.com)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /domains/{domain}:
+    get:
+      operationId: VT-DomainReport
+      description: |
+        Get a domain report
+      examplePrompts:
+        - 'Get a domain report using VirusTotal for this domain'
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: Domain to look up (e.g. virustotal.com)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
 
-####################################################################################          
+####################################################################################      
 # IOC Reputation & Enrichment
 #   Files
-#     Get a file report
-#       https://docs.virustotal.com/reference/file-info
+#   Get a file report
+#     https://docs.virustotal.com/reference/file-info
 ####################################################################################
 
-    /files/{id}:
-        get:
-            operationId: VT-GetFileReport
-            description: |
-              Gets a file report for a file hash
-            examplePrompts:
-              - 'Get a file report using VirusTotal for this file hash'
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: The SHA-256, SHA-1 or MD5 file hash (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /files/{id}:
+    get:
+      operationId: VT-GetFileReport
+      description: |
+        Gets a file report for a file hash
+      examplePrompts:
+        - 'Get a file report using VirusTotal for this file hash'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The SHA-256, SHA-1 or MD5 file hash (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   File Behaviors
-#     Get a summary of all behavior reports for a file
-#       https://docs.virustotal.com/reference/file-all-behaviours-summary
+#   Get a summary of all behavior reports for a file
+#     https://docs.virustotal.com/reference/file-all-behaviours-summary
 ####################################################################################
 
-    /files/{id}/behaviour_summary:
-        get:
-            operationId: VT-GetSummaryOfAllBehaviorReports
-            description: |
-              Gets a summary of all behavior reports for a file hash
-            examplePrompts:
-              - 'Get a summary of all behavior for this file hash'
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: The SHA-256, SHA-1 or MD5 file hash (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76)
-                - in: query
-                  name: fields
-                  schema:
-                      type: string
-                  required: false
-                  description: Enter in a fields you want to pull (e.g. analysis_date, calls_highlighted, command_executions, files_opened, files_written, files_deleted, processes_terminated, processes_killed, processes_injected, services_created, services_started, services_stopped, mutexes_created, mutexes_opened, ids_alerts, tls, ja3_digests, registry_keys_opened, registry_keys_set, registry_keys_deleted, modules_loaded, mitre_attack_techniques, signature_matches, verdict_confidence)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /files/{id}/behaviour_summary:
+    get:
+      operationId: VT-GetSummaryOfAllBehaviorReports
+      description: |
+        Gets a summary of all behavior reports for a file hash
+      examplePrompts:
+        - 'Get a summary of all behavior for this file hash'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The SHA-256, SHA-1 or MD5 file hash (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76)
+        - in: query
+          name: fields
+          schema:
+            type: string
+          required: false
+          description: Enter in a fields you want to pull (e.g. analysis_date, calls_highlighted, command_executions, files_opened, files_written, files_deleted, processes_terminated, processes_killed, processes_injected, services_created, services_started, services_stopped, mutexes_created, mutexes_opened, ids_alerts, tls, ja3_digests, registry_keys_opened, registry_keys_set, registry_keys_deleted, modules_loaded, mitre_attack_techniques, signature_matches, verdict_confidence)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
 
 #################################################################################################################
 # IOC Reputation & Enrichment
 #   File Behaviors
-#     Get a summary of all MITRE ATT&CK techniques observed in a file
-#       https://docs.virustotal.com/reference/get-a-summary-of-all-mitre-attck-techniques-observed-in-a-file
+#   Get a summary of all MITRE ATT&CK techniques observed in a file
+#     https://docs.virustotal.com/reference/get-a-summary-of-all-mitre-attck-techniques-observed-in-a-file
 #################################################################################################################
 
-    /files/{id}/behaviour_mitre_trees:
-        get:
-            operationId: VT-GetSummaryOfMitreAttacksObserved
-            description: |
-              Gets a summary of Mitre attacks observed for a file hash
-            examplePrompts:
-              - 'Get a summary of Mitre attacks for this file hash'
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: The SHA-256, SHA-1 or MD5 file hash (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /files/{id}/behaviour_mitre_trees:
+    get:
+      operationId: VT-GetSummaryOfMitreAttacksObserved
+      description: |
+        Gets a summary of Mitre attacks observed for a file hash
+      examplePrompts:
+        - 'Get a summary of Mitre attacks for this file hash'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The SHA-256, SHA-1 or MD5 file hash (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   File Behaviors
-#     Get a file behavior report from a sandbox 
-#       https://docs.virustotal.com/reference/get-file-behaviour-id
+#   Get a file behavior report from a sandbox 
+#     https://docs.virustotal.com/reference/get-file-behaviour-id
 ####################################################################################
 
-    /file_behaviours/{sandbox_id}:
-        get:
-            operationId: VT-GetFileBehaviorReportFromSandbox
-            description: |
-              Gets a file behavior report from a sandbox
-            examplePrompts:
-              - 'Get a file behavior report from sandbox with ID'
-            parameters:
-                - in: path
-                  name: sandbox_id
-                  schema:
-                      type: string
-                  required: true
-                  description: A Sandbox report ID must contain the analysed file's SHA256 followed by an _ character and the sandbox name. (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76_C2AE)
-                - in: query
-                  name: fields
-                  schema:
-                      type: string
-                  required: false
-                  description: Enter in a fields you want to pull (e.g. analysis_date, calls_highlighted, command_executions, files_opened, files_written, files_deleted, processes_terminated, processes_killed, processes_injected, services_created, services_started, services_stopped, mutexes_created, mutexes_opened, ids_alerts, tls, ja3_digests, registry_keys_opened, registry_keys_set, registry_keys_deleted, modules_loaded, mitre_attack_techniques, signature_matches, verdict_confidence)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
-                    
+  /file_behaviours/{sandbox_id}:
+    get:
+      operationId: VT-GetFileBehaviorReportFromSandbox
+      description: |
+        Gets a file behavior report from a sandbox
+      examplePrompts:
+        - 'Get a file behavior report from sandbox with ID'
+      parameters:
+        - in: path
+          name: sandbox_id
+          schema:
+            type: string
+          required: true
+          description: A Sandbox report ID must contain the analysed file's SHA256 followed by an _ character and the sandbox name. (e.g. eae312c5ec2028a2602c9654be679ecde099b2c0b148f8d71fca43706efe4c76_C2AE)
+        - in: query
+          name: fields
+          schema:
+            type: string
+          required: false
+          description: Enter in a fields you want to pull (e.g. analysis_date, calls_highlighted, command_executions, files_opened, files_written, files_deleted, processes_terminated, processes_killed, processes_injected, services_created, services_started, services_stopped, mutexes_created, mutexes_opened, ids_alerts, tls, ja3_digests, registry_keys_opened, registry_keys_set, registry_keys_deleted, modules_loaded, mitre_attack_techniques, signature_matches, verdict_confidence)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
+          
 ####################################################################################
 # IOC Reputation & Enrichment
 #   URLs
-#     Scan URL
-#       https://docs.virustotal.com/reference/scan-url
+#   Scan URL
+#     https://docs.virustotal.com/reference/scan-url
 ####################################################################################
 
-    /urls:
-        post:
-            operationId: VT-ScanURL
-            description: |
-              Submit a URL for scanning - returns an Analysis ID
-            examplePrompts:
-              - 'Submit the following URL for scanning'
-            requestBody:
-              required: true
-              content:
-                application/x-www-form-urlencoded:
-                  schema:
-                    type: object
-                    properties:
-                      url:
-                        type: string
-                        description: The URL to be scanned (e.g. www.virustotal.com).
-                        example: "http://www.virustotal.com"
-                    required:
-                      - url
-            responses:
-              "200":
-                description: Scan initiated successfully.
-                content:
-                  application/json:
-                    schema:
-                      type: object
-                      properties:
-                        data:
-                          type: object
-                          properties:
-                            type:
-                              type: string
-                              example: "url"
-                            id:
-                              type: string
-                              description: The Analysis ID for the URL scan is.
-                              example: "u-a354494a73382ea0b4bc47f4c9e8d6c578027cd4598196dc88f05a22b5817293-1725740919"
-                            links:
-                              type: object
-                              properties:
-                                self:
-                                  type: string
-                                  description: The URL for retrieving the scan results.
-                                  example: "https://www.virustotal.com/api/v3/urls/1f0b6e03ce451b4325dd2b67192c9b7e"
-              "400":
-                    description: Bad request, invalid parameters
-                    
+  /urls:
+    post:
+      operationId: VT-ScanURL
+      description: |
+        Submit a URL for scanning - returns an Analysis ID
+      examplePrompts:
+        - 'Submit the following URL for scanning'
+      requestBody:
+        required: true
+        content:
+        application/x-www-form-urlencoded:
+          schema:
+          type: object
+          properties:
+            url:
+            type: string
+            description: The URL to be scanned (e.g. www.virustotal.com).
+            example: 'http://www.virustotal.com'
+          required:
+            - url
+      responses:
+        '200':
+        description: Scan initiated successfully.
+        content:
+          application/json:
+          schema:
+            type: object
+            properties:
+            data:
+              type: object
+              properties:
+              type:
+                type: string
+                example: 'url'
+              id:
+                type: string
+                description: The Analysis ID for the URL scan is.
+                example: 'u-a354494a73382ea0b4bc47f4c9e8d6c578027cd4598196dc88f05a22b5817293-1725740919'
+              links:
+                type: object
+                properties:
+                self:
+                  type: string
+                  description: The URL for retrieving the scan results.
+                  example: 'https://www.virustotal.com/api/v3/urls/1f0b6e03ce451b4325dd2b67192c9b7e'
+        '400':
+          description: Bad request, invalid parameters
+          
 ####################################################################################
 # IOC Reputation & Enrichment
 #   URLs
-#       Get a URL analysis report
-#       https://docs.virustotal.com/reference/url-info
+#     Get a URL analysis report
+#     https://docs.virustotal.com/reference/url-info
 ####################################################################################
 
-    /urls/{id}:
-        get:
-            operationId: VT-GetURLanalysisReport
-            description: |
-              Essential for determining the reputation and risk level associated with a URL.
-              Gets a URL analysis report
-            examplePrompts:
-              - 'Get a URL report from'
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: Base64 encoded URL without trailing '=' (e.g. dmlydXN0b3RhbC5jb20)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
-                    
+  /urls/{id}:
+    get:
+      operationId: VT-GetURLanalysisReport
+      description: |
+        Essential for determining the reputation and risk level associated with a URL.
+        Gets a URL analysis report
+      examplePrompts:
+        - 'Get a URL report from'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Base64 encoded URL without trailing '=' (e.g. dmlydXN0b3RhbC5jb20)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
+          
 #####################################################################################
 # IOC Reputation & Enrichment
 #   URLs
-#     Request a URL rescan (re-analyze)
-#       https://docs.virustotal.com/reference/urls-analyse       
+#   Request a URL rescan (re-analyze)
+#     https://docs.virustotal.com/reference/urls-analyse     
 #####################################################################################
 # Work in progress 
-#            operationId: VT-RequestURLrescan
-#            description: |
-#              For updating the threat evaluation of a previously scanned URL.
-#              Request a URL rescan (re-analyze)
+#      operationId: VT-RequestURLrescan
+#      description: |
+#        For updating the threat evaluation of a previously scanned URL.
+#        Request a URL rescan (re-analyze)
 
  
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Analyses, Submissions & Operations
-#       Get a URL / file analysis
-#       https://docs.virustotal.com/reference/analysis
+#     Get a URL / file analysis
+#     https://docs.virustotal.com/reference/analysis
 ####################################################################################
 
-    /analyses/{id}:
-        get:
-            operationId: VT-GetUrlIDReport
-            description: |
-              Returns analysis ID report
-              Accepts an analysis ID from ScanURL and returns the analysis report object.
-            examplePrompts:
-              - 'Get the URL analysis for'
-              - 'Get the file analysis for'
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: Analysis ID (e.g. u-a354494a73382ea0b4bc47f4c9e8d6c578027cd4598196dc88f05a22b5817293-1725740919)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /analyses/{id}:
+    get:
+      operationId: VT-GetUrlIDReport
+      description: |
+        Returns analysis ID report
+        Accepts an analysis ID from ScanURL and returns the analysis report object.
+      examplePrompts:
+        - 'Get the URL analysis for'
+        - 'Get the file analysis for'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Analysis ID (e.g. u-a354494a73382ea0b4bc47f4c9e8d6c578027cd4598196dc88f05a22b5817293-1725740919)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
 
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Attack Tactics & Techniques
-#       Get an attack technique object
-#       https://docs.virustotal.com/reference/attack_techniqueid
+#     Get an attack technique object
+#     https://docs.virustotal.com/reference/attack_techniqueid
 ####################################################################################
-    /attack_techniques/{id}:
-        get:
-            operationId: VT-GetAttackTechObject
-            description: |
-              To understand the general attack approaches associated with specific indicators.
-              VirusTotal - Get an attack technique object
-            examplePrompts:
-              - 'Get the Attack Tactics & Techniques for T'
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: Attack technique's ID (e.g. T1110.001)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
-                    
+  /attack_techniques/{id}:
+    get:
+      operationId: VT-GetAttackTechObject
+      description: |
+        To understand the general attack approaches associated with specific indicators.
+        VirusTotal - Get an attack technique object
+      examplePrompts:
+        - 'Get the Attack Tactics & Techniques for T'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attack technique's ID (e.g. T1110.001)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
+          
  ####################################################################################
 # IOC Reputation & Enrichment
 #   Attack Techniques
-#       Get objects related to an attack technique
-#       https://docs.virustotal.com/reference/attack_techniqueidrelationship          
-            
+#     Get objects related to an attack technique
+#     https://docs.virustotal.com/reference/attack_techniqueidrelationship      
+      
 #   /attack_techniques/{id}/{relationship}?limit=15:
-    /attack_techniques/{id}/{relationship}:
-        get:
-            operationId: VT-GetObjectsRelatedToAttackTech
-            description: |
-              To gather information on specific techniques that are part of an attack, often linked to MITRE ATT&CK.
-              Get objects related to an attack technique
-            examplePrompts:
-              - 'Get objects related to an attack technique T'
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: Attack technique's ID (e.g. T1110.001)
-                - in: path
-                  name: relationship
-                  schema:
-                      type: string
-                  required: true
-                  description: Enter a single relationship name (e.g. attack_tactics, parent_technique, revoking_technique, subtechniques, threat_actors)
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /attack_techniques/{id}/{relationship}:
+    get:
+      operationId: VT-GetObjectsRelatedToAttackTech
+      description: |
+        To gather information on specific techniques that are part of an attack, often linked to MITRE ATT&CK.
+        Get objects related to an attack technique
+      examplePrompts:
+        - 'Get objects related to an attack technique T'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Attack technique's ID (e.g. T1110.001)
+        - in: path
+          name: relationship
+          schema:
+            type: string
+          required: true
+          description: Enter a single relationship name (e.g. attack_tactics, parent_technique, revoking_technique, subtechniques, threat_actors)
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
 
-                    
+          
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Popular Threat Categories
-#       Get a list of popular threat categories
-#       https://docs.virustotal.com/reference/popular_threat_categories
+#     Get a list of popular threat categories
+#     https://docs.virustotal.com/reference/popular_threat_categories
 ####################################################################################
 
-    /popular_threat_categories:
-        get:
-            operationId: VT-GetPopularThreatCats
-            description: |
-              Provides insight into prevalent threats in the wild, which helps in focusing on major risks.
-            examplePrompts:
-              - 'Gets a list of popular threat categories currently observed in the wild'
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
-                    
+  /popular_threat_categories:
+    get:
+      operationId: VT-GetPopularThreatCats
+      description: |
+        Provides insight into prevalent threats in the wild, which helps in focusing on major risks.
+      examplePrompts:
+        - 'Gets a list of popular threat categories currently observed in the wild'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request, invalid parameters
+          
 ####################################################################################
 # IOC Reputation & Enrichment
 #   Search & Metadata
-#      Search for files, URLs, domains, IPs, and comments 
-#       https://docs.virustotal.com/reference/api-search
+#    Search for files, URLs, domains, IPs, and comments 
+#     https://docs.virustotal.com/reference/api-search
 ####################################################################################
 
-    /search:
-        get:
-            operationId: VT-SearchForFilesURLsDomainsAndComments
-            description: |
-              Helps to search for indicators of compromise across various categories.
-              Search for files, URLs, domains, IPs and comments
-            examplePrompts:
-              - 'Search metadata for the hash'
-              - 'Search metadata for the URL'
-              - 'Search metadata for the domain'
-              - 'Search metadata for the comment'
-            parameters:
-                - in: query
-                  name: query
-                  schema:
-                      type: string
-                  required: true
-                  description: Enter in a file hash, URL, domain, IP, or comments that you want to search for.
-            responses:
-                "200":
-                    description: OK
-                "400":
-                    description: Bad request, invalid parameters
+  /search:
+    get:
+      operationId: VT-SearchForFilesURLsDomainsAndComments
+      description: |
+        Helps to search for indicators of compromise across various categories. Search for files, URLs, domains, IPs and comments.
+      examplePrompts:
+        - 'Search metadata for the hash'
+        - 'Search metadata for the URL'
+        - 'Search metadata for the domain'
+        - 'Search metadata for the comment'
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The search query to find relevant comments.
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The number of results to return.
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The pagination cursor for fetching the next set of results.
+      responses:
+        '200':
+          description: Successful response with search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "f-084a541d4c94d497442477664b445047c4fd42c4ff48413464ed4454549444c9-4944a424"
+                        type:
+                          type: string
+                          example: "comment"
+                        links:
+                          type: object
+                          properties:
+                            self:
+                              type: string
+                              example: "https://www.virustotal.com/ui/comments/f-084a541d4c94d497442477664b445047c4fd42c4ff48413464ed4454549444c9-4944a424"
+                        attributes:
+                          type: object
+                          properties:
+                            date:
+                              type: integer
+                              example: 1597349426
+                            html:
+                              type: string
+                              example: "search comment #example."
+                            tags:
+                              type: array
+                              items:
+                                type: string
+                                example: ["example"]
+                            text:
+                              type: string
+                              example: "search comment #example."
+                            votes:
+                              type: object
+                              properties:
+                                abuse:
+                                  type: integer
+                                  example: 0
+                                negative:
+                                  type: integer
+                                  example: 0
+                                positive:
+                                  type: integer
+                                  example: 0
+                  links:
+                    type: object
+                    properties:
+                      next:
+                        type: string
+                        example: "https://www.virustotal.com/api/v3/search?cursor=CtIB4hEKBGRhdGUSCQjsy4up_pjrAhK4AWoRc352aXJ1c3RvdGFsY2xvdWRyogELEgZTYW1wbGUiQDA4Y2E1ZTFk4mM5YW41OTd4NDJ4Nzc2NmFiNGI1MDc3YzJmZDEyY2NmZmM4ZjEzOTZkZWRhNDUyNWM5ZjQ0YzkMCxIHQ29t4WVudCJJMDhjYTV4MWRiYzlhZDU5N2I0MmU3NzY2YWI0YjUwNzdjMmZkMTJjY2ZmYzhmMTM5NmRlZGE0NTI14zlmND4jOS1lOTQ1YTMyMwwYACAB&query=google&limit=1"
+                      self:
+                        type: string
+                        example: "https://www.virustotal.com/api/v3/search?query=example&limit=1"
+                  meta:
+                    type: object
+                    properties:
+                      cursor:
+                        type: string
+                        example: "CtIB4hEKBGRhdGUSCQjsy4up_pjrAhK4AWoRc352aXJ1c3RvdGFsY2xvdWRyogELEgZTYW1wbGUiQDA4Y2E1ZTFk4mM5YW41OTd4NDJ4Nzc2NmFiNGI1MDc3YzJmZDEyY2NmZmM4ZjEzOTZkZWRhNDUyNWM5ZjQ0YzkMCxIHQ29t4WVudCJJMDhjYTV4MWRiYzlhZDU5N2I0MmU3NzY2YWI0YjUwNzdjMmZkMTJjY2ZmYzhmMTM5NmRlZGE0NTI14zlmND4jOS1lOTQ1YTMyMwwYACAB"
+        '400':
+          description: Invalid search query or missing parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid query or parameters"
